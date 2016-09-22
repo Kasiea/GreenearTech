@@ -73,6 +73,13 @@
         <activity android:name=".Map"/>
         <activity android:name=".BatteryStatus"/>
 
+        <activity android:name=".BNDemoGuideActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+        //定位服务
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+        </service>
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="FhlIb4998ItRmMavKzboQmjoo08eA4aN"/>
