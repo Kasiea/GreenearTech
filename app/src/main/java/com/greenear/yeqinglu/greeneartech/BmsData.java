@@ -10,7 +10,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import java.net.URL;
 
@@ -41,9 +43,12 @@ public class BmsData extends Activity {
         一个RequestQueue对象，这是非常浪费资源的，基本上在每一个需
         要和网络交互的Activity中创建一个RequestQueue对象就足够了。*/
         mQueue = Volley.newRequestQueue(context);
+
+//        gson_http();
+        getHttp();
     }
 
-    public String gson_http()
+    public void gson_http()
     {
         GsonRequest<Battery> gsonRequest = new GsonRequest<Battery>(Request.Method.GET,
                 "http://api.qljiang.com/student/1", Battery.class,
@@ -51,9 +56,8 @@ public class BmsData extends Activity {
                     @Override
                     public void onResponse(Battery battery) {
                         BatteryInfo batteryInfo = battery.getBatteryInfo();
-//                        Log.d("TAG", "city is " + weatherInfo.getCity());
-//                        Log.d("TAG", "temp is " + weatherInfo.getTemp());
-//                        Log.d("TAG", "time is " + weatherInfo.getTime());
+                        bms_data.setText(batteryInfo.getName()+batteryInfo.getAge()+batteryInfo.getBirthday()+batteryInfo.getSex());
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -63,7 +67,36 @@ public class BmsData extends Activity {
         });
         mQueue.add(gsonRequest);
 
-        //返回bms数据
-        return null;
+    }
+
+    public void getHttp() {
+        //创建一个StringRequest对象
+       /* 这里new出了一个StringRequest对象，StringRequest的构造函数需要
+         传入三个参数，第一个参数就是目标服务器的URL地址，第二个参数是
+         服务器响应成功的回调，第三个参数是服务器响应失败的回调。其中，
+         目标服务器地址我们填写的是百度的首页，然后在响应成功的回调里打
+         印出服务器返回的内容，在响应失败的回调里打印出失败的详细信息。*/
+        StringRequest stringRequest = new StringRequest( "http://api.qljiang.com/student/1",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        bms_data.setText(response);
+
+//                        Gson gson = new Gson();//new一个Gson对象
+//                        BatteryInfo batteryInfo = new BatteryInfo();
+//                        batteryInfo = gson.fromJson(response, BatteryInfo.class);
+//                        bms_data.setText(batteryInfo.getName());
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                    }
+                });
+
+        //将这个StringRequest对象添加到RequestQueue里
+        mQueue.add(stringRequest);
     }
 }
