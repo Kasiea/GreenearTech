@@ -69,6 +69,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".BmsData"/>
+        <activity android:name=".Map"/>
+        <activity android:name=".BatteryStatus"/>
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="FhlIb4998ItRmMavKzboQmjoo08eA4aN"/>
