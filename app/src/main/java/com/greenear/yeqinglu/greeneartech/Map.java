@@ -200,11 +200,11 @@ public class Map extends Activity {
 //        nearby_lv = (ListView)findViewById(R.id.nearby_lv);
 
         //POI搜索
-        poi = (Button)findViewById(R.id.poi);
-        nearby_txt = (TextView)findViewById(R.id.nerby_txt);
+//        poi = (Button)findViewById(R.id.poi);
+//        nearby_txt = (TextView)findViewById(R.id.nerby_txt);
 
         //导航
-        guid = (Button)findViewById(R.id.guid);
+//        guid = (Button)findViewById(R.id.guid);
 
 
         //设置地图类型
@@ -217,70 +217,70 @@ public class Map extends Activity {
 //        mBaiduMap.setBaiduHeatMapEnabled(true);  //城市热力图
 
         //自定义Maker坐标点
-        LatLng p1 = new LatLng(31.1, 121.2);
-        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.car3);//构建Marker图标
-        OverlayOptions option = new MarkerOptions().position(p1).icon(bitmap);//构建MarkerOption，用于在地图上添加Marker
-        mBaiduMap.addOverlay(option);//在地图上添加Marker，并显示
+//        LatLng p1 = new LatLng(31.1, 121.2);
+//        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.car3);//构建Marker图标
+//        OverlayOptions option = new MarkerOptions().position(p1).icon(bitmap);//构建MarkerOption，用于在地图上添加Marker
+//        mBaiduMap.addOverlay(option);//在地图上添加Marker，并显示
 
 
 //        //第一步，设置可拖拽：
-        OverlayOptions options = new MarkerOptions()
-                .position(p1)  //设置marker的位置
-                .icon(bitmap)  //设置marker图标
-                .zIndex(9)  //设置marker所在层级
-                .draggable(true);  //设置手势拖拽
-        //将marker添加到地图上
-        Marker marker = (Marker) (mBaiduMap.addOverlay(options));
+//        OverlayOptions options = new MarkerOptions()
+//                .position(p1)  //设置marker的位置
+//                .icon(bitmap)  //设置marker图标
+//                .zIndex(9)  //设置marker所在层级
+//                .draggable(true);  //设置手势拖拽
+//        //将marker添加到地图上
+//        Marker marker = (Marker) (mBaiduMap.addOverlay(options));
+//
+//        mBaiduMap.setOnMarkerDragListener(new BaiduMap.OnMarkerDragListener() {
+//            public void onMarkerDrag(Marker marker) {
+//                //拖拽中
+//            }
+//            public void onMarkerDragEnd(Marker marker) {
+//                //拖拽结束
+//            }
+//            public void onMarkerDragStart(Marker marker) {
+//                //开始拖拽
+//            }
+//        });
 
-        mBaiduMap.setOnMarkerDragListener(new BaiduMap.OnMarkerDragListener() {
-            public void onMarkerDrag(Marker marker) {
-                //拖拽中
-            }
-            public void onMarkerDragEnd(Marker marker) {
-                //拖拽结束
-            }
-            public void onMarkerDragStart(Marker marker) {
-                //开始拖拽
-            }
-        });
 
-
-        //定义动画效果的Maker坐标点
-        final LatLng point = new LatLng(39.963175, 116.400244);
-        //设置动画效果
-        BitmapDescriptor bdA = BitmapDescriptorFactory.fromResource(R.drawable.bd1);
-        BitmapDescriptor bdB = BitmapDescriptorFactory.fromResource(R.drawable.bd2);
-        BitmapDescriptor bdC = BitmapDescriptorFactory.fromResource(R.drawable.bd3);
-
-        // 通过marker的icons设置一组图片，再通过period设置多少帧刷新一次图片资源
-        ArrayList<BitmapDescriptor> giflist = new ArrayList<BitmapDescriptor>();
-        giflist.add(bdA);
-        giflist.add(bdB);
-        giflist.add(bdC);
-        OverlayOptions ooD = new MarkerOptions().position(point).icons(giflist)
-                .zIndex(0).period(10);
-        Marker mMarkerD = (Marker) (mBaiduMap.addOverlay(ooD));
+//        //定义动画效果的Maker坐标点
+//        final LatLng point = new LatLng(39.963175, 116.400244);
+//        //设置动画效果
+//        BitmapDescriptor bdA = BitmapDescriptorFactory.fromResource(R.drawable.bd1);
+//        BitmapDescriptor bdB = BitmapDescriptorFactory.fromResource(R.drawable.bd2);
+//        BitmapDescriptor bdC = BitmapDescriptorFactory.fromResource(R.drawable.bd3);
+//
+//        // 通过marker的icons设置一组图片，再通过period设置多少帧刷新一次图片资源
+//        ArrayList<BitmapDescriptor> giflist = new ArrayList<BitmapDescriptor>();
+//        giflist.add(bdA);
+//        giflist.add(bdB);
+//        giflist.add(bdC);
+//        OverlayOptions ooD = new MarkerOptions().position(point).icons(giflist)
+//                .zIndex(0).period(10);
+//        Marker mMarkerD = (Marker) (mBaiduMap.addOverlay(ooD));
 
         //设置区域覆盖
         //定义多边形的五个顶点
-        LatLng pt1 = new LatLng(39.93923, 116.357428);
-        LatLng pt2 = new LatLng(39.91923, 116.327428);
-        LatLng pt3 = new LatLng(39.89923, 116.347428);
-        LatLng pt4 = new LatLng(39.89923, 116.367428);
-        LatLng pt5 = new LatLng(39.91923, 116.387428);
-        List<LatLng> pts = new ArrayList<LatLng>();
-        pts.add(pt1);
-        pts.add(pt2);
-        pts.add(pt3);
-        pts.add(pt4);
-        pts.add(pt5);
-        //构建用户绘制多边形的Option对象
-        OverlayOptions polygonOption = new PolygonOptions()
-                .points(pts)
-                .stroke(new Stroke(5, 0xAA00FF00))
-                .fillColor(0xAAFFFF00);
-        //在地图上添加多边形Option，用于显示
-        mBaiduMap.addOverlay(polygonOption);
+//        LatLng pt1 = new LatLng(39.93923, 116.357428);
+//        LatLng pt2 = new LatLng(39.91923, 116.327428);
+//        LatLng pt3 = new LatLng(39.89923, 116.347428);
+//        LatLng pt4 = new LatLng(39.89923, 116.367428);
+//        LatLng pt5 = new LatLng(39.91923, 116.387428);
+//        List<LatLng> pts = new ArrayList<LatLng>();
+//        pts.add(pt1);
+//        pts.add(pt2);
+//        pts.add(pt3);
+//        pts.add(pt4);
+//        pts.add(pt5);
+//        //构建用户绘制多边形的Option对象
+//        OverlayOptions polygonOption = new PolygonOptions()
+//                .points(pts)
+//                .stroke(new Stroke(5, 0xAA00FF00))
+//                .fillColor(0xAAFFFF00);
+//        //在地图上添加多边形Option，用于显示
+//        mBaiduMap.addOverlay(polygonOption);
 
 
         //可放在onStart（）内
@@ -302,68 +302,68 @@ public class Map extends Activity {
         //将POI搜索方法延迟或者放进BUTTON，否则会出现Permission undefined情况
         //设置POI
         //第一步，创建POI检索实例
-        mPoiSearch = PoiSearch.newInstance();
-
-        // 第二步，创建POI检索监听者；
-        OnGetPoiSearchResultListener poiListener = new OnGetPoiSearchResultListener() {
-            public void onGetPoiResult(PoiResult result) {
-                //获取POI检索结果
-                if(result != null) {
-                    PoiInfo poiInfo = result.getAllPoi().get(1);
-                    nearby_txt.setText(poiInfo.address + poiInfo.city + poiInfo.name
-                            +poiInfo.phoneNum + poiInfo.postCode );
-                    //获取POI检索结果
-//                    List<PoiInfo> allAddr = result.getAllPoi();
-//                    for (PoiInfo p: allAddr) {
-//                        Log.d("MainActivity", "p.name--->" + p.name +"p.phoneNum" + p.phoneNum +" -->p.address:" + p.address + "p.location" + p.location);
-//                    }
-                }
-            }
-
-            public void onGetPoiDetailResult(PoiDetailResult result) {
-                //获取Place详情页检索结果
-            }
-
-            @Override
-            public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
-
-            }
-        };
+//        mPoiSearch = PoiSearch.newInstance();
+//
+//        // 第二步，创建POI检索监听者；
+//        OnGetPoiSearchResultListener poiListener = new OnGetPoiSearchResultListener() {
+//            public void onGetPoiResult(PoiResult result) {
+//                //获取POI检索结果
+//                if(result != null) {
+//                    PoiInfo poiInfo = result.getAllPoi().get(1);
+////                    nearby_txt.setText(poiInfo.address + poiInfo.city + poiInfo.name
+////                            +poiInfo.phoneNum + poiInfo.postCode );
+//                    //获取POI检索结果
+////                    List<PoiInfo> allAddr = result.getAllPoi();
+////                    for (PoiInfo p: allAddr) {
+////                        Log.d("MainActivity", "p.name--->" + p.name +"p.phoneNum" + p.phoneNum +" -->p.address:" + p.address + "p.location" + p.location);
+////                    }
+//                }
+//            }
+//
+//            public void onGetPoiDetailResult(PoiDetailResult result) {
+//                //获取Place详情页检索结果
+//            }
+//
+//            @Override
+//            public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
+//
+//            }
+//        };
 
         // 第三步，设置POI检索监听者；
-        mPoiSearch.setOnGetPoiSearchResultListener(poiListener);
-
-        poi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 第四步，发起检索请求；
-//                mPoiSearch.searchInCity((new PoiCitySearchOption())
-//                        .city("上海").keyword("美食")
-//                        .pageNum(10));
-
-                //附近POI搜索
-                //PS： location和radius的值一定要设置
-                mPoiSearch.searchNearby(new PoiNearbySearchOption().location(new LatLng(mLatitude,mLongtitude)).radius(1000).keyword("美食").pageNum(10));//搜索附近
-                //第五步，释放POI检索实例；
-//                mPoiSearch.destroy();
-            }
-        });
+//        mPoiSearch.setOnGetPoiSearchResultListener(poiListener);
+//
+//        poi.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // 第四步，发起检索请求；
+////                mPoiSearch.searchInCity((new PoiCitySearchOption())
+////                        .city("上海").keyword("美食")
+////                        .pageNum(10));
+//
+//                //附近POI搜索
+//                //PS： location和radius的值一定要设置
+//                mPoiSearch.searchNearby(new PoiNearbySearchOption().location(new LatLng(mLatitude,mLongtitude)).radius(1000).keyword("美食").pageNum(10));//搜索附近
+//                //第五步，释放POI检索实例；
+////                mPoiSearch.destroy();
+//            }
+//        });
 
 
         //导航
-        if (initDirs()) {
-            initNavi();
-        }
-
-        //导航触发
-        guid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (BaiduNaviManager.isNaviInited()) {
-                    routeplanToNavi(BNRoutePlanNode.CoordinateType.GCJ02);
-                }
-            }
-        });
+//        if (initDirs()) {
+//            initNavi();
+//        }
+//
+//        //导航触发
+//        guid.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (BaiduNaviManager.isNaviInited()) {
+//                    routeplanToNavi(BNRoutePlanNode.CoordinateType.GCJ02);
+//                }
+//            }
+//        });
 
         //添加覆盖物相关
         add_overlay = (Button)findViewById(R.id.add_overlay);
@@ -430,22 +430,24 @@ public class Map extends Activity {
         add_circle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //画圆
-                circle = new CircleOptions();
-                LatLng center = new LatLng(mLatitude, mLongtitude);
-                circle.center(center);
-                circle.radius(800);
-                int color = Color.argb(127,255,0,255);
-                circle.fillColor(color);
-                Stroke stroke = new Stroke(1,0xFF00FF00);
-                circle.stroke(stroke);
-                mBaiduMap.addOverlay(circle);
-
+                addCircle();
             }
         });
 
+    }
 
-
+    private void addCircle()
+    {
+        //画圆
+        circle = new CircleOptions();
+        LatLng center = new LatLng(mLatitude, mLongtitude);
+        circle.center(center);
+        circle.radius(800);
+        int color = Color.argb(127,255,0,255);
+        circle.fillColor(color);
+        Stroke stroke = new Stroke(1,0xFF00FF00);
+        circle.stroke(stroke);
+        mBaiduMap.addOverlay(circle);
     }
 
     private void initMarker()

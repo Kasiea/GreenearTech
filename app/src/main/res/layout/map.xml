@@ -6,6 +6,27 @@
     android:orientation="vertical"
     tools:context="com.greenear.yeqinglu.greeneartech.Map">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/soc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SOC: 80%"/>
+
+        <TextView
+            android:id="@+id/travel_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Travel Distance: 30km"/>
+
+    </LinearLayout>
+
     <com.baidu.mapapi.map.MapView
         android:id="@+id/bmapView"
         android:layout_width="fill_parent"
@@ -14,58 +35,45 @@
         android:layout_weight="2">
    </com.baidu.mapapi.map.MapView>
 
-    <TextView
-        android:text="搜索：上海 美食"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        />
-
-    <TextView
-        android:id="@+id/nerby_txt"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/poi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="POI Search"
-            />
+       <TextView
+           android:id="@+id/warmming"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:text="SOC is not engough!"/>
 
-        <Button
-            android:id="@+id/guid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Guid"/>
 
         <Button
             android:id="@+id/my_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="My Location"/>
 
         <Button
             android:id="@+id/add_overlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="添加覆盖物"/>
+
+        <Button
+            android:id="@+id/add_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add Circle"/>
 
 
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/add_circle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Circle"/>
+
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/id_marker_ly"
