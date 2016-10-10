@@ -44,30 +44,11 @@ public class BmsData extends Activity {
         要和网络交互的Activity中创建一个RequestQueue对象就足够了。*/
         mQueue = Volley.newRequestQueue(context);
 
-//        gson_http();
+
         getHttp();
     }
 
-    public void gson_http()
-    {
-        GsonRequest<Battery> gsonRequest = new GsonRequest<Battery>(Request.Method.GET,
-                "http://api.qljiang.com/student/1", Battery.class,
-                new Response.Listener<Battery>() {
-                    @Override
-                    public void onResponse(Battery battery) {
-                        BatteryInfo batteryInfo = battery.getBatteryInfo();
-                        bms_data.setText(batteryInfo.getName()+batteryInfo.getAge()+batteryInfo.getBirthday()+batteryInfo.getSex());
 
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", error.getMessage(), error);
-            }
-        });
-        mQueue.add(gsonRequest);
-
-    }
 
     public void getHttp() {
         //创建一个StringRequest对象
@@ -80,12 +61,11 @@ public class BmsData extends Activity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        bms_data.setText(response);
+//                        bms_data.setText(response);
 
-//                        Gson gson = new Gson();//new一个Gson对象
-//                        BatteryInfo batteryInfo = new BatteryInfo();
-//                        batteryInfo = gson.fromJson(response, BatteryInfo.class);
-//                        bms_data.setText(batteryInfo.getName());
+                        Gson gson = new Gson();//new一个Gson对象
+                        BatteryInfo batteryInfo = gson.fromJson(response, BatteryInfo.class);
+                        bms_data.setText(batteryInfo.getName());
 
                     }
                 },
