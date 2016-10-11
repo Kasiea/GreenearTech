@@ -13,7 +13,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.greenear.yeqinglu.greeneartech.JsonData.BmsBatteryVolt;
 import com.greenear.yeqinglu.greeneartech.JsonData.BmsGpsQuery;
+import com.greenear.yeqinglu.greeneartech.JsonData.BmsSocQuery;
+import com.greenear.yeqinglu.greeneartech.JsonData.BmsSohQuery;
+import com.greenear.yeqinglu.greeneartech.JsonData.BmsWorkStatus;
 
 import java.net.URL;
 
@@ -45,13 +49,135 @@ public class BmsData extends Activity {
         要和网络交互的Activity中创建一个RequestQueue对象就足够了。*/
         mQueue = Volley.newRequestQueue(context);
 
-
-        getHttp();
+        getBmsWorkStatus();
+        getBmsGps();
     }
 
 
 
-    public void getHttp() {
+    public void getBmsWorkStatus() {
+        //创建一个StringRequest对象
+       /* 这里new出了一个StringRequest对象，StringRequest的构造函数需要
+         传入三个参数，第一个参数就是目标服务器的URL地址，第二个参数是
+         服务器响应成功的回调，第三个参数是服务器响应失败的回调。其中，
+         目标服务器地址我们填写的是百度的首页，然后在响应成功的回调里打
+         印出服务器返回的内容，在响应失败的回调里打印出失败的详细信息。*/
+        StringRequest stringRequest = new StringRequest( "http://192.168.1.5/laravel-bms/public/api/data/bms-status/query/1",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+//                        bms_data.setText(response);
+
+                        Gson gson = new Gson();//new一个Gson对象
+                        BmsWorkStatus bmsWorkStatus = gson.fromJson(response, BmsWorkStatus.class);
+                        bms_data.setText(bmsWorkStatus.getBms_env_temp() + "" +bmsWorkStatus.getBms_bat_curr());
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                    }
+                });
+
+        //将这个StringRequest对象添加到RequestQueue里
+        mQueue.add(stringRequest);
+    }
+
+    public void getBmsBatteryVolt() {
+        //创建一个StringRequest对象
+       /* 这里new出了一个StringRequest对象，StringRequest的构造函数需要
+         传入三个参数，第一个参数就是目标服务器的URL地址，第二个参数是
+         服务器响应成功的回调，第三个参数是服务器响应失败的回调。其中，
+         目标服务器地址我们填写的是百度的首页，然后在响应成功的回调里打
+         印出服务器返回的内容，在响应失败的回调里打印出失败的详细信息。*/
+        StringRequest stringRequest = new StringRequest( "http://192.168.1.5/laravel-bms/public/api/data/bat-vol/query/1",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+//                        bms_data.setText(response);
+
+                        Gson gson = new Gson();//new一个Gson对象
+                        BmsBatteryVolt bmsBatteryVolt = gson.fromJson(response, BmsBatteryVolt.class);
+                        bms_data.setText(bmsBatteryVolt.getBms_bat_vol_1() + "" +bmsBatteryVolt.getBms_bat_vol_2());
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                    }
+                });
+
+        //将这个StringRequest对象添加到RequestQueue里
+        mQueue.add(stringRequest);
+    }
+
+    public void getBmsSoc() {
+        //创建一个StringRequest对象
+       /* 这里new出了一个StringRequest对象，StringRequest的构造函数需要
+         传入三个参数，第一个参数就是目标服务器的URL地址，第二个参数是
+         服务器响应成功的回调，第三个参数是服务器响应失败的回调。其中，
+         目标服务器地址我们填写的是百度的首页，然后在响应成功的回调里打
+         印出服务器返回的内容，在响应失败的回调里打印出失败的详细信息。*/
+        StringRequest stringRequest = new StringRequest( "http://192.168.1.5/laravel-bms/public/api/data/bat-soc/query/1",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+//                        bms_data.setText(response);
+
+                        Gson gson = new Gson();//new一个Gson对象
+                        BmsSocQuery bmsSocQuery = gson.fromJson(response, BmsSocQuery.class);
+                        bms_data.setText(bmsSocQuery.getBms_bat_soc_1() + "" +bmsSocQuery.getBms_bat_soc_2());
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                    }
+                });
+
+        //将这个StringRequest对象添加到RequestQueue里
+        mQueue.add(stringRequest);
+    }
+
+
+    public void getBmsSoh() {
+        //创建一个StringRequest对象
+       /* 这里new出了一个StringRequest对象，StringRequest的构造函数需要
+         传入三个参数，第一个参数就是目标服务器的URL地址，第二个参数是
+         服务器响应成功的回调，第三个参数是服务器响应失败的回调。其中，
+         目标服务器地址我们填写的是百度的首页，然后在响应成功的回调里打
+         印出服务器返回的内容，在响应失败的回调里打印出失败的详细信息。*/
+        StringRequest stringRequest = new StringRequest( "http://192.168.1.5/laravel-bms/public/api/data/bat-soh/query/1",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+//                        bms_data.setText(response);
+
+                        Gson gson = new Gson();//new一个Gson对象
+                        BmsSohQuery bmsSohQuery = gson.fromJson(response, BmsSohQuery.class);
+                        bms_data.setText(bmsSohQuery.getBms_bat_soh_1() + "" +bmsSohQuery.getBms_bat_soh_2());
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                    }
+                });
+
+        //将这个StringRequest对象添加到RequestQueue里
+        mQueue.add(stringRequest);
+    }
+
+
+    public void getBmsGps() {
         //创建一个StringRequest对象
        /* 这里new出了一个StringRequest对象，StringRequest的构造函数需要
          传入三个参数，第一个参数就是目标服务器的URL地址，第二个参数是
@@ -65,8 +191,8 @@ public class BmsData extends Activity {
 //                        bms_data.setText(response);
 
                         Gson gson = new Gson();//new一个Gson对象
-                        BmsGpsQuery batteryInfo = gson.fromJson(response, BmsGpsQuery.class);
-                        bms_data.setText(batteryInfo.getBms_gps_longitude() + "" +batteryInfo.getBms_gps_altitude());
+                        BmsGpsQuery bmsGpsQuery = gson.fromJson(response, BmsGpsQuery.class);
+                        bms_data.setText(bmsGpsQuery.getBms_gps_longitude() + "" +bmsGpsQuery.getBms_gps_altitude());
 
                     }
                 },
