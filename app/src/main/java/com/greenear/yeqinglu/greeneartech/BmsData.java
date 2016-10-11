@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.greenear.yeqinglu.greeneartech.JsonData.BmsGpsQuery;
 
 import java.net.URL;
 
@@ -57,15 +58,15 @@ public class BmsData extends Activity {
          服务器响应成功的回调，第三个参数是服务器响应失败的回调。其中，
          目标服务器地址我们填写的是百度的首页，然后在响应成功的回调里打
          印出服务器返回的内容，在响应失败的回调里打印出失败的详细信息。*/
-        StringRequest stringRequest = new StringRequest( "http://api.qljiang.com/student/1",
+        StringRequest stringRequest = new StringRequest( "http://192.168.1.5/laravel-bms/public/api/data/bms-gps/query/1",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 //                        bms_data.setText(response);
 
                         Gson gson = new Gson();//new一个Gson对象
-                        BatteryInfo batteryInfo = gson.fromJson(response, BatteryInfo.class);
-                        bms_data.setText(batteryInfo.getName());
+                        BmsGpsQuery batteryInfo = gson.fromJson(response, BmsGpsQuery.class);
+                        bms_data.setText(batteryInfo.getBms_gps_longitude() + "" +batteryInfo.getBms_gps_altitude());
 
                     }
                 },
