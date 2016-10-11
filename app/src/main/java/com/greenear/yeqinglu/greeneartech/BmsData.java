@@ -3,6 +3,8 @@ package com.greenear.yeqinglu.greeneartech;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -33,6 +35,12 @@ public class BmsData extends Activity {
     public URL url;
 
     private TextView bms_data;
+    private TextView bms_info_id;
+    private TextView bms_env_temp;
+    private TextView bms_bat_curr;
+    private TextView bms_bat_dc_status;
+    private TextView bms_time;
+    private TextView bms_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +50,13 @@ public class BmsData extends Activity {
 
         bms_data = (TextView)findViewById(R.id.bms_data);
 
+        bms_info_id = (TextView)findViewById(R.id.bms_info_id);
+        bms_env_temp = (TextView)findViewById(R.id.bms_env_temp);
+        bms_bat_curr = (TextView)findViewById(R.id.bms_bat_curr);
+        bms_bat_dc_status = (TextView)findViewById(R.id.bms_bat_dc_status);
+        bms_time = (TextView)findViewById(R.id.bms_time);
+        bms_id = (TextView)findViewById(R.id.bms_id);
+
         //获取到一个RequestQueue对象
         /*RequestQueue是一个请求队列对象，它可以缓存所有的HTTP请求，
         然后按照一定的算法并发地发出这些请求。RequestQueue内部的设
@@ -50,9 +65,10 @@ public class BmsData extends Activity {
         要和网络交互的Activity中创建一个RequestQueue对象就足够了。*/
         mQueue = Volley.newRequestQueue(context);
 
-//        getBmsWorkStatus();
+
+        getBmsWorkStatus();
 //        getBmsGps();
-        getBmsBatteryVolt();
+//        getBmsBatteryVolt();
 //        getBmsSoc();
 //        getBmsSoh();
     }
@@ -74,7 +90,12 @@ public class BmsData extends Activity {
 
                         JSONObject fast_json = new JSONObject();//new一个Gson对象
                         BmsWorkStatus bmsWorkStatus = fast_json.parseObject(response, BmsWorkStatus.class);
-                        bms_data.setText(bmsWorkStatus.getBms_env_temp() + "" +bmsWorkStatus.getBms_bat_curr());
+                        bms_info_id.setText("bms_info_id:"+"  "+bmsWorkStatus.getBms_info_id());
+                        bms_env_temp.setText("环境温度:"+"  "+bmsWorkStatus.getBms_env_temp());
+                        bms_bat_curr.setText("电池电流:"+"  "+bmsWorkStatus.getBms_bat_curr());
+                        bms_bat_dc_status.setText("电池充放电状态:"+"  "+bmsWorkStatus.getBms_bat_dc_status());
+                        bms_time.setText("BMS时间信息:"+"  "+bmsWorkStatus.getBms_time());
+                        bms_id.setText("BMS_ID:"+"  "+bmsWorkStatus.getBms_id());
 
                     }
                 },

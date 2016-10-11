@@ -11,8 +11,15 @@ public class BmsWorkStatus {
     private String bms_env_temp;
     private String bms_bat_curr;
     private String bms_bat_dc_status;
-    private String bms_gps;
-    private String created_at;
+    private String bms_time;
+
+    public String getBms_time() {
+        return bms_time;
+    }
+
+    public void setBms_time(String bms_time) {
+        this.bms_time = bms_time;
+    }
 
     public String getBms_info_id() {
         return bms_info_id;
@@ -54,21 +61,7 @@ public class BmsWorkStatus {
         this.bms_bat_dc_status = bms_bat_dc_status;
     }
 
-    public String getBms_gps() {
-        return bms_gps;
-    }
 
-    public void setBms_gps(String bms_gps) {
-        this.bms_gps = bms_gps;
-    }
-
-    public String getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
-    }
 
 
 
