@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -49,8 +50,11 @@ public class BmsData extends Activity {
         要和网络交互的Activity中创建一个RequestQueue对象就足够了。*/
         mQueue = Volley.newRequestQueue(context);
 
-        getBmsWorkStatus();
-        getBmsGps();
+//        getBmsWorkStatus();
+//        getBmsGps();
+        getBmsBatteryVolt();
+//        getBmsSoc();
+//        getBmsSoh();
     }
 
 
@@ -68,8 +72,8 @@ public class BmsData extends Activity {
                     public void onResponse(String response) {
 //                        bms_data.setText(response);
 
-                        Gson gson = new Gson();//new一个Gson对象
-                        BmsWorkStatus bmsWorkStatus = gson.fromJson(response, BmsWorkStatus.class);
+                        JSONObject fast_json = new JSONObject();//new一个Gson对象
+                        BmsWorkStatus bmsWorkStatus = fast_json.parseObject(response, BmsWorkStatus.class);
                         bms_data.setText(bmsWorkStatus.getBms_env_temp() + "" +bmsWorkStatus.getBms_bat_curr());
 
                     }
@@ -98,8 +102,8 @@ public class BmsData extends Activity {
                     public void onResponse(String response) {
 //                        bms_data.setText(response);
 
-                        Gson gson = new Gson();//new一个Gson对象
-                        BmsBatteryVolt bmsBatteryVolt = gson.fromJson(response, BmsBatteryVolt.class);
+                        JSONObject fast_json = new JSONObject();//new一个Gson对象
+                        BmsBatteryVolt bmsBatteryVolt = fast_json.parseObject(response, BmsBatteryVolt.class);
                         bms_data.setText(bmsBatteryVolt.getBms_bat_vol_1() + "" +bmsBatteryVolt.getBms_bat_vol_2());
 
                     }
@@ -128,8 +132,8 @@ public class BmsData extends Activity {
                     public void onResponse(String response) {
 //                        bms_data.setText(response);
 
-                        Gson gson = new Gson();//new一个Gson对象
-                        BmsSocQuery bmsSocQuery = gson.fromJson(response, BmsSocQuery.class);
+                        JSONObject fast_json = new JSONObject();//new一个Gson对象
+                        BmsSocQuery bmsSocQuery = fast_json.parseObject(response, BmsSocQuery.class);
                         bms_data.setText(bmsSocQuery.getBms_bat_soc_1() + "" +bmsSocQuery.getBms_bat_soc_2());
 
                     }
@@ -159,8 +163,8 @@ public class BmsData extends Activity {
                     public void onResponse(String response) {
 //                        bms_data.setText(response);
 
-                        Gson gson = new Gson();//new一个Gson对象
-                        BmsSohQuery bmsSohQuery = gson.fromJson(response, BmsSohQuery.class);
+                        JSONObject fast_json = new JSONObject();//new一个Gson对象
+                        BmsSohQuery bmsSohQuery = fast_json.parseObject(response, BmsSohQuery.class);
                         bms_data.setText(bmsSohQuery.getBms_bat_soh_1() + "" +bmsSohQuery.getBms_bat_soh_2());
 
                     }
@@ -190,8 +194,8 @@ public class BmsData extends Activity {
                     public void onResponse(String response) {
 //                        bms_data.setText(response);
 
-                        Gson gson = new Gson();//new一个Gson对象
-                        BmsGpsQuery bmsGpsQuery = gson.fromJson(response, BmsGpsQuery.class);
+                        JSONObject fast_json = new JSONObject();//new一个Gson对象
+                        BmsGpsQuery bmsGpsQuery = fast_json.parseObject(response, BmsGpsQuery.class);
                         bms_data.setText(bmsGpsQuery.getBms_gps_longitude() + "" +bmsGpsQuery.getBms_gps_altitude());
 
                     }

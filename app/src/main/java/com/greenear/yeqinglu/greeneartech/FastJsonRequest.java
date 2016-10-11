@@ -1,5 +1,6 @@
 package com.greenear.yeqinglu.greeneartech;
 
+import com.alibaba.fastjson.JSONObject;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -12,16 +13,16 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by yeqing.lu on 2016/9/8.
  */
-public class GsonRequest<T> extends Request<T> {
+public class FastJsonRequest<T> extends Request<T> {
 
     private final Response.Listener<T> mListener;
     private Class<T> mClass;
-    private Gson mGson;
+    private JSONObject mFastJson;
 
-    public GsonRequest(int method, String url, Class<T> clazz, Response.Listener<T> listener,
-                       Response.ErrorListener errorListener) {
+    public FastJsonRequest(int method, String url, Class<T> clazz, Response.Listener<T> listener,
+                           Response.ErrorListener errorListener) {
         super(method, url, errorListener);
-        mGson = new Gson();
+        mFastJson = new JSONObject();
         mClass = clazz;
         mListener = listener;
     }
@@ -33,7 +34,7 @@ public class GsonRequest<T> extends Request<T> {
         try {
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers));
-            return Response.success(mGson.fromJson(jsonString,mClass),
+            return Response.success(mFastJson.parseObject(jsonString,mClass),
                     HttpHeaderParser.parseCacheHeaders(response));
         }catch (UnsupportedEncodingException e){
             return Response.error(new ParseError());
