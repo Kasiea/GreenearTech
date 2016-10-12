@@ -232,7 +232,7 @@ public class BatteryStatus extends Activity {
         columnData.setAxisXBottom(new Axis(axisValues).setHasLines(true)
                 .setTextColor(Color.BLACK).setName("Battery").setMaxLabelChars(8));
         columnData.setAxisYLeft(new Axis().setHasLines(true)
-                .setTextColor(Color.BLACK).setMaxLabelChars(2).setName("R"));
+                .setTextColor(Color.BLACK).setMaxLabelChars(2).setName("SOH"));
 
 
         //最后将所有值显示在View中

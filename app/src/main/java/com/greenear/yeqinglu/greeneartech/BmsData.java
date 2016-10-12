@@ -48,8 +48,6 @@ public class BmsData extends Activity {
         setContentView(R.layout.bms_data);
         context = this.getApplicationContext();
 
-        bms_data = (TextView)findViewById(R.id.bms_data);
-
         bms_info_id = (TextView)findViewById(R.id.bms_info_id);
         bms_env_temp = (TextView)findViewById(R.id.bms_env_temp);
         bms_bat_curr = (TextView)findViewById(R.id.bms_bat_curr);
@@ -57,8 +55,13 @@ public class BmsData extends Activity {
         bms_time = (TextView)findViewById(R.id.bms_time);
         bms_id = (TextView)findViewById(R.id.bms_id);
 
-
-
+        //获取到一个RequestQueue对象
+        /*RequestQueue是一个请求队列对象，它可以缓存所有的HTTP请求，
+        然后按照一定的算法并发地发出这些请求。RequestQueue内部的设
+        计就是非常合适高并发的，因此我们不必为每一次HTTP请求都创建
+        一个RequestQueue对象，这是非常浪费资源的，基本上在每一个需
+        要和网络交互的Activity中创建一个RequestQueue对象就足够了。*/
+        mQueue = Volley.newRequestQueue(context);
 
         getBmsWorkStatus();
 //        getBmsGps();
@@ -90,7 +93,6 @@ public class BmsData extends Activity {
                         bms_bat_dc_status.setText("电池充放电状态:"+"  "+bmsWorkStatus.getBms_bat_dc_status());
                         bms_time.setText("BMS时间信息:"+"  "+bmsWorkStatus.getBms_time());
                         bms_id.setText("BMS_ID:"+"  "+bmsWorkStatus.getBms_id());
-
                     }
                 },
                 new Response.ErrorListener() {
