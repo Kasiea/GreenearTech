@@ -34,6 +34,7 @@ public class BmsData extends Activity {
     public RequestQueue mQueue;
     public URL url;
 
+    //BMS电池工作状态
     private TextView bms_data;
     private TextView bms_info_id;
     private TextView bms_env_temp;
@@ -42,18 +43,56 @@ public class BmsData extends Activity {
     private TextView bms_time;
     private TextView bms_id;
 
+    //BM电池电压状态
+    private TextView bms_bat_vol_1;
+    private TextView bms_bat_vol_2;
+    private TextView bms_bat_vol_3;
+    private TextView bms_bat_vol_4;
+
+    //BMS电池SOC
+    private TextView bms_bat_soc_1;
+    private TextView bms_bat_soc_2;
+    private TextView bms_bat_soc_3;
+    private TextView bms_bat_soc_4;
+
+    //BMS电池SOH
+    private TextView bms_bat_soh_1;
+    private TextView bms_bat_soh_2;
+    private TextView bms_bat_soh_3;
+    private TextView bms_bat_soh_4;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bms_data);
         context = this.getApplicationContext();
 
+        //BMS电池工作状态
         bms_info_id = (TextView)findViewById(R.id.bms_info_id);
         bms_env_temp = (TextView)findViewById(R.id.bms_env_temp);
         bms_bat_curr = (TextView)findViewById(R.id.bms_bat_curr);
         bms_bat_dc_status = (TextView)findViewById(R.id.bms_bat_dc_status);
         bms_time = (TextView)findViewById(R.id.bms_time);
         bms_id = (TextView)findViewById(R.id.bms_id);
+
+        //BMD电池电压状态
+        bms_bat_vol_1 = (TextView)findViewById(R.id.bms_bat_vol_1);
+        bms_bat_vol_2 = (TextView)findViewById(R.id.bms_bat_vol_2);
+        bms_bat_vol_3 = (TextView)findViewById(R.id.bms_bat_vol_3);
+        bms_bat_vol_4 = (TextView)findViewById(R.id.bms_bat_vol_4);
+
+        //BMS电池SOC
+        bms_bat_soc_1 = (TextView)findViewById(R.id.bms_bat_soc_1);
+        bms_bat_soc_2 = (TextView)findViewById(R.id.bms_bat_soc_2);
+        bms_bat_soc_3 = (TextView)findViewById(R.id.bms_bat_soc_3);
+        bms_bat_soc_4 = (TextView)findViewById(R.id.bms_bat_soc_4);
+
+        //BMS电池SOH
+        bms_bat_soh_1 = (TextView)findViewById(R.id.bms_bat_soh_1);
+        bms_bat_soh_2 = (TextView)findViewById(R.id.bms_bat_soh_2);
+        bms_bat_soh_3 = (TextView)findViewById(R.id.bms_bat_soh_3);
+        bms_bat_soh_4 = (TextView)findViewById(R.id.bms_bat_soh_4);
 
         //获取到一个RequestQueue对象
         /*RequestQueue是一个请求队列对象，它可以缓存所有的HTTP请求，
@@ -64,10 +103,10 @@ public class BmsData extends Activity {
         mQueue = Volley.newRequestQueue(context);
 
         getBmsWorkStatus();
-//        getBmsGps();
-//        getBmsBatteryVolt();
-//        getBmsSoc();
-//        getBmsSoh();
+        getBmsBatteryVolt();
+        getBmsSoc();
+        getBmsSoh();
+        //        getBmsGps();
     }
 
 
@@ -121,7 +160,10 @@ public class BmsData extends Activity {
 
                         JSONObject fast_json = new JSONObject();//new一个FastJson对象
                         BmsBatteryVolt bmsBatteryVolt = fast_json.parseObject(response, BmsBatteryVolt.class);
-                        bms_data.setText(bmsBatteryVolt.getBms_bat_vol_1() + "" +bmsBatteryVolt.getBms_bat_vol_2());
+                        bms_bat_vol_1.setText("第一节电池电压:"+"  "+ bmsBatteryVolt.getBms_bat_vol_1());
+                        bms_bat_vol_2.setText("第二节电池电压:"+"  "+ bmsBatteryVolt.getBms_bat_vol_2());
+                        bms_bat_vol_3.setText("第三节电池电压:"+"  "+ bmsBatteryVolt.getBms_bat_vol_3());
+                        bms_bat_vol_4.setText("第四节电池电压:"+"  "+ bmsBatteryVolt.getBms_bat_vol_4());
 
                     }
                 },
@@ -151,7 +193,10 @@ public class BmsData extends Activity {
 
                         JSONObject fast_json = new JSONObject();//new一个FastJson对象
                         BmsSocQuery bmsSocQuery = fast_json.parseObject(response, BmsSocQuery.class);
-                        bms_data.setText(bmsSocQuery.getBms_bat_soc_1() + "" +bmsSocQuery.getBms_bat_soc_2());
+                        bms_bat_soc_1.setText("第一节电池SOC信息:"+"  "+ bmsSocQuery.getBms_bat_soc_1());
+                        bms_bat_soc_2.setText("第二节电池SOC信息:"+"  "+ bmsSocQuery.getBms_bat_soc_2());
+                        bms_bat_soc_3.setText("第三节电池SOC信息:"+"  "+ bmsSocQuery.getBms_bat_soc_3());
+                        bms_bat_soc_4.setText("第四节电池SOC信息:"+"  "+ bmsSocQuery.getBms_bat_soc_4());
 
                     }
                 },
@@ -182,7 +227,10 @@ public class BmsData extends Activity {
 
                         JSONObject fast_json = new JSONObject();//new一个FastJson对象
                         BmsSohQuery bmsSohQuery = fast_json.parseObject(response, BmsSohQuery.class);
-                        bms_data.setText(bmsSohQuery.getBms_bat_soh_1() + "" +bmsSohQuery.getBms_bat_soh_2());
+                        bms_bat_soh_1.setText("第一节电池SOH信息:"+"  "+ bmsSohQuery.getBms_bat_soh_1() );
+                        bms_bat_soh_2.setText("第二节电池SOH信息:"+"  "+ bmsSohQuery.getBms_bat_soh_2() );
+                        bms_bat_soh_3.setText("第三节电池SOH信息:"+"  "+ bmsSohQuery.getBms_bat_soh_3() );
+                        bms_bat_soh_4.setText("第四节电池SOH信息:"+"  "+ bmsSohQuery.getBms_bat_soh_4() );
 
                     }
                 },
@@ -213,7 +261,7 @@ public class BmsData extends Activity {
 
                         JSONObject fast_json = new JSONObject();//new一个Gson对象
                         BmsGpsQuery bmsGpsQuery = fast_json.parseObject(response, BmsGpsQuery.class);
-                        bms_data.setText(bmsGpsQuery.getBms_gps_longitude() + "" +bmsGpsQuery.getBms_gps_altitude());
+
 
                     }
                 },
