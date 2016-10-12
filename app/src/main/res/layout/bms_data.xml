@@ -8,10 +8,14 @@
         android:id="@+id/bms_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#EA5246"
         android:text="Battery Data"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#4A4AFF"
+        android:textStyle="bold"
         android:text="BMS工作状态查询"/>
 
     <TextView

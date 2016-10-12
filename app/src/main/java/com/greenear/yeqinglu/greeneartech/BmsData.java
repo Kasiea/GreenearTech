@@ -57,13 +57,7 @@ public class BmsData extends Activity {
         bms_time = (TextView)findViewById(R.id.bms_time);
         bms_id = (TextView)findViewById(R.id.bms_id);
 
-        //获取到一个RequestQueue对象
-        /*RequestQueue是一个请求队列对象，它可以缓存所有的HTTP请求，
-        然后按照一定的算法并发地发出这些请求。RequestQueue内部的设
-        计就是非常合适高并发的，因此我们不必为每一次HTTP请求都创建
-        一个RequestQueue对象，这是非常浪费资源的，基本上在每一个需
-        要和网络交互的Activity中创建一个RequestQueue对象就足够了。*/
-        mQueue = Volley.newRequestQueue(context);
+
 
 
         getBmsWorkStatus();
@@ -88,7 +82,7 @@ public class BmsData extends Activity {
                     public void onResponse(String response) {
 //                        bms_data.setText(response);
 
-                        JSONObject fast_json = new JSONObject();//new一个Gson对象
+                        JSONObject fast_json = new JSONObject();//new一个FastJson对象
                         BmsWorkStatus bmsWorkStatus = fast_json.parseObject(response, BmsWorkStatus.class);
                         bms_info_id.setText("bms_info_id:"+"  "+bmsWorkStatus.getBms_info_id());
                         bms_env_temp.setText("环境温度:"+"  "+bmsWorkStatus.getBms_env_temp());
@@ -123,7 +117,7 @@ public class BmsData extends Activity {
                     public void onResponse(String response) {
 //                        bms_data.setText(response);
 
-                        JSONObject fast_json = new JSONObject();//new一个Gson对象
+                        JSONObject fast_json = new JSONObject();//new一个FastJson对象
                         BmsBatteryVolt bmsBatteryVolt = fast_json.parseObject(response, BmsBatteryVolt.class);
                         bms_data.setText(bmsBatteryVolt.getBms_bat_vol_1() + "" +bmsBatteryVolt.getBms_bat_vol_2());
 
@@ -153,7 +147,7 @@ public class BmsData extends Activity {
                     public void onResponse(String response) {
 //                        bms_data.setText(response);
 
-                        JSONObject fast_json = new JSONObject();//new一个Gson对象
+                        JSONObject fast_json = new JSONObject();//new一个FastJson对象
                         BmsSocQuery bmsSocQuery = fast_json.parseObject(response, BmsSocQuery.class);
                         bms_data.setText(bmsSocQuery.getBms_bat_soc_1() + "" +bmsSocQuery.getBms_bat_soc_2());
 
@@ -184,7 +178,7 @@ public class BmsData extends Activity {
                     public void onResponse(String response) {
 //                        bms_data.setText(response);
 
-                        JSONObject fast_json = new JSONObject();//new一个Gson对象
+                        JSONObject fast_json = new JSONObject();//new一个FastJson对象
                         BmsSohQuery bmsSohQuery = fast_json.parseObject(response, BmsSohQuery.class);
                         bms_data.setText(bmsSohQuery.getBms_bat_soh_1() + "" +bmsSohQuery.getBms_bat_soh_2());
 
