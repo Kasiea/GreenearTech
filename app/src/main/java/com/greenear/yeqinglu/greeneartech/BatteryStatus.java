@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.android.volley.RequestQueue;
@@ -184,11 +185,15 @@ public class BatteryStatus extends Activity {
         //设置监听器
 //        columnChart.setOnValueTouchListener(new ValueTouchListener());
 
-        //设置用户与柱形图交互与否
-        columnChart.setInteractive(false);
 
         // Set selection mode to keep selected month column highlighted.
         columnChart.setValueSelectionEnabled(true);
+
+        //设置用户与柱形图交互与否
+//        columnChart.setInteractive(false);
+
+        //设置图形缩放
+        columnChart_R.setZoomEnabled(false);
 
         columnChart.setZoomType(ZoomType.HORIZONTAL);
 
@@ -245,11 +250,15 @@ public class BatteryStatus extends Activity {
         //设置监听器
 //        columnChart_R.setOnValueTouchListener(new ValueTouchListener());
 
-        //设置用户与柱形图交互与否
-        columnChart.setInteractive(false);
 
         // Set selection mode to keep selected month column highlighted.
         columnChart_R.setValueSelectionEnabled(true);
+
+        //设置用户与柱形图交互与否
+//        columnChart_R.setInteractive(false);
+
+        //设置图形缩放
+        columnChart_R.setZoomEnabled(false);
 
         columnChart_R.setZoomType(ZoomType.HORIZONTAL);
 
@@ -267,6 +276,7 @@ public class BatteryStatus extends Activity {
         public void onValueSelected(int columnIndex, int subcolumnIndex,
                                     SubcolumnValue value) {
             // generateLineData(value.getColor(), 100);
+            Toast.makeText(BatteryStatus.this,"Selected: " + value, Toast.LENGTH_SHORT).show();
         }
 
         @Override
