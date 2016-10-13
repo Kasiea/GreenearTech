@@ -184,6 +184,9 @@ public class BatteryStatus extends Activity {
         //设置监听器
 //        columnChart.setOnValueTouchListener(new ValueTouchListener());
 
+        //设置用户与柱形图交互与否
+        columnChart.setInteractive(false);
+
         // Set selection mode to keep selected month column highlighted.
         columnChart.setValueSelectionEnabled(true);
 
@@ -241,6 +244,9 @@ public class BatteryStatus extends Activity {
         // Set value touch listener that will trigger changes for chartTop.
         //设置监听器
 //        columnChart_R.setOnValueTouchListener(new ValueTouchListener());
+
+        //设置用户与柱形图交互与否
+        columnChart.setInteractive(false);
 
         // Set selection mode to keep selected month column highlighted.
         columnChart_R.setValueSelectionEnabled(true);
