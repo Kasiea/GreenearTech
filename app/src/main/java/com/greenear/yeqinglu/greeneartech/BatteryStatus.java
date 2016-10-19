@@ -193,7 +193,7 @@ public class BatteryStatus extends Activity {
 //        columnChart.setInteractive(false);
 
         //设置图形缩放
-        columnChart_R.setZoomEnabled(false);
+        columnChart.setZoomEnabled(false);
 
         columnChart.setZoomType(ZoomType.HORIZONTAL);
 
@@ -211,7 +211,7 @@ public class BatteryStatus extends Activity {
 
 
         //保存所有的柱子
-        List<Column> columns = new ArrayList<Column>();
+        List<Column> columns = new ArrayList<Column>( );
         //保存每个竹子的值
         List<AxisValue> axisValues = new ArrayList<AxisValue>();
         List<SubcolumnValue> values;
