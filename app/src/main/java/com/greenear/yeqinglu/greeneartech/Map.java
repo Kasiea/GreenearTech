@@ -67,7 +67,7 @@ import java.util.List;
  * Created by yeqing.lu on 2016/9/22.
  */
 
-public class Map extends Activity {
+public class Map<S, S1> extends Activity {
 
     MapView mMapView = null;
     BaiduMap mBaiduMap = null;

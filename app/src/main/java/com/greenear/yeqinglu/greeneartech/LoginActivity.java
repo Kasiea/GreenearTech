@@ -36,6 +36,12 @@ public class LoginActivity extends Activity {
         //初始化文件服务
         fileService = new FileService(this);
 
+//        try {
+//            Map<String,String >map = fileService.getUserInfo("private.txt");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
