@@ -72,6 +72,8 @@
         <activity android:name=".BmsData"/>
         <activity android:name=".Map"/>
         <activity android:name=".BatteryStatus"/>
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".RegisterActivity"/>
 
         <activity android:name=".BNDemoGuideActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
