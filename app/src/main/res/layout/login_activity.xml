@@ -17,6 +17,7 @@
             />
 
         <EditText
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -38,6 +39,7 @@
             />
 
         <EditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -47,7 +49,14 @@
 
     </LinearLayout>
 
+    <CheckBox
+        android:id="@+id/save_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="保存密码"/>
+
     <Button
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Log In"/>
