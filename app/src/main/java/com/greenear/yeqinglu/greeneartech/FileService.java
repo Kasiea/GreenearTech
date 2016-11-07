@@ -51,6 +51,40 @@ public class FileService {
 //        return map;
 //    }
 
+    //读写SD卡
+    public void write(String filename, String weite_str)throws IOException
+    {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(filename);
+            byte[] bytes = weite_str.getBytes();
+
+            fileOutputStream.write(bytes);
+            fileOutputStream.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public String read(String filename)throws IOException{
+        String res = "";
+        try {
+            FileInputStream fileInputStream = new FileInputStream(filename);
+            int length = fileInputStream.available();
+            byte[] buffer = new byte[length];
+            fileInputStream.read(buffer);
+            res = buffer.toString();
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+
+
 
 
 }
