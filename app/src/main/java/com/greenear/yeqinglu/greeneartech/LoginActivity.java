@@ -30,10 +30,13 @@ public class LoginActivity extends Activity {
 
     private EditText et_username;
     private EditText et_password;
+    private String token;
     private Button login;
     private CheckBox save_info;
     private FileService fileService;
-    private String token;
+    private SharedPreData sharedPreData;
+    private UserInfo userInfo;
+
 
     public RequestQueue mQueue;
     public Context context;
@@ -53,7 +56,7 @@ public class LoginActivity extends Activity {
         login = (Button)findViewById(R.id.login);
 
         //初始化文件服务
-        fileService = new FileService(this);
+//        fileService = new FileService(this);
 
 //        try {
 //            Map<String,String >map = fileService.getUserInfo("private.txt");
@@ -61,13 +64,18 @@ public class LoginActivity extends Activity {
 //            e.printStackTrace();
 //        }
 
+        //用户信息File
+        sharedPreData = new SharedPreData(this);
+
+
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = et_username.getText().toString().trim();
-                String password = et_password.getText().toString().trim();
+                userInfo.name = et_username.getText().toString().trim();
+                userInfo.password = et_password.getText().toString().trim();
 
-                if(TextUtils.isEmpty(username)||TextUtils.isEmpty(password))
+                if(TextUtils.isEmpty(userInfo.name)||TextUtils.isEmpty(userInfo.password))
                 {
                     Toast.makeText(LoginActivity.this,R.string.error,Toast.LENGTH_SHORT).show();
                 }
@@ -75,13 +83,9 @@ public class LoginActivity extends Activity {
                 {
                     Toast.makeText(LoginActivity.this,R.string.remember_password,Toast.LENGTH_SHORT).show();
                    try {
-                       boolean result =fileService.saveToRoom(username,password,"private.txt");
-                       if (result){
-                           Toast.makeText(LoginActivity.this, R.string.remember_password,Toast.LENGTH_SHORT).show();
-                       }else
-                       {
-                           Toast.makeText(LoginActivity.this, R.string.success,Toast.LENGTH_SHORT).show();
-                       }
+                       //存储用户信息
+                       sharedPreData.save("user_info", userInfo.name,userInfo.password,userInfo.token);
+                       Toast.makeText(LoginActivity.this, R.string.success,Toast.LENGTH_SHORT).show();
                    }
                    catch (Exception e){
                        e.printStackTrace();

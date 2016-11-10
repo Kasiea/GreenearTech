@@ -12,6 +12,11 @@ public class SharedPreData {
     public Context context;
     public UserInfo userInfo;
 
+
+    public  SharedPreData(Context context){
+        this.context = context;
+    }
+
     public void save(String filename,String name, String password, String token)
     {
         //调用 SharedPreferences 对象的 edit()方法来获取一个 SharedPreferences.Editor 对象。
