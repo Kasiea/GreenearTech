@@ -2,6 +2,7 @@ package com.greenear.yeqinglu.greeneartech;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -68,7 +69,6 @@ public class LoginActivity extends Activity {
         sharedPreData = new SharedPreData(this);
 
 
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +92,9 @@ public class LoginActivity extends Activity {
                        Toast.makeText(LoginActivity.this, R.string.fail,Toast.LENGTH_SHORT).show();
                    }
                 }
+
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
