@@ -20,42 +20,125 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.greenear.yeqinglu.greeneartech.JsonData.BmsBatteryVolt;
-import java.util.HashMap;
+import com.greenear.yeqinglu.greeneartech.JsonData.JsonUserToken;
+import com.greenear.yeqinglu.greeneartech.model.User;
+
+import java.util.*;
+import java.util.Map;
 
 /**
  * Created by yeqing.lu on 2016/10/19.
  */
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements View.OnClickListener{
 
     private EditText et_username;
     private EditText et_password;
-    private String token;
-    private Button login;
     private CheckBox save_info;
+    private Button login_btn;
+    private Button register_btn;
+
     private FileService fileService;
     private SharedPreData sharedPreData;
+    private String filename = "user_info";
+
+    private User user;
     private UserInfo userInfo;
-
-
-    public RequestQueue mQueue;
-    public Context context;
-
+    private RequestQueue mQueue;
+    private Context context;
+    private boolean LOGIN_STATUS = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
+        initData();
+        initView();
+        saveData();
+    }
+
+    private void initData()
+    {
+        userInfo = new UserInfo();
         context = this.getApplicationContext();
         mQueue = Volley.newRequestQueue(context);
+        user = new User(context, userInfo, mQueue, LOGIN_STATUS);
+        sharedPreData = new SharedPreData(context);
+    }
 
-        et_username = (EditText)findViewById(R.id.username);
-        et_password = (EditText)findViewById(R.id.password);
+    private void initView()
+    {
+        et_username = (EditText)findViewById(R.id.username_log);
+        et_password = (EditText)findViewById(R.id.password_log);
         save_info = (CheckBox)findViewById(R.id.save_info);
-        login = (Button)findViewById(R.id.login);
+        login_btn= (Button)findViewById(R.id.login);
+        register_btn = (Button)findViewById(R.id.register);
 
+        login_btn.setOnClickListener(this);
+        register_btn.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.login:
+                if(login())
+                {
+                    saveInfo();
+                }
+                break;
+            case R.id.register:
+                register();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public boolean login()
+    {
+        userInfo.name = et_username.getText().toString();
+        userInfo.password = et_password.getText().toString();
+
+        if(TextUtils.isEmpty(userInfo.name)||TextUtils.isEmpty(userInfo.password))
+        {
+            Toast.makeText(LoginActivity.this,R.string.error,Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        else
+        {
+            //登陆
+            if(user.login())
+            {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+                return true;
+        }
+
+    }
+
+    public void saveInfo()
+    {
+        if (save_info.isChecked())
+        {
+            Toast.makeText(LoginActivity.this,R.string.remember_password,Toast.LENGTH_SHORT).show();
+            try {
+                //存储用户信息
+                sharedPreData.save(filename, userInfo.name,userInfo.password,userInfo.token);
+                Toast.makeText(LoginActivity.this, R.string.success,Toast.LENGTH_SHORT).show();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                Toast.makeText(LoginActivity.this, R.string.fail,Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void saveData()
+    {
         //初始化文件服务
 //        fileService = new FileService(this);
 
@@ -68,80 +151,15 @@ public class LoginActivity extends Activity {
         //用户信息File
         sharedPreData = new SharedPreData(this);
 
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userInfo.name = et_username.getText().toString().trim();
-                userInfo.password = et_password.getText().toString().trim();
-
-                if(TextUtils.isEmpty(userInfo.name)||TextUtils.isEmpty(userInfo.password))
-                {
-                    Toast.makeText(LoginActivity.this,R.string.error,Toast.LENGTH_SHORT).show();
-                }
-                if (save_info.isChecked())
-                {
-                    Toast.makeText(LoginActivity.this,R.string.remember_password,Toast.LENGTH_SHORT).show();
-                   try {
-                       //存储用户信息
-                       sharedPreData.save("user_info", userInfo.name,userInfo.password,userInfo.token);
-                       Toast.makeText(LoginActivity.this, R.string.success,Toast.LENGTH_SHORT).show();
-                   }
-                   catch (Exception e){
-                       e.printStackTrace();
-                       Toast.makeText(LoginActivity.this, R.string.fail,Toast.LENGTH_SHORT).show();
-                   }
-                }
-
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
-    public void login_in() {
-        //创建一个StringRequest对象
-       /* 这里new出了一个StringRequest对象，StringRequest的构造函数需要
-         传入三个参数，第一个参数就是目标服务器的URL地址，第二个参数是
-         服务器响应成功的回调，第三个参数是服务器响应失败的回调。其中，
-         目标服务器地址我们填写的是百度的首页，然后在响应成功的回调里打
-         印出服务器返回的内容，在响应失败的回调里打印出失败的详细信息。*/
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"http://192.168.1.5/laravel-bms/public/api/data/bat-vol/query/1",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-//                        bms_data.setText(response);
-                        JSONObject fast_json = new JSONObject();//new一个FastJson对象
-                        BmsBatteryVolt bmsBatteryVolt = fast_json.parseObject(response, BmsBatteryVolt.class);
-//                        bms_bat_vol_1.setText("第一节电池电压:"+"  "+ bmsBatteryVolt.getBms_bat_vol_1());
-//                        bms_bat_vol_2.setText("第二节电池电压:"+"  "+ bmsBatteryVolt.getBms_bat_vol_2());
-//                        bms_bat_vol_3.setText("第三节电池电压:"+"  "+ bmsBatteryVolt.getBms_bat_vol_3());
-//                        bms_bat_vol_4.setText("第四节电池电压:"+"  "+ bmsBatteryVolt.getBms_bat_vol_4());
-                    }
-
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("TAG", error.getMessage(), error);
-                    }
-                })
-             {
-
-             //匿名类重写方法，用来传输post数据
-            @Override
-            protected java.util.Map<String, String> getPostParams() throws AuthFailureError
-            {
-                java.util.Map<String, String> map = new HashMap<String, String>();
-                map.put("params1", "value1");
-                map.put("params2", "value2");
-                return super.getPostParams();
-            }};
-
-        //将这个StringRequest对象添加到RequestQueue里
-        mQueue.add(stringRequest);
+    public void register()
+    {
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
     }
+
+
 }
 
 
