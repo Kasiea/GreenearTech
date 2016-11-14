@@ -42,11 +42,11 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private SharedPreData sharedPreData;
     private String filename = "user_info";
 
-    private User user;
     private UserInfo userInfo;
     private RequestQueue mQueue;
     private Context context;
-    private boolean LOGIN_STATUS = false;
+    private boolean LOGIN_STATUS;
+    private User user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         userInfo = new UserInfo();
         context = this.getApplicationContext();
         mQueue = Volley.newRequestQueue(context);
+        LOGIN_STATUS = false;
         user = new User(context, userInfo, mQueue, LOGIN_STATUS);
         sharedPreData = new SharedPreData(context);
     }
@@ -73,7 +74,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         et_password = (EditText)findViewById(R.id.password_log);
         save_info = (CheckBox)findViewById(R.id.save_info);
         login_btn= (Button)findViewById(R.id.login);
-        register_btn = (Button)findViewById(R.id.register);
+        register_btn = (Button)findViewById(R.id.register_login);
 
         login_btn.setOnClickListener(this);
         register_btn.setOnClickListener(this);
@@ -88,7 +89,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                     saveInfo();
                 }
                 break;
-            case R.id.register:
+            case R.id.register_login:
                 register();
                 break;
             default:

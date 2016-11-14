@@ -7,4 +7,5 @@ package com.greenear.yeqinglu.greeneartech.net;
 public class API {
 
     public static final String LOG_IN =  "http://bms.greeneartech.com/auth/login";
+    public static final String REGISTER = "http://bms.greeneartech.com/auth/register";
 }

@@ -6,4 +6,5 @@ package com.greenear.yeqinglu.greeneartech.model;
 
 public interface BaseUser {
     public boolean login();
+    public boolean register();
 }

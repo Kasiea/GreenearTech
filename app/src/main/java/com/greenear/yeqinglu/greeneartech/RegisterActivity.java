@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.greenear.yeqinglu.greeneartech.JsonData.BmsBatteryVolt;
+import com.greenear.yeqinglu.greeneartech.model.User;
 
 import java.util.HashMap;
 
@@ -27,7 +28,7 @@ import java.util.HashMap;
  * Created by yeqing.lu on 2016/11/5.
  */
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends Activity implements View.OnClickListener{
 
     private EditText et_username;
     private EditText et_email;
@@ -36,87 +37,84 @@ public class RegisterActivity extends Activity {
     private Button register;
     private Button cancel;
 
-    public RequestQueue mQueue;
-    public Context context;
-
+    private UserInfo userInfo;
+    private RequestQueue mQueue;
+    private Context context;
+    private boolean REGISTER_STATUS;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity);
 
+        initData();
+        initView();
+    }
+
+    public void initData()
+    {
+        userInfo = new UserInfo();
         context = this.getApplicationContext();
         mQueue = Volley.newRequestQueue(context);
-
+        REGISTER_STATUS = false;
+        user = new User(context,userInfo,mQueue,REGISTER_STATUS);
+    }
+    public void initView()
+    {
         et_username = (EditText)findViewById(R.id.username);
         et_email = (EditText)findViewById(R.id.email);
         et_password = (EditText)findViewById(R.id.password);
         et_password_ens = (EditText)findViewById(R.id.password_ens);
-
         register = (Button)findViewById(R.id.register);
         cancel = (Button)findViewById(R.id.cancel);
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String username = et_username.getText().toString().trim();
-                String email = et_email.getText().toString().trim();
-                String password = et_password.getText().toString().trim();
-                String password_ens = et_password_ens.getText().toString().trim();
-
-                if(TextUtils.isEmpty(username)||TextUtils.isEmpty(email)||
-                        TextUtils.isEmpty(password)||TextUtils.isEmpty(password_ens))
-                {
-                    Toast.makeText(RegisterActivity.this,"缺少必填信息！",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(RegisterActivity.this,"注册成功！",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        register.setOnClickListener(this);
+        cancel.setOnClickListener(this);
     }
 
-    public void register() {
-        //创建一个StringRequest对象
-       /* 这里new出了一个StringRequest对象，StringRequest的构造函数需要
-         传入三个参数，第一个参数就是目标服务器的URL地址，第二个参数是
-         服务器响应成功的回调，第三个参数是服务器响应失败的回调。其中，
-         目标服务器地址我们填写的是百度的首页，然后在响应成功的回调里打
-         印出服务器返回的内容，在响应失败的回调里打印出失败的详细信息。*/
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"http://192.168.1.5/laravel-bms/public/api/data/bat-vol/query/1",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-//                        bms_data.setText(response);
-                        JSONObject fast_json = new JSONObject();//new一个FastJson对象
-                        BmsBatteryVolt bmsBatteryVolt = fast_json.parseObject(response, BmsBatteryVolt.class);
-//                        bms_bat_vol_1.setText("第一节电池电压:"+"  "+ bmsBatteryVolt.getBms_bat_vol_1());
-//                        bms_bat_vol_2.setText("第二节电池电压:"+"  "+ bmsBatteryVolt.getBms_bat_vol_2());
-//                        bms_bat_vol_3.setText("第三节电池电压:"+"  "+ bmsBatteryVolt.getBms_bat_vol_3());
-//                        bms_bat_vol_4.setText("第四节电池电压:"+"  "+ bmsBatteryVolt.getBms_bat_vol_4());
-                    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.register:
+                if(check())
+                {
+                    register();
+                }
+                break;
+            case R.id.cancel:
+                break;
+            default:
+                break;
+        }
+    }
 
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("TAG", error.getMessage(), error);
-                    }
-                })
+    public boolean check()
+    {
+        String username = et_username.getText().toString().trim();
+        String email = et_email.getText().toString().trim();
+        String password = et_password.getText().toString().trim();
+        String password_ens = et_password_ens.getText().toString().trim();
+
+        if(TextUtils.isEmpty(username)||TextUtils.isEmpty(email)||
+                TextUtils.isEmpty(password)||TextUtils.isEmpty(password_ens))
         {
+            Toast.makeText(RegisterActivity.this,"缺少必填信息！",Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
-            //匿名类重写方法，用来传输post数据
-            @Override
-            protected java.util.Map<String, String> getPostParams() throws AuthFailureError
-            {
-                java.util.Map<String, String> map = new HashMap<String, String>();
-                map.put("params1", "value1");
-                map.put("params2", "value2");
-                return super.getPostParams();
-            }};
+        if (password!=password_ens)
+        {
+            Toast.makeText(RegisterActivity.this,"两次密码不一致！",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 
-        //将这个StringRequest对象添加到RequestQueue里
-        mQueue.add(stringRequest);
+    public void register()
+    {
+        userInfo.name = et_username.getText().toString();
+        userInfo.password = et_password.getText().toString();
+        user.register();
     }
 }

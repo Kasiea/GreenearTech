@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonUserToken;
 import com.greenear.yeqinglu.greeneartech.LoginActivity;
+import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.UserInfo;
 import com.greenear.yeqinglu.greeneartech.net.API;
 
@@ -28,14 +29,14 @@ public class User implements BaseUser {
 
     private Context context;
     private UserInfo userInfo;
-    private RequestQueue mQueue;
-    private boolean LOGIN_STATUS = false;
+    private RequestQueue requestQueue;
+    private boolean STATUS = false;
 
-    public User(Context context, UserInfo userInfo, RequestQueue mQueue , boolean LOGIN_STATUS) {
+    public User(Context context, UserInfo userInfo, RequestQueue mQueue , boolean STATUS) {
         this.context = context;
         this.userInfo = userInfo;
-        this.mQueue = mQueue;
-        this.LOGIN_STATUS = LOGIN_STATUS;
+        this.requestQueue = mQueue;
+        this.STATUS = STATUS;
     }
 
     @Override
@@ -54,15 +55,15 @@ public class User implements BaseUser {
                         JsonUserToken jsonReturn = fast_json.parseObject(response, JsonUserToken.class);
                         userInfo.token = jsonReturn.getData().getToken();
                         Toast.makeText(context ,"登陆成功！ token = " + userInfo.token ,Toast.LENGTH_SHORT).show();
-                        LOGIN_STATUS = true;
+                        STATUS = true;
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("TAG", error.getMessage(), error);
-                        Toast.makeText(context, "登陆失败！",Toast.LENGTH_SHORT).show();
-                        LOGIN_STATUS = false;
+                        Toast.makeText(context, R.string.login_fail,Toast.LENGTH_SHORT).show();
+                        STATUS = false;
                     }
                 })
         {
@@ -79,7 +80,42 @@ public class User implements BaseUser {
             }};
 
         //将这个StringRequest对象添加到RequestQueue里
-        mQueue.add(stringRequest);
-        return LOGIN_STATUS;
+        requestQueue.add(stringRequest);
+        return STATUS;
+    }
+
+    @Override
+    public boolean register() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, API.REGISTER,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject fast_json = new JSONObject();//new一个FastJson对象
+                        JsonUserToken jsonReturn = fast_json.parseObject(response, JsonUserToken.class);
+                        userInfo.token = jsonReturn.getData().getToken();
+                        Toast.makeText(context ,"注册成功！ token = " + userInfo.token ,Toast.LENGTH_SHORT).show();
+                        STATUS = true;
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                        Toast.makeText(context, R.string.registr_fail,Toast.LENGTH_SHORT).show();
+                        STATUS = false;
+                    }
+                })
+        {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("username", userInfo.name);
+                map.put("password", userInfo.password);
+                return map;
+            }};
+
+        requestQueue.add(stringRequest);
+        return STATUS;
     }
 }
