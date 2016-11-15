@@ -1,21 +1,20 @@
 package com.greenear.yeqinglu.greeneartech.JsonData;
 
 /**
- * Created by yeqing.lu on 2016/11/12.
+ * Created by yeqing.lu on 2016/11/15.
  */
 
-public class JsonUserToken {
+public class JsonBatQuery {
 
     private String code;
     private String msg;
-    private JsonTokenData data;
+    private JsonBatData data;
 
-    public JsonTokenData getData() {
+    public JsonBatData getData() {
         return data;
     }
 
-    public void setData(JsonTokenData data) {
-
+    public void setData(JsonBatData data) {
         this.data = data;
     }
 

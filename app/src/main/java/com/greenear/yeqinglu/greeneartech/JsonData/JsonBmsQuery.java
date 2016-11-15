@@ -1,23 +1,14 @@
 package com.greenear.yeqinglu.greeneartech.JsonData;
 
 /**
- * Created by yeqing.lu on 2016/11/12.
+ * Created by yeqing.lu on 2016/11/15.
  */
 
-public class JsonUserToken {
+public class JsonBmsQuery {
 
     private String code;
     private String msg;
-    private JsonTokenData data;
-
-    public JsonTokenData getData() {
-        return data;
-    }
-
-    public void setData(JsonTokenData data) {
-
-        this.data = data;
-    }
+    private JsonBmsData data;
 
     public String getCode() {
         return code;
@@ -27,6 +18,14 @@ public class JsonUserToken {
         this.code = code;
     }
 
+    public JsonBmsData getData() {
+        return data;
+    }
+
+    public void setData(JsonBmsData data) {
+        this.data = data;
+    }
+
     public String getMsg() {
         return msg;
     }
@@ -34,6 +33,4 @@ public class JsonUserToken {
     public void setMsg(String msg) {
         this.msg = msg;
     }
-
-
 }

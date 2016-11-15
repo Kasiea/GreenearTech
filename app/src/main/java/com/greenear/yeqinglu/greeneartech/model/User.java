@@ -14,6 +14,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.greenear.yeqinglu.greeneartech.JsonData.JsonBatQuery;
+import com.greenear.yeqinglu.greeneartech.JsonData.JsonBms;
+import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonUserToken;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.interf.BaseUser;
@@ -31,10 +34,14 @@ import java.util.Map;
 public class User implements BaseUser {
 
     private Context context;
-    private UserInfo userInfo;
     private RequestQueue requestQueue;
     private int IS_FINISHED = 1;
     private Handler handler;
+
+    public UserInfo userInfo;
+    public Bms bms;
+    public Bat bat;
+    public Location location;
 
     public User(Context context, UserInfo userInfo, RequestQueue mQueue, Handler handler) {
         this.context = context;
@@ -62,7 +69,7 @@ public class User implements BaseUser {
 
                         //转入主界面
                         Message message = Message.obtain(handler);
-                        message.what = 1;
+                        message.what = IS_FINISHED;
                         message.sendToTarget();
                     }
                 },
@@ -103,7 +110,7 @@ public class User implements BaseUser {
 
                         //转入主界面
                         Message message = Message.obtain(handler);
-                        message.what = 1;
+                        message.what = IS_FINISHED;
                         message.sendToTarget();
                     }
                 },
@@ -125,5 +132,98 @@ public class User implements BaseUser {
             }};
 
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public Bms getBms()
+    {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, API.BMS_QUERY,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject fast_json = new JSONObject();//new一个FastJson对象
+                        JsonBmsQuery jsonReturn = fast_json.parseObject(response, JsonBmsQuery.class);
+
+                        bms.setId(jsonReturn.getData().getId());
+                        bms.setBms_id(jsonReturn.getData().getBms_id());
+                        bms.setSoc(jsonReturn.getData().getSoc());
+                        bms.setSoh(jsonReturn.getData().getSoh());
+                        bms.setVol(jsonReturn.getData().getVol());
+                        bms.setRes(jsonReturn.getData().getRes());
+                        bms.setLongitude(jsonReturn.getData().getLongitude());
+                        bms.setLatitude(jsonReturn.getData().getLatitude());
+                        bms.setAltitde(jsonReturn.getData().getAltitude());
+                        bms.setLocate_mode(jsonReturn.getData().getLocate_mode());
+                        bms.setSatellite(jsonReturn.getData().getSatellite());
+                        bms.setTemp(jsonReturn.getData().getTemp());
+                        bms.setCurrent(jsonReturn.getData().getCurrent());
+                        bms.setCharge(jsonReturn.getData().getCharge());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                        Toast.makeText(context, R.string.registr_fail,Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        requestQueue.add(stringRequest);
+        return bms;
+    }
+
+    @Override
+    public Bat getBat() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, API.BMS_QUERY,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject fast_json = new JSONObject();//new一个FastJson对象
+                        JsonBatQuery jsonReturn = fast_json.parseObject(response, JsonBatQuery.class);
+
+                        bat.setId(jsonReturn.getData().getId());
+                        bat.setBat_id(jsonReturn.getData().getBat_id());
+                        bat.setSoc(jsonReturn.getData().getSoc());
+                        bat.setSoh(jsonReturn.getData().getSoh());
+                        bat.setVol(jsonReturn.getData().getVol());
+                        bat.setRes(jsonReturn.getData().getRes());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                        Toast.makeText(context, R.string.registr_fail,Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        requestQueue.add(stringRequest);
+        return bat;
+    }
+
+    public Location getLocation()
+    {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, API.BMS_QUERY,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject fast_json = new JSONObject();//new一个FastJson对象
+                        JsonBmsQuery jsonReturn = fast_json.parseObject(response, JsonBmsQuery.class);
+
+                        location.setAltitude(jsonReturn.getData().getAltitude());
+                        location.setLatitude(jsonReturn.getData().getLatitude());
+                        location.setLongitude(jsonReturn.getData().getLongitude());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                        Toast.makeText(context, R.string.registr_fail,Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        requestQueue.add(stringRequest);
+        return location;
     }
 }
