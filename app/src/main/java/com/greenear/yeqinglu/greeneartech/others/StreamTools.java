@@ -1,4 +1,4 @@
-package com.greenear.yeqinglu.greeneartech;
+package com.greenear.yeqinglu.greeneartech.others;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;

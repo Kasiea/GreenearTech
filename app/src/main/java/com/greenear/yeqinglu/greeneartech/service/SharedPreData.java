@@ -1,7 +1,9 @@
-package com.greenear.yeqinglu.greeneartech;
+package com.greenear.yeqinglu.greeneartech.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.greenear.yeqinglu.greeneartech.model.UserInfo;
 
 /**
  * Created by yeqing.lu on 2016/11/7.
@@ -13,8 +15,9 @@ public class SharedPreData {
     private UserInfo userInfo;
 
 
-    public  SharedPreData(Context context){
+    public  SharedPreData(Context context, UserInfo userInfo){
         this.context = context;
+        this.userInfo = userInfo;
     }
 
     public void save(String filename,String name, String password, String token)

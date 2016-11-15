@@ -1,19 +1,13 @@
-package com.greenear.yeqinglu.greeneartech;
+package com.greenear.yeqinglu.greeneartech.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-
-import java.net.URL;
+import com.greenear.yeqinglu.greeneartech.map.Map;
+import com.greenear.yeqinglu.greeneartech.R;
 
 public class MainActivity extends AppCompatActivity {
 

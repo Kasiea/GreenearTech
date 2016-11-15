@@ -1,4 +1,4 @@
-package com.greenear.yeqinglu.greeneartech;
+package com.greenear.yeqinglu.greeneartech.others;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

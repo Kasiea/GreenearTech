@@ -1,4 +1,4 @@
-package com.greenear.yeqinglu.greeneartech;
+package com.greenear.yeqinglu.greeneartech.map;
 
 import android.content.Context;
 import android.hardware.Sensor;

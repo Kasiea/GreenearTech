@@ -1,4 +1,4 @@
-package com.greenear.yeqinglu.greeneartech;
+package com.greenear.yeqinglu.greeneartech.map;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import com.baidu.navisdk.adapter.BNaviBaseCallbackModel;
 import com.baidu.navisdk.adapter.BaiduNaviCommonModule;
 import com.baidu.navisdk.adapter.NaviModuleFactory;
 import com.baidu.navisdk.adapter.NaviModuleImpl;
+import com.greenear.yeqinglu.greeneartech.R;
 
 import java.util.ArrayList;
 import java.util.List;

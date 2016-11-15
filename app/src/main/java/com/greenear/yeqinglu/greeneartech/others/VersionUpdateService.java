@@ -1,4 +1,4 @@
-package com.greenear.yeqinglu.greeneartech;
+package com.greenear.yeqinglu.greeneartech.others;
 
 import android.app.Notification;
 import android.app.Service;

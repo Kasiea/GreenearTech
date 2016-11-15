@@ -1,4 +1,4 @@
-package com.greenear.yeqinglu.greeneartech;
+package com.greenear.yeqinglu.greeneartech.ui;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,6 +21,7 @@ import com.greenear.yeqinglu.greeneartech.JsonData.BmsGpsQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.BmsSocQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.BmsSohQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.BmsWorkStatus;
+import com.greenear.yeqinglu.greeneartech.R;
 
 import java.net.URL;
 

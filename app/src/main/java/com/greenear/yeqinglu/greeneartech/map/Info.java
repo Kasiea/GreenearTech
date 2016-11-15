@@ -1,4 +1,6 @@
-package com.greenear.yeqinglu.greeneartech;
+package com.greenear.yeqinglu.greeneartech.map;
+
+import com.greenear.yeqinglu.greeneartech.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class Info implements Serializable{
 
     static
     {
-        infos.add(new Info(31.063456,121.249524,"万达广场",R.drawable.a1,"距离614m",1000));
+        infos.add(new Info(31.063456,121.249524,"万达广场", R.drawable.a1,"距离614m",1000));
         infos.add(new Info(31.050076,121.244278,"松云水苑",R.drawable.a2,"距离3800m",500));
         infos.add(new Info(31.062822,121.220868,"东华大学",R.drawable.a3,"距离2400m",1500));
     }

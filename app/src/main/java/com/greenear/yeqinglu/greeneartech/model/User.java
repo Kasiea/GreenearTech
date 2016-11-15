@@ -1,7 +1,9 @@
 package com.greenear.yeqinglu.greeneartech.model;
 
 import android.content.Context;
-import android.os.SystemClock;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,10 +15,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonUserToken;
-import com.greenear.yeqinglu.greeneartech.LoginActivity;
 import com.greenear.yeqinglu.greeneartech.R;
-import com.greenear.yeqinglu.greeneartech.UserInfo;
+import com.greenear.yeqinglu.greeneartech.interf.BaseUser;
 import com.greenear.yeqinglu.greeneartech.net.API;
+import com.greenear.yeqinglu.greeneartech.ui.LoginActivity;
+import com.greenear.yeqinglu.greeneartech.ui.MainActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,17 +33,18 @@ public class User implements BaseUser {
     private Context context;
     private UserInfo userInfo;
     private RequestQueue requestQueue;
-    private boolean STATUS = false;
+    private int IS_FINISHED = 1;
+    private Handler handler;
 
-    public User(Context context, UserInfo userInfo, RequestQueue mQueue , boolean STATUS) {
+    public User(Context context, UserInfo userInfo, RequestQueue mQueue, Handler handler) {
         this.context = context;
         this.userInfo = userInfo;
         this.requestQueue = mQueue;
-        this.STATUS = STATUS;
+        this.handler = handler;
     }
 
     @Override
-    public boolean login() {
+    public void login() {
         //创建一个StringRequest对象
        /* 这里new出了一个StringRequest对象，StringRequest的构造函数需要
          传入三个参数，第一个参数就是目标服务器的URL地址，第二个参数是
@@ -55,7 +59,11 @@ public class User implements BaseUser {
                         JsonUserToken jsonReturn = fast_json.parseObject(response, JsonUserToken.class);
                         userInfo.token = jsonReturn.getData().getToken();
                         Toast.makeText(context ,"登陆成功！ token = " + userInfo.token ,Toast.LENGTH_SHORT).show();
-                        STATUS = true;
+
+                        //转入主界面
+                        Message message = Message.obtain(handler);
+                        message.what = 1;
+                        message.sendToTarget();
                     }
                 },
                 new Response.ErrorListener() {
@@ -63,7 +71,6 @@ public class User implements BaseUser {
                     public void onErrorResponse(VolleyError error) {
                         Log.e("TAG", error.getMessage(), error);
                         Toast.makeText(context, R.string.login_fail,Toast.LENGTH_SHORT).show();
-                        STATUS = false;
                     }
                 })
         {
@@ -81,11 +88,10 @@ public class User implements BaseUser {
 
         //将这个StringRequest对象添加到RequestQueue里
         requestQueue.add(stringRequest);
-        return STATUS;
     }
 
     @Override
-    public boolean register() {
+    public void register() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, API.REGISTER,
                 new Response.Listener<String>() {
                     @Override
@@ -94,7 +100,11 @@ public class User implements BaseUser {
                         JsonUserToken jsonReturn = fast_json.parseObject(response, JsonUserToken.class);
                         userInfo.token = jsonReturn.getData().getToken();
                         Toast.makeText(context ,"注册成功！ token = " + userInfo.token ,Toast.LENGTH_SHORT).show();
-                        STATUS = true;
+
+                        //转入主界面
+                        Message message = Message.obtain(handler);
+                        message.what = 1;
+                        message.sendToTarget();
                     }
                 },
                 new Response.ErrorListener() {
@@ -102,7 +112,6 @@ public class User implements BaseUser {
                     public void onErrorResponse(VolleyError error) {
                         Log.e("TAG", error.getMessage(), error);
                         Toast.makeText(context, R.string.registr_fail,Toast.LENGTH_SHORT).show();
-                        STATUS = false;
                     }
                 })
         {
@@ -116,6 +125,5 @@ public class User implements BaseUser {
             }};
 
         requestQueue.add(stringRequest);
-        return STATUS;
     }
 }

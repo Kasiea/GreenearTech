@@ -1,4 +1,4 @@
-package com.greenear.yeqinglu.greeneartech;
+package com.greenear.yeqinglu.greeneartech.model;
 
 /**
  * Created by yeqing.lu on 2016/11/7.

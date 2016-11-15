@@ -1,12 +1,9 @@
-package com.greenear.yeqinglu.greeneartech;
+package com.greenear.yeqinglu.greeneartech.ui;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,6 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.greenear.yeqinglu.greeneartech.JsonData.BmsBatteryVolt;
 import com.greenear.yeqinglu.greeneartech.JsonData.BmsSohQuery;
+import com.greenear.yeqinglu.greeneartech.R;
 
 import java.util.ArrayList;
 import java.util.List;

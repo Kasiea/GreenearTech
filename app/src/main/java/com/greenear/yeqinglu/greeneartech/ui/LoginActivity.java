@@ -1,30 +1,25 @@
-package com.greenear.yeqinglu.greeneartech;
+package com.greenear.yeqinglu.greeneartech.ui;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONObject;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.greenear.yeqinglu.greeneartech.JsonData.JsonUserToken;
+import com.greenear.yeqinglu.greeneartech.others.FileService;
+import com.greenear.yeqinglu.greeneartech.R;
+import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
 import com.greenear.yeqinglu.greeneartech.model.User;
-
-import java.util.*;
-import java.util.Map;
+import com.greenear.yeqinglu.greeneartech.model.UserInfo;
 
 /**
  * Created by yeqing.lu on 2016/10/19.
@@ -45,17 +40,37 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private UserInfo userInfo;
     private RequestQueue mQueue;
     private Context context;
-    private boolean LOGIN_STATUS;
     private User user;
+
+    private Handler handler;
+    private int IS_FINISHED = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
+        isLogin();
         initData();
         initView();
-        saveData();
+        loadUserInfo();
+        saveUserInfo();
+
+    }
+
+    private void isLogin()
+    {
+        handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if(msg.what == IS_FINISHED)
+                {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+        };
     }
 
     private void initData()
@@ -63,9 +78,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         userInfo = new UserInfo();
         context = this.getApplicationContext();
         mQueue = Volley.newRequestQueue(context);
-        LOGIN_STATUS = false;
-        user = new User(context, userInfo, mQueue, LOGIN_STATUS);
-        sharedPreData = new SharedPreData(context);
+        user = new User(context, userInfo, mQueue, handler);
+        sharedPreData = new SharedPreData(context, userInfo);
     }
 
     private void initView()
@@ -111,12 +125,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         else
         {
             //登陆
-            if(user.login())
-            {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-                return true;
+            user.login();
+            return true;
         }
 
     }
@@ -128,7 +138,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             Toast.makeText(LoginActivity.this,R.string.remember_password,Toast.LENGTH_SHORT).show();
             try {
                 //存储用户信息
-                sharedPreData.save(filename, userInfo.name,userInfo.password,userInfo.token);
+                saveUserInfo();
+//                sharedPreData.save(filename, userInfo.name,userInfo.password,userInfo.token);
                 Toast.makeText(LoginActivity.this, R.string.success,Toast.LENGTH_SHORT).show();
             }
             catch (Exception e){
@@ -138,7 +149,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    public void saveData()
+    public void saveUserInfo()
     {
         //初始化文件服务
 //        fileService = new FileService(this);
@@ -150,7 +161,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 //        }
 
         //用户信息File
-        sharedPreData = new SharedPreData(this);
+//        sharedPreData = new SharedPreData(this);
+        sharedPreData.save(filename, userInfo.name,userInfo.password,userInfo.token);
 
     }
 
@@ -158,6 +170,13 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     {
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    public void loadUserInfo()
+    {
+        userInfo = sharedPreData.load(filename);
+        et_username.setText(userInfo.getName());
+        et_password.setText(userInfo.getPassword());
     }
 
 
