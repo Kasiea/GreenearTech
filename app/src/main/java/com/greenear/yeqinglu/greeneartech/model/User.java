@@ -168,8 +168,9 @@ public class User implements BaseUser {
     @Override
     public Bms getBms()
     {
-        String GET_BMS = API.BMS_QUERY + " "+"token=barer " + userInfo.getToken();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, GET_BMS,
+        bms = new Bms();
+        String GET_BMS = API.BMS_QUERY + "&"+"token=" + userInfo.getToken();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BMS,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -210,7 +211,7 @@ public class User implements BaseUser {
 
     @Override
     public Bat getBat() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, API.BMS_QUERY,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, API.BMS_QUERY,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
