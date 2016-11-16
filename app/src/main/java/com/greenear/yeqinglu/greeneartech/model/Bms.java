@@ -20,7 +20,7 @@ public class Bms {
     public String satellite;
     public String temp;
     public String current;
-    public String charge;
+    private String charge;
 
     public void setId(String id) {
         this.id = id;

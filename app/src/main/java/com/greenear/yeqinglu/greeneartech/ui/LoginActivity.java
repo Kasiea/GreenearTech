@@ -66,6 +66,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 super.handleMessage(msg);
                 if(msg.what == IS_FINISHED)
                 {
+                    user.saveInfo();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
@@ -78,8 +79,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         userInfo = new UserInfo();
         context = this.getApplicationContext();
         mQueue = Volley.newRequestQueue(context);
-        user = new User(context, userInfo, mQueue, handler);
         sharedPreData = new SharedPreData(context, userInfo);
+        user = new User(context, userInfo, mQueue, handler, sharedPreData);
     }
 
     private void initView()
@@ -139,7 +140,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             try {
                 //存储用户信息
                 saveUserInfo();
-//                sharedPreData.save(filename, userInfo.name,userInfo.password,userInfo.token);
                 Toast.makeText(LoginActivity.this, R.string.success,Toast.LENGTH_SHORT).show();
             }
             catch (Exception e){
@@ -161,9 +161,9 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 //        }
 
         //用户信息File
-//        sharedPreData = new SharedPreData(this);
-        sharedPreData.save(filename, userInfo.name,userInfo.password,userInfo.token);
+//        sharedPreData.save(filename, userInfo.name,userInfo.password,userInfo.token);
 
+        user.saveInfo();
     }
 
     public void register()
@@ -174,9 +174,12 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
     public void loadUserInfo()
     {
-        userInfo = sharedPreData.load(filename);
+        userInfo = user.getInfo();
+//        userInfo = sharedPreData.load(filename);
         et_username.setText(userInfo.getName());
         et_password.setText(userInfo.getPassword());
+
+
     }
 
 

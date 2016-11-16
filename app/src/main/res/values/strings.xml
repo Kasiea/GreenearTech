@@ -14,13 +14,19 @@
     <string name="success">保存成功</string>
     <string name="fail">保存失败</string>
 
-    <string name="bms_id">Bms ID</string>
-    <string name="bms_soc">BMS SOC</string>
-    <string name="bms_soh">BMS SOH</string>
-    <string name="bms_vol">BMS VOL</string>
-    <string name="bms_res">BMS RES</string>
-    <string name="bms_temp">BMS TEMP</string>
-    <string name="bms_current">BMS CURRENT</string>
-    <string name="bms_charge">BMS CHARGE</string>
-    
+    <string name="bms_id">BMS ID</string>
+    <string name="bms_soc">BMS SOC信息</string>
+    <string name="bms_soh">BMS SOH信息</string>
+    <string name="bms_vol">BMS 电池电压信息</string>
+    <string name="bms_res">BMS 内阻信息</string>
+    <string name="bms_temp">BMS 环境温度</string>
+    <string name="bms_current">BMS 电池电流</string>
+    <string name="bms_charge">BMS 充放电状态</string>
+
+    <string name="bat_id">BAT ID</string>
+    <string name="bat_soc">BAT SOC信息</string>
+    <string name="bat_soh">BAT SOH信息</string>
+    <string name="bat_vol">BAT 电池电压信息</string>
+    <string name="bat_res">BAT 电池电阻信息</string>
+
 </resources>

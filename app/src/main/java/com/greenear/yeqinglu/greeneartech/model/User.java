@@ -2,6 +2,7 @@ package com.greenear.yeqinglu.greeneartech.model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.greenear.yeqinglu.greeneartech.JsonData.JsonUserToken;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.interf.BaseUser;
 import com.greenear.yeqinglu.greeneartech.net.API;
+import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
 import com.greenear.yeqinglu.greeneartech.ui.LoginActivity;
 import com.greenear.yeqinglu.greeneartech.ui.MainActivity;
 
@@ -43,11 +45,30 @@ public class User implements BaseUser {
     public Bat bat;
     public Location location;
 
+    private SharedPreData sharedPreData;
+    private String filename = "user_info";
+
+
+
+    public User( UserInfo userInfo, RequestQueue mQueue, Handler handler) {
+        this.userInfo = userInfo;
+        this.requestQueue = mQueue;
+        this.handler = handler;
+    }
+
     public User(Context context, UserInfo userInfo, RequestQueue mQueue, Handler handler) {
         this.context = context;
         this.userInfo = userInfo;
         this.requestQueue = mQueue;
         this.handler = handler;
+    }
+
+    public User(Context context, UserInfo userInfo, RequestQueue mQueue, Handler handler, SharedPreData sharedPreData) {
+        this.context = context;
+        this.userInfo = userInfo;
+        this.requestQueue = mQueue;
+        this.handler = handler;
+        this.sharedPreData = sharedPreData;
     }
 
     @Override
@@ -135,9 +156,20 @@ public class User implements BaseUser {
     }
 
     @Override
+    public void saveInfo() {
+        sharedPreData.save(filename, userInfo.name,userInfo.password,userInfo.token);
+    }
+
+    @Override
+    public UserInfo getInfo() {
+        return  sharedPreData.load(filename);
+    }
+
+    @Override
     public Bms getBms()
     {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, API.BMS_QUERY,
+        String GET_BMS = API.BMS_QUERY + " "+"token=barer " + userInfo.getToken();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, GET_BMS,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -158,13 +190,17 @@ public class User implements BaseUser {
                         bms.setTemp(jsonReturn.getData().getTemp());
                         bms.setCurrent(jsonReturn.getData().getCurrent());
                         bms.setCharge(jsonReturn.getData().getCharge());
+
+                        //得到BMS数据
+                        Message message = Message.obtain(handler);
+                        message.what = IS_FINISHED;
+                        message.sendToTarget();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("TAG", error.getMessage(), error);
-                        Toast.makeText(context, R.string.registr_fail,Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -193,7 +229,6 @@ public class User implements BaseUser {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("TAG", error.getMessage(), error);
-                        Toast.makeText(context, R.string.registr_fail,Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -219,7 +254,6 @@ public class User implements BaseUser {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("TAG", error.getMessage(), error);
-                        Toast.makeText(context, R.string.registr_fail,Toast.LENGTH_SHORT).show();
                     }
                 });
 
