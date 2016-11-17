@@ -5,7 +5,7 @@ package com.greenear.yeqinglu.greeneartech.interf;
  */
 
 public interface BaseChart {
-    void showBatVm();
+    void showBatVolt();
     void showBatSoh();
     void showBatSoc();
 }

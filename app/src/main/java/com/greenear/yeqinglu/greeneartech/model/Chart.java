@@ -33,16 +33,20 @@ public class Chart implements BaseChart {
     private ColumnChartData columnChartData;
 
 
-    public  Chart(Bms bms, ColumnChartView columnChartView, ColumnChartData columnChartData)
+    public  Chart(Bms bms, ColumnChartView columnChartView)
     {
         this.bms = bms;
         this.columnChartView = columnChartView;
-        this.columnChartData = columnChartData;
+    }
+
+    public void setColumnChartView(ColumnChartView columnChartView)
+    {
+        this.columnChartView = columnChartView;
     }
 
 
     @Override
-    public void showBatVm() {
+    public void showBatVolt() {
 
         //初始化数据
 //        Float[] battery_vm = new Float[]{Float.parseFloat(bmsBatteryVolt.getBms_bat_vol_1()), Float.parseFloat(bmsBatteryVolt.getBms_bat_vol_2()),
