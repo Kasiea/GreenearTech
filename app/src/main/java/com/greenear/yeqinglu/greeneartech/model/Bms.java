@@ -1,5 +1,7 @@
 package com.greenear.yeqinglu.greeneartech.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by yeqing.lu on 2016/11/15.
  */
@@ -20,7 +22,17 @@ public class Bms {
     public String satellite;
     public String temp;
     public String current;
-    private String charge;
+    public String charge;
+
+    public ArrayList<Bat> BatList;
+
+    public ArrayList<Bat> getBatList() {
+        return BatList;
+    }
+
+    public void setBatList(ArrayList<Bat> batList) {
+        BatList = batList;
+    }
 
     public void setId(String id) {
         this.id = id;

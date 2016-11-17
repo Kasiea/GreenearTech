@@ -49,18 +49,18 @@ public class User implements BaseUser {
     private String filename = "user_info";
 
 
-
-    public User( UserInfo userInfo, RequestQueue mQueue, Handler handler) {
-        this.userInfo = userInfo;
-        this.requestQueue = mQueue;
-        this.handler = handler;
-    }
-
     public User(Context context, UserInfo userInfo, RequestQueue mQueue, Handler handler) {
         this.context = context;
         this.userInfo = userInfo;
         this.requestQueue = mQueue;
         this.handler = handler;
+    }
+
+    public User( UserInfo userInfo, RequestQueue mQueue, Handler handler, SharedPreData sharedPreData) {
+        this.userInfo = userInfo;
+        this.requestQueue = mQueue;
+        this.handler = handler;
+        this.sharedPreData = sharedPreData;
     }
 
     public User(Context context, UserInfo userInfo, RequestQueue mQueue, Handler handler, SharedPreData sharedPreData) {

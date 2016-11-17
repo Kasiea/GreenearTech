@@ -73,9 +73,9 @@ public class BmsDataShow extends Activity {
         userInfo = new UserInfo();
         requestQueue = Volley.newRequestQueue(context);
         sharedPreData = new SharedPreData(context, userInfo);
-        user = new User(userInfo, requestQueue, handler);
-        userInfo = sharedPreData.load("user_info");
-//        userInfo = user.getInfo();
+        user = new User(userInfo, requestQueue, handler, sharedPreData);
+//        userInfo = sharedPreData.load("user_info");
+        userInfo = user.getInfo();
         bms = new Bms();
     }
 

@@ -9,10 +9,10 @@ import com.greenear.yeqinglu.greeneartech.model.UserInfo;
  */
 
 public interface BaseUser {
-    public void login();
-    public void register();
-    public void saveInfo();
-    public UserInfo getInfo();
-    public Bms getBms();
-    public Bat getBat();
+     void login();
+     void register();
+     void saveInfo();
+     UserInfo getInfo();
+     Bms getBms();
+     Bat getBat();
 }
