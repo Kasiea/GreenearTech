@@ -49,9 +49,6 @@ public class Chart implements BaseChart {
     public void showBatVolt() {
 
         //初始化数据
-//        Float[] battery_vm = new Float[]{Float.parseFloat(bmsBatteryVolt.getBms_bat_vol_1()), Float.parseFloat(bmsBatteryVolt.getBms_bat_vol_2()),
-//                Float.parseFloat(bmsBatteryVolt.getBms_bat_vol_3()), Float.parseFloat(bmsBatteryVolt.getBms_bat_vol_4()),};
-
         int BmsBatNum = bms.getBatList().size();
         ArrayList<Float> battery_vm= new ArrayList<>();
         for (int i = 0; i < BmsBatNum; i++ ) {
@@ -91,7 +88,6 @@ public class Chart implements BaseChart {
         }
 
         columnChartData = new ColumnChartData(columns);
-
         //设置X轴显示在底部，并且显示每个属性的Lable
         columnChartData.setAxisXBottom(new Axis(axisValues).setHasLines(true)
                 .setTextColor(Color.BLACK).setName("Battery").setMaxLabelChars(8));
@@ -101,21 +97,16 @@ public class Chart implements BaseChart {
 
         //最后将所有值显示在View中
         columnChartView.setColumnChartData(columnChartData);
-
         // Set value touch listener that will trigger changes for chartTop.
         //设置监听器
 //        columnChart.setOnValueTouchListener(new ValueTouchListener());
 
-
         // Set selection mode to keep selected month column highlighted.
         columnChartView.setValueSelectionEnabled(true);
-
         //设置用户与柱形图交互与否
 //        columnChart.setInteractive(false);
-
         //设置图形缩放
         columnChartView.setZoomEnabled(false);
-
         columnChartView.setZoomType(ZoomType.HORIZONTAL);
 
     }

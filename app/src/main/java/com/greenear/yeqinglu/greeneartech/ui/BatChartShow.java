@@ -16,7 +16,6 @@ import com.greenear.yeqinglu.greeneartech.model.User;
 import com.greenear.yeqinglu.greeneartech.model.UserInfo;
 import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
 
-import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
 /**
@@ -26,7 +25,6 @@ import lecho.lib.hellocharts.view.ColumnChartView;
 public class BatChartShow extends Activity {
 
     public Context context;
-    private ColumnChartData columnData;
     private ColumnChartView columnChart_Volt;
     private ColumnChartView columnChart_Soh;
     private ColumnChartView columnChart_Soc;
@@ -51,7 +49,7 @@ public class BatChartShow extends Activity {
         initView();
         initData();
         setChart();
-        
+
     }
 
     public void updateChart()
@@ -60,7 +58,9 @@ public class BatChartShow extends Activity {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                updateChart();
+                if (msg.what == IS_FINISHED) {
+                    updateChart();
+                }
             }
         };
     }
