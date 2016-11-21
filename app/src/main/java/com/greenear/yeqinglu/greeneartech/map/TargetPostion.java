@@ -36,30 +36,30 @@ public class TargetPostion {
     public double mLatitude;
     public double mLongitude;
     public BDLocation myLocation;
+    public MyOrientationListener myOritentationListener;
 
     //LocationClient类必须在主线程中声明。需要Context类型的参数。
     //Context需要时全进程有效的context,推荐用getApplicationConext获取全进程有效的context
     //LocationClient进行定位的一些设置
     private Context context;
     private BaiduMap baiduMap;
-    private LocationClient mLocationClient;
+    private LocationClient locationClient;
     private BDLocationListener myListener = new MyLocationListener();
     private boolean isFirstIn = true;
     private BitmapDescriptor mCurrentMarker;
-    private MyOrientationListener myOritentationListener;
+
     private float mCurrentX;
 
 
     public TargetPostion(Context context, BaiduMap baiduMap, LocationClient locationClient) {
         this.context = context;
         this.baiduMap = baiduMap;
-
+        this.locationClient = locationClient;
     }
 
     public void initData() {
         //定位
-        mLocationClient = new LocationClient(context);     //声明LocationClient类，配置
-        mLocationClient.registerLocationListener(myListener);    //注册监听函数
+        locationClient.registerLocationListener(myListener);    //注册监听函数
         mCurrentMarker = BitmapDescriptorFactory
                 .fromResource(R.drawable.mark);//自定义图标
 
@@ -91,7 +91,7 @@ public class TargetPostion {
         option.setIgnoreKillProcess(false);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
         option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
         option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
-        mLocationClient.setLocOption(option);
+        locationClient.setLocOption(option);
     }
 
 

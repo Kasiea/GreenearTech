@@ -973,7 +973,7 @@ public class Map<S, S1> extends Activity {
         //开启定位
         mBaiduMap.setMyLocationEnabled(true);
         if (!mLocationClient.isStarted())
-            mLocationClient.start();;
+            mLocationClient.start();
         //开启方向传感器
         myOritentationListener.start();
     }
