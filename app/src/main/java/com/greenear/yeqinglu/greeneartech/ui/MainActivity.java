@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.greenear.yeqinglu.greeneartech.map.Map;
 import com.greenear.yeqinglu.greeneartech.R;
+import com.greenear.yeqinglu.greeneartech.map.Map;
+import com.greenear.yeqinglu.greeneartech.map.MapActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 

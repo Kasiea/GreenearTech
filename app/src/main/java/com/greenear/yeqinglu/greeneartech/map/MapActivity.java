@@ -1,4 +1,4 @@
-package com.greenear.yeqinglu.greeneartech.ui;
+package com.greenear.yeqinglu.greeneartech.map;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,9 +20,13 @@ public class MapActivity extends Activity {
     public BaiduMap mBaiduMap = null;
     public MapView mMapView = null;
     public Context context;
-    public LocationClient mLocationClient;
 
+    //定位
+    public LocationClient mLocationClient;
     public TargetPostion targetPosition;
+
+    //添加覆盖物
+    public ChargingStation chargingStation;
 
 
     @Override
@@ -53,8 +57,13 @@ public class MapActivity extends Activity {
     {
         context = this.getApplicationContext();
         mBaiduMap = mMapView.getMap();
+
+        //定位
         mLocationClient = new LocationClient(context);
         targetPosition = new TargetPostion(context, mBaiduMap, mLocationClient);
+
+        //添加覆盖物
+        chargingStation = new ChargingStation(mBaiduMap);
     }
 
     //初始化视图
@@ -68,6 +77,7 @@ public class MapActivity extends Activity {
     {
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL); //普通地图
         mBaiduMap.setMyLocationEnabled(true); // 开启定位图层
+        chargingStation.add();//添加覆盖物
     }
 
     @Override
@@ -79,7 +89,7 @@ public class MapActivity extends Activity {
         if (!mLocationClient.isStarted())
             mLocationClient.start();
         //开启方向传感器
-//        myOritentationListener.start();
+        targetPosition.myOritentationListener.start();
     }
 
     @Override
@@ -89,8 +99,7 @@ public class MapActivity extends Activity {
         //停止定位
         mBaiduMap.setMyLocationEnabled(false);
         mLocationClient.stop();
-        //停止方向传感器
-//        myOritentationListener.stop();
+        targetPosition.myOritentationListener.stop();//停止方向传感器
     }
 
     @Override
@@ -98,11 +107,8 @@ public class MapActivity extends Activity {
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         mMapView.onDestroy();
-
-        // 退出时销毁定位
-        mLocationClient.stop();
-        // 关闭定位图层
-        mBaiduMap.setMyLocationEnabled(false);
+        mLocationClient.stop();// 退出时销毁定位
+        mBaiduMap.setMyLocationEnabled(false);// 关闭定位图层
     }
     @Override
     protected void onResume() {

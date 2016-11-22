@@ -58,7 +58,6 @@ public class TargetPostion {
     }
 
     public void initData() {
-        //定位
         locationClient.registerLocationListener(myListener);    //注册监听函数
         mCurrentMarker = BitmapDescriptorFactory
                 .fromResource(R.drawable.mark);//自定义图标

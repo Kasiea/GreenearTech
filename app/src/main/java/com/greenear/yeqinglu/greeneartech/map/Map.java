@@ -968,8 +968,6 @@ public class Map<S, S1> extends Activity {
     public void onStart() {
         super.onStart();
 
-
-
         //开启定位
         mBaiduMap.setMyLocationEnabled(true);
         if (!mLocationClient.isStarted())
