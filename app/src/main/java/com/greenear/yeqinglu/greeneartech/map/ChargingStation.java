@@ -1,12 +1,17 @@
 package com.greenear.yeqinglu.greeneartech.map;
 
+import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.Marker;
@@ -25,21 +30,23 @@ import java.util.List;
 public class ChargingStation {
 
     private BaiduMap baiduMap;
+    private Context context;
 
     //覆盖物相关
     private BitmapDescriptor mMarker;
-    private RelativeLayout mMarkerLy;
+    private ChargingStationInfo chargingStationInfo;
 
 
-    public ChargingStation(BaiduMap baiduMap)
+    public ChargingStation(BaiduMap baiduMap, ChargingStationInfo chargingStationInfo, Context context)
     {
         this.baiduMap = baiduMap;
+        this.chargingStationInfo = chargingStationInfo;
+        this.context = context;
     }
 
     private void initMarker()
     {
         mMarker = BitmapDescriptorFactory.fromResource(R.drawable.marker);
-//        mMarkerLy = (RelativeLayout)findViewById(R.id.id_marker_ly);
     }
 
 
@@ -70,6 +77,42 @@ public class ChargingStation {
         }
         MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
         baiduMap.setMapStatus(msu);
+    }
+
+    //覆盖物信息窗口显示
+    public void setChangingStationInfoShow()
+    {
+        baiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+                Bundle extraInfo = marker.getExtraInfo();
+                Info info = (Info)extraInfo.getSerializable("info");
+
+                chargingStationInfo.info_img.setImageResource(info.getImagId());
+                chargingStationInfo.info_dis.setText(info.getDistance());
+                chargingStationInfo.info_name.setText(info.getName());
+                chargingStationInfo.info_zan.setText(info.getZan()+"");
+
+                InfoWindow infoWindow;
+                TextView tv = new TextView(context);
+                tv.setBackground(context.getResources().getDrawable(R.drawable.tip));
+                tv.setPadding(30,20,30,50);
+                tv.setText(info.getName());
+
+                final LatLng latLng = marker.getPosition();
+                Point p = baiduMap.getProjection().toScreenLocation(latLng);
+                p.y -= 47;
+                LatLng ll = baiduMap.getProjection().fromScreenLocation(p);
+
+                infoWindow = new InfoWindow(tv, ll,1);
+                baiduMap.showInfoWindow(infoWindow);
+
+                chargingStationInfo.setVisibility(View.VISIBLE);
+                return true;
+
+            }
+        });
     }
 
 }

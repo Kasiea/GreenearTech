@@ -1,10 +1,14 @@
 package com.greenear.yeqinglu.greeneartech.map;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,20 +20,32 @@ import com.greenear.yeqinglu.greeneartech.R;
 
 public class ChargingStationInfo extends FrameLayout {
 
-    private ImageView info_img;
-    private TextView info_name;
-    private TextView info_dis;
-    private TextView info_zan;
+    public LinearLayout charger_info;
+    public ImageView info_img;
+    public TextView info_name;
+    public TextView info_dis;
+    public TextView info_zan;
+    public Button back_btn;
 
     public ChargingStationInfo(Context context, AttributeSet attrs) {
         super(context, attrs);
         //获取到LayoutInflater的实例,加载布局
         LayoutInflater.from(context).inflate(R.layout.charging_station_info, this);
 
+        charger_info = (LinearLayout)findViewById(R.id.charger_info);
         info_img = (ImageView)findViewById(R.id.id_info_img);
         info_name = (TextView)findViewById(R.id.id_info_name);
         info_dis = (TextView)findViewById(R.id.id_info_dis);
         info_zan = (TextView)findViewById(R.id.id_info_zan);
+        back_btn = (Button)findViewById(R.id.back);
+
+        //回退按钮
+        back_btn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                charger_info.setVisibility(View.INVISIBLE);
+            }
+        });
 
     }
 

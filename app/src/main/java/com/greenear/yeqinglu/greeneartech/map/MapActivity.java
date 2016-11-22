@@ -2,12 +2,21 @@ package com.greenear.yeqinglu.greeneartech.map;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.InfoWindow;
+import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.model.LatLng;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.map.TargetPostion;
 
@@ -27,6 +36,9 @@ public class MapActivity extends Activity {
 
     //添加覆盖物
     public ChargingStation chargingStation;
+
+    //显示覆盖物具体信息，自定义view
+    public ChargingStationInfo chargingStationInfo;
 
 
     @Override
@@ -50,6 +62,8 @@ public class MapActivity extends Activity {
                 requestLocation()函数，会主动触发定位SDK内部定位逻辑，等待定位回调即可。*/
         mLocationClient.start();
 
+        chargingStation.setChangingStationInfoShow();//覆盖物信息窗口显示
+
     }
 
     //初始化数据
@@ -63,22 +77,28 @@ public class MapActivity extends Activity {
         targetPosition = new TargetPostion(context, mBaiduMap, mLocationClient);
 
         //添加覆盖物
-        chargingStation = new ChargingStation(mBaiduMap);
+        chargingStation = new ChargingStation(mBaiduMap, chargingStationInfo, context);
+
     }
 
     //初始化视图
     public void initView()
     {
         mMapView = (MapView) findViewById(R.id.bmapView);
+
+        //添加覆盖物信息视图
+        chargingStationInfo = (ChargingStationInfo)findViewById(R.id.showChargerInfo);
     }
 
     //地图配置相关
     public void setConfig()
     {
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL); //普通地图
+        mBaiduMap.setTrafficEnabled(true);//打开实时交通图
         mBaiduMap.setMyLocationEnabled(true); // 开启定位图层
         chargingStation.add();//添加覆盖物
     }
+
 
     @Override
     public void onStart() {

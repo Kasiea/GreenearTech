@@ -10,8 +10,11 @@
         android:clickable="true" />
 
     <com.greenear.yeqinglu.greeneartech.map.ChargingStationInfo
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        android:id="@+id/showChargerInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="gone">
     </com.greenear.yeqinglu.greeneartech.map.ChargingStationInfo>
 
 
