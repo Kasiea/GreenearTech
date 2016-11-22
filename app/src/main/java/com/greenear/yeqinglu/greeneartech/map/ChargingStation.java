@@ -109,6 +109,7 @@ public class ChargingStation {
                 baiduMap.showInfoWindow(infoWindow);
 
                 chargingStationInfo.setVisibility(View.VISIBLE);
+                chargingStationInfo.charger_info.setVisibility(View.VISIBLE);
                 return true;
 
             }

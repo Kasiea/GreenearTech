@@ -5,7 +5,7 @@
         android:layout_height="220dp"
         android:layout_alignParentBottom="true"
         android:background="@color/pink_white"
-         android:orientation="vertical"
+        android:orientation="vertical"
     >
 
         <Button
@@ -76,10 +76,6 @@
                     android:id="@+id/id_info_zan" />
 
             </LinearLayout>
-
         </LinearLayout>
-
-
-
     </LinearLayout>
 
