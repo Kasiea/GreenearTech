@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapPoi;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.model.LatLng;
@@ -33,6 +36,7 @@ public class MapActivity extends Activity {
     //定位
     public LocationClient mLocationClient;
     public TargetPostion targetPosition;
+    public Button my_location;
 
     //添加覆盖物
     public ChargingStation chargingStation;
@@ -64,6 +68,8 @@ public class MapActivity extends Activity {
 
         chargingStation.setChangingStationInfoShow();//覆盖物信息窗口显示
 
+        setMyLocation();//定位监听
+
     }
 
     //初始化数据
@@ -85,6 +91,7 @@ public class MapActivity extends Activity {
     public void initView()
     {
         mMapView = (MapView) findViewById(R.id.bmapView);
+        my_location = (Button)findViewById(R.id.my_location);
 
         //添加覆盖物信息视图
         chargingStationInfo = (ChargingStationInfo)findViewById(R.id.showChargerInfo);
@@ -97,6 +104,17 @@ public class MapActivity extends Activity {
         mBaiduMap.setTrafficEnabled(true);//打开实时交通图
         mBaiduMap.setMyLocationEnabled(true); // 开启定位图层
         chargingStation.add();//添加覆盖物
+    }
+
+    public void setMyLocation()
+    {
+        my_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //定位到我的位置
+                  targetPosition.getMyPosition();
+            }
+        });
     }
 
 

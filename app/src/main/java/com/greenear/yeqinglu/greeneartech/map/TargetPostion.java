@@ -31,10 +31,9 @@ import static com.greenear.yeqinglu.greeneartech.R.id.my_location;
  */
 
 public class TargetPostion {
-
     //需要获取的一些参数
-    public double mLatitude;
-    public double mLongitude;
+    private double Latitude;
+    private double Longitude;
     public BDLocation myLocation;
     public MyOrientationListener myOritentationListener;
 
@@ -70,6 +69,22 @@ public class TargetPostion {
                 mCurrentX = x;
             }
         });
+    }
+
+    public double getLatitude() {
+        return Latitude;
+    }
+
+    public double getLongitude() {
+        return Longitude;
+    }
+
+    public void getMyPosition()
+    {
+        //定位到我的位置
+        LatLng latLng = new LatLng(getLatitude(),getLongitude());
+        MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
+        baiduMap.animateMapStatus(msu);
     }
 
 
@@ -110,8 +125,8 @@ public class TargetPostion {
             }
 
             myLocation = location;
-            mLatitude = location.getLatitude();
-            mLongitude = location.getLongitude();
+            Latitude = location.getLatitude();
+            Longitude = location.getLongitude();
             // 构造定位数据
             MyLocationData locData = new MyLocationData.Builder().
                     direction(mCurrentX)//改变方向
