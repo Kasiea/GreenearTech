@@ -19,6 +19,7 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.model.LatLng;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.map.TargetPostion;

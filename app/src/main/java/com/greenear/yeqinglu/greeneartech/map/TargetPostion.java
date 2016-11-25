@@ -14,8 +14,12 @@ import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.map.Map;
@@ -32,8 +36,9 @@ import static com.greenear.yeqinglu.greeneartech.R.id.my_location;
 
 public class TargetPostion {
     //需要获取的一些参数
-    private double Latitude;
-    private double Longitude;
+    private double myLatitude;
+    private double myLongitude;
+    private float myAccuracy;
     public BDLocation myLocation;
     public MyOrientationListener myOritentationListener;
 
@@ -44,10 +49,9 @@ public class TargetPostion {
     private BaiduMap baiduMap;
     private LocationClient locationClient;
     private BDLocationListener myListener = new MyLocationListener();
-    private boolean isFirstIn = true;
+    private static boolean isFirstIn = true;
     private BitmapDescriptor mCurrentMarker;
-
-    private float mCurrentX;
+    private float mCurrentX;//方向
 
 
     public TargetPostion(Context context, BaiduMap baiduMap, LocationClient locationClient) {
@@ -67,22 +71,42 @@ public class TargetPostion {
             @Override
             public void onOrientationChanged(float x) {
                 mCurrentX = x;
+
+                // 构造定位数据
+                MyLocationData locData = new MyLocationData.Builder().
+                        direction(mCurrentX)//改变方向
+                        .accuracy(getMyAccuracy())
+                        .latitude(getMyLatitude())
+                        .longitude(getMyLongitude()).build();
+
+                // 设置定位数据
+                baiduMap.setMyLocationData(locData);
+
+                //自定义图标
+                MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.COMPASS, true, mCurrentMarker);
+                baiduMap.setMyLocationConfigeration(config);
+
             }
         });
     }
 
-    public double getLatitude() {
-        return Latitude;
+    public double getMyLatitude() {
+        return myLatitude;
     }
 
-    public double getLongitude() {
-        return Longitude;
+    public double getMyLongitude() {
+        return myLongitude;
+    }
+
+    public float getMyAccuracy()
+    {
+        return myAccuracy;
     }
 
     public void getMyPosition()
     {
         //定位到我的位置
-        LatLng latLng = new LatLng(getLatitude(),getLongitude());
+        LatLng latLng = new LatLng(getMyLatitude(),getMyLongitude());
         MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
         baiduMap.animateMapStatus(msu);
     }
@@ -105,6 +129,7 @@ public class TargetPostion {
         option.setIgnoreKillProcess(false);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
         option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
         option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
+        option.setOpenAutoNotifyMode();
         locationClient.setLocOption(option);
     }
 
@@ -125,8 +150,10 @@ public class TargetPostion {
             }
 
             myLocation = location;
-            Latitude = location.getLatitude();
-            Longitude = location.getLongitude();
+            myLatitude = location.getLatitude();
+            myLongitude = location.getLongitude();
+            myAccuracy = location.getRadius();
+
             // 构造定位数据
             MyLocationData locData = new MyLocationData.Builder().
                     direction(mCurrentX)//改变方向
@@ -226,5 +253,6 @@ public class TargetPostion {
         }
 
     }
+
 
 }
