@@ -9,7 +9,10 @@ public class API {
     public static final String LOG_IN =  "http://bms.greeneartech.com/auth/login";
     public static final String REGISTER = "http://bms.greeneartech.com/auth/register";
 
-    public static final String BMS_QUERY = "http://bms.greeneartech.com/bms_data/show?bms_data_id=5";
-    public static final String BAT_QUERY = "http://bms.greeneartech.com/bat_data/show?bat_data_id=56";
+    public static final String BMS_QUERY = "http://bms.greeneartech.com/bms_data/index?bms_id=10&cnt=1";
+    public static final String BMS_BAT_QUERY = "http://bms.greeneartech.com/bat/index?bms_id=10";
+    public static final String BAT_QUERY = "http://bms.greeneartech.com/bat_data/index?bat_id=15&cnt=1";
+
+
 
 }

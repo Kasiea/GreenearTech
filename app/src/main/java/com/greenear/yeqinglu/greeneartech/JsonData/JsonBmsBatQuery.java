@@ -3,22 +3,14 @@ package com.greenear.yeqinglu.greeneartech.JsonData;
 import java.util.ArrayList;
 
 /**
- * Created by yeqing.lu on 2016/11/15.
+ * Created by yeqing.lu on 2016/11/26.
  */
 
-public class JsonBatQuery {
+public class JsonBmsBatQuery {
 
     private String code;
     private String msg;
-    private ArrayList<JsonBatData> data;
-
-    public ArrayList<JsonBatData> getData() {
-        return data;
-    }
-
-    public void setData(ArrayList<JsonBatData> data) {
-        this.data = data;
-    }
+    private ArrayList<JsonBat> data;
 
     public String getCode() {
         return code;
@@ -35,6 +27,16 @@ public class JsonBatQuery {
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
+    public ArrayList<JsonBat> getData() {
+        return data;
+    }
+
+    public void setData(ArrayList<JsonBat> data) {
+        this.data = data;
+    }
+
+
 
 
 }

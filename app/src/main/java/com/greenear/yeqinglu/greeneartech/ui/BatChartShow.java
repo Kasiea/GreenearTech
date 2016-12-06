@@ -5,18 +5,21 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.PersistableBundle;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.greenear.yeqinglu.greeneartech.R;
+import com.greenear.yeqinglu.greeneartech.model.Bat;
 import com.greenear.yeqinglu.greeneartech.model.Bms;
 import com.greenear.yeqinglu.greeneartech.model.Chart;
 import com.greenear.yeqinglu.greeneartech.model.User;
 import com.greenear.yeqinglu.greeneartech.model.UserInfo;
 import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
 
+import java.util.ArrayList;
+
 import lecho.lib.hellocharts.view.ColumnChartView;
+
 
 /**
  * Created by yeqing.lu on 2016/11/17.
@@ -31,6 +34,7 @@ public class BatChartShow extends Activity {
     private Chart chart;
 
     private Bms bms;
+    private Bat bat;
     private SharedPreData sharedPreData;
     private UserInfo userInfo;
     private RequestQueue requestQueue;
@@ -41,14 +45,13 @@ public class BatChartShow extends Activity {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.bat_chart_show);
 
         updateChart();
         initView();
         initData();
-        setChart();
 
     }
 
@@ -59,7 +62,10 @@ public class BatChartShow extends Activity {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 if (msg.what == IS_FINISHED) {
-                    updateChart();
+                    for(int i=0; i<4; i++) {
+                        bms.getBats().add(i, bat);
+                    }
+                    setChart();
                 }
             }
         };
@@ -80,7 +86,12 @@ public class BatChartShow extends Activity {
         requestQueue = Volley.newRequestQueue(context);
         sharedPreData = new SharedPreData(context, userInfo);
         user = new User(userInfo, requestQueue, handler, sharedPreData);
-        bms = user.getBms();
+        user.getInfo();
+//        bms = user.getBms();
+//        bms =user.getBms_Bat();
+
+        bat = user.getBat();
+
 
     }
 

@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBatQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBms;
+import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsBatQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonUserToken;
 import com.greenear.yeqinglu.greeneartech.R;
@@ -178,20 +179,20 @@ public class User implements BaseUser {
                         JSONObject fast_json = new JSONObject();//new一个FastJson对象
                         JsonBmsQuery jsonReturn = fast_json.parseObject(response, JsonBmsQuery.class);
 
-                        bms.setId(jsonReturn.getData().getId());
-                        bms.setBms_id(jsonReturn.getData().getBms_id());
-                        bms.setSoc(jsonReturn.getData().getSoc());
-                        bms.setSoh(jsonReturn.getData().getSoh());
-                        bms.setVol(jsonReturn.getData().getVol());
-                        bms.setRes(jsonReturn.getData().getRes());
-                        bms.setLongitude(jsonReturn.getData().getLongitude());
-                        bms.setLatitude(jsonReturn.getData().getLatitude());
-                        bms.setAltitde(jsonReturn.getData().getAltitude());
-                        bms.setLocate_mode(jsonReturn.getData().getLocate_mode());
-                        bms.setSatellite(jsonReturn.getData().getSatellite());
-                        bms.setTemp(jsonReturn.getData().getTemp());
-                        bms.setCurrent(jsonReturn.getData().getCurrent());
-                        bms.setCharge(jsonReturn.getData().getCharge());
+                        bms.setId(jsonReturn.getData().get(0).getId());
+                        bms.setBms_id(jsonReturn.getData().get(0).getBms_id());
+                        bms.setSoc(jsonReturn.getData().get(0).getSoc());
+                        bms.setSoh(jsonReturn.getData().get(0).getSoh());
+                        bms.setVol(jsonReturn.getData().get(0).getVol());
+                        bms.setRes(jsonReturn.getData().get(0).getRes());
+                        bms.setLongitude(jsonReturn.getData().get(0).getLongitude());
+                        bms.setLatitude(jsonReturn.getData().get(0).getLatitude());
+                        bms.setAltitde(jsonReturn.getData().get(0).getAltitude());
+                        bms.setLocate_mode(jsonReturn.getData().get(0).getLocate_mode());
+                        bms.setSatellite(jsonReturn.getData().get(0).getSatellite());
+                        bms.setTemp(jsonReturn.getData().get(0).getTemp());
+                        bms.setCurrent(jsonReturn.getData().get(0).getCurrent());
+                        bms.setCharge(jsonReturn.getData().get(0).getCharge());
 
                         //得到BMS数据
                         Message message = Message.obtain(handler);
@@ -212,19 +213,26 @@ public class User implements BaseUser {
 
     @Override
     public Bat getBat() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, API.BMS_QUERY,
+        bat = new Bat();
+        String GET_BAT = API.BAT_QUERY + "&"+"token=" + userInfo.getToken();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BAT,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         JSONObject fast_json = new JSONObject();//new一个FastJson对象
                         JsonBatQuery jsonReturn = fast_json.parseObject(response, JsonBatQuery.class);
 
-                        bat.setId(jsonReturn.getData().getId());
-                        bat.setBat_id(jsonReturn.getData().getBat_id());
-                        bat.setSoc(jsonReturn.getData().getSoc());
-                        bat.setSoh(jsonReturn.getData().getSoh());
-                        bat.setVol(jsonReturn.getData().getVol());
-                        bat.setRes(jsonReturn.getData().getRes());
+                        bat.setId(jsonReturn.getData().get(0).getId());
+                        bat.setBat_id(jsonReturn.getData().get(0).getBat_id());
+                        bat.setSoc(jsonReturn.getData().get(0).getSoc());
+                        bat.setSoh(jsonReturn.getData().get(0).getSoh());
+                        bat.setVol(jsonReturn.getData().get(0).getVol());
+                        bat.setRes(jsonReturn.getData().get(0).getRes());
+
+                        //得到BAT数据
+                        Message message = Message.obtain(handler);
+                        message.what = IS_FINISHED;
+                        message.sendToTarget();
                     }
                 },
                 new Response.ErrorListener() {
@@ -238,6 +246,35 @@ public class User implements BaseUser {
         return bat;
     }
 
+    public Bms getBms_Bat() {
+//        bms = new Bms();
+        String GET_BAT = API.BMS_BAT_QUERY + "&"+"token=" + userInfo.getToken();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BAT,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject fast_json = new JSONObject();
+                        JsonBmsBatQuery jsonReturn = fast_json.parseObject(response, JsonBmsBatQuery.class);
+
+//                        bms.setBatList(jsonReturn.getData());
+
+                        //得到BMS_BAT数据
+                        Message message = Message.obtain(handler);
+                        message.what = IS_FINISHED;
+                        message.sendToTarget();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                    }
+                });
+
+        requestQueue.add(stringRequest);
+        return bms;
+    }
+
     public Location getLocation()
     {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, API.BMS_QUERY,
@@ -247,9 +284,9 @@ public class User implements BaseUser {
                         JSONObject fast_json = new JSONObject();//new一个FastJson对象
                         JsonBmsQuery jsonReturn = fast_json.parseObject(response, JsonBmsQuery.class);
 
-                        location.setAltitude(jsonReturn.getData().getAltitude());
-                        location.setLatitude(jsonReturn.getData().getLatitude());
-                        location.setLongitude(jsonReturn.getData().getLongitude());
+                        location.setAltitude(jsonReturn.getData().get(0).getAltitude());
+                        location.setLatitude(jsonReturn.getData().get(0).getLatitude());
+                        location.setLongitude(jsonReturn.getData().get(0).getLongitude());
                     }
                 },
                 new Response.ErrorListener() {
@@ -258,6 +295,7 @@ public class User implements BaseUser {
                         Log.e("TAG", error.getMessage(), error);
                     }
                 });
+
 
         requestQueue.add(stringRequest);
         return location;

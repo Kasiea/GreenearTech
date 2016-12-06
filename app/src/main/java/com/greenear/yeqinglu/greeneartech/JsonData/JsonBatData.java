@@ -12,8 +12,6 @@ public class JsonBatData {
     private String soh;
     private String vol;
     private String res;
-    private JsonBat bat;
-    private JsonBms bms;
 
     public String getId() {
         return id;
@@ -61,22 +59,6 @@ public class JsonBatData {
 
     public void setRes(String res) {
         this.res = res;
-    }
-
-    public JsonBat getBat() {
-        return bat;
-    }
-
-    public void setBat(JsonBat bat) {
-        this.bat = bat;
-    }
-
-    public JsonBms getBms() {
-        return bms;
-    }
-
-    public void setBms(JsonBms bms) {
-        this.bms = bms;
     }
 
 

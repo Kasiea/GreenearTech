@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         battery_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, BatteryStatus.class);
+                Intent intent = new Intent(MainActivity.this, BatChartShow.class);
                 startActivity(intent);
             }
         });

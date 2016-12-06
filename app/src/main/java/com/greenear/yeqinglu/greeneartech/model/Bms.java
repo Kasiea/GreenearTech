@@ -1,5 +1,7 @@
 package com.greenear.yeqinglu.greeneartech.model;
 
+import com.greenear.yeqinglu.greeneartech.JsonData.JsonBat;
+
 import java.util.ArrayList;
 
 /**
@@ -24,14 +26,19 @@ public class Bms {
     public String current;
     public String charge;
 
-    public ArrayList<Bat> BatList;
+    public ArrayList<Bat> bats;
 
-    public ArrayList<Bat> getBatList() {
-        return BatList;
+    public Bms()
+    {
+        bats = new ArrayList<Bat>();
     }
 
-    public void setBatList(ArrayList<Bat> batList) {
-        BatList = batList;
+    public ArrayList<Bat> getBats() {
+        return bats;
+    }
+
+    public void setBats(ArrayList<Bat> bats) {
+        this.bats = bats;
     }
 
     public void setId(String id) {

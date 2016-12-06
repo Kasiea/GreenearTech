@@ -15,4 +15,5 @@ public interface BaseUser {
      UserInfo getInfo();
      Bms getBms();
      Bat getBat();
+     Bms getBms_Bat();
 }

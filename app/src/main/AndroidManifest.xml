@@ -73,10 +73,12 @@
         <activity android:name=".ui.BmsDataShow"/>
         <activity android:name=".map.Map" />
         <activity android:name=".map.MapActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.BatteryStatus"/>
         <activity android:name=".ui.MainActivity"/>
         <activity android:name=".ui.RegisterActivity"/>
+        <activity android:name=".ui.BatChartShow"/>
 
         <activity android:name=".map.BNDemoGuideActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
