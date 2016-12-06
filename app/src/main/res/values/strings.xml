@@ -29,4 +29,10 @@
     <string name="bat_vol">BAT 电池电压信息</string>
     <string name="bat_res">BAT 电池电阻信息</string>
 
+    <string name="user_bms_id">User Bms ID</string>
+    <string name="user_bat_id_1">User Bat1 ID</string>
+    <string name="user_bat_id_2">User Bat2 ID</string>
+    <string name="user_bat_id_3">User Bat3 ID</string>
+    <string name="user_bat_id_4">User Bat4 ID</string>
+
 </resources>

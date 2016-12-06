@@ -15,9 +15,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.greenear.yeqinglu.greeneartech.JsonData.JsonBatInfo;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBatQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBms;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsBatQuery;
+import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsInfo;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonUserToken;
 import com.greenear.yeqinglu.greeneartech.R;
@@ -27,6 +29,7 @@ import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
 import com.greenear.yeqinglu.greeneartech.ui.LoginActivity;
 import com.greenear.yeqinglu.greeneartech.ui.MainActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +58,9 @@ public class User implements BaseUser {
         this.userInfo = userInfo;
         this.requestQueue = mQueue;
         this.handler = handler;
+
+        bms = new Bms();
+        bat = new Bat();
     }
 
     public User( UserInfo userInfo, RequestQueue mQueue, Handler handler, SharedPreData sharedPreData) {
@@ -62,6 +68,9 @@ public class User implements BaseUser {
         this.requestQueue = mQueue;
         this.handler = handler;
         this.sharedPreData = sharedPreData;
+
+        bms = new Bms();
+        bat = new Bat();
     }
 
     public User(Context context, UserInfo userInfo, RequestQueue mQueue, Handler handler, SharedPreData sharedPreData) {
@@ -70,6 +79,9 @@ public class User implements BaseUser {
         this.requestQueue = mQueue;
         this.handler = handler;
         this.sharedPreData = sharedPreData;
+
+        bms = new Bms();
+        bat = new Bat();
     }
 
     @Override
@@ -170,7 +182,6 @@ public class User implements BaseUser {
     @Override
     public Bms getBms()
     {
-        bms = new Bms();
         String GET_BMS = API.BMS_QUERY + "&"+"token=" + userInfo.getToken();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BMS,
                 new Response.Listener<String>() {
@@ -213,7 +224,6 @@ public class User implements BaseUser {
 
     @Override
     public Bat getBat() {
-        bat = new Bat();
         String GET_BAT = API.BAT_QUERY + "&"+"token=" + userInfo.getToken();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BAT,
                 new Response.Listener<String>() {
@@ -247,7 +257,6 @@ public class User implements BaseUser {
     }
 
     public Bms getBms_Bat() {
-//        bms = new Bms();
         String GET_BAT = API.BMS_BAT_QUERY + "&"+"token=" + userInfo.getToken();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BAT,
                 new Response.Listener<String>() {
@@ -299,5 +308,70 @@ public class User implements BaseUser {
 
         requestQueue.add(stringRequest);
         return location;
+    }
+
+    public Bms getBmsInfo()
+    {
+        String GET_BMS = API.BMS_INFO + "?&"+"token=" + userInfo.getToken();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BMS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject fast_json = new JSONObject();//new一个FastJson对象
+                        JsonBmsInfo jsonReturn = fast_json.parseObject(response, JsonBmsInfo.class);
+
+                        bms.setBms_id(jsonReturn.getData().get(0).getId());
+
+                        //得到BMS数据
+                        Message message = Message.obtain(handler);
+                        message.what = IS_FINISHED;
+                        message.sendToTarget();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                    }
+                });
+
+        requestQueue.add(stringRequest);
+        return bms;
+    }
+
+    public Bms getBatInfo()
+    {
+        String GET_BMS = API.BAT_INFO + "&"+"token=" + userInfo.getToken();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BMS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject fast_json = new JSONObject();//new一个FastJson对象
+                        JsonBatInfo jsonReturn = fast_json.parseObject(response, JsonBatInfo.class);
+
+                        ArrayList<Bat> bats= new ArrayList<Bat>();
+
+                        for(int i = 0; i<4; i++) {
+                            Bat bat = new Bat();
+                            bat.setBat_id(jsonReturn.getData().get(i).getId());
+                            bats.add(0, bat);
+                        }
+                        bms.setBats(bats);
+
+                        //得到BMS数据
+                        Message message = Message.obtain(handler);
+                        message.what = IS_FINISHED;
+                        message.sendToTarget();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                    }
+                });
+
+        requestQueue.add(stringRequest);
+        return bms;
     }
 }

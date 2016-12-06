@@ -79,6 +79,7 @@
         <activity android:name=".ui.MainActivity"/>
         <activity android:name=".ui.RegisterActivity"/>
         <activity android:name=".ui.BatChartShow"/>
+        <activity android:name=".ui.UserInfoShow"/>
 
         <activity android:name=".map.BNDemoGuideActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
