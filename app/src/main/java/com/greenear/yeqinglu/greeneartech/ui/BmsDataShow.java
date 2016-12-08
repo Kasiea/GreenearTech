@@ -81,7 +81,7 @@ public class BmsDataShow extends Activity {
 
     public void getBms()
     {
-        bms = user.getBms();
+        bms = user.getBms("10");
     }
 
     public void updateUI()

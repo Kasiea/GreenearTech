@@ -13,7 +13,7 @@ public interface BaseUser {
      void register();
      void saveInfo();
      UserInfo getInfo();
-     Bms getBms();
-     Bat getBat();
+     Bms getBms(String bms_id);
+     Bat getBat(String bat_id, int num);
      Bms getBms_Bat();
 }

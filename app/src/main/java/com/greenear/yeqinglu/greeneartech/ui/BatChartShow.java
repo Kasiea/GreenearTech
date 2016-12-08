@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -17,6 +18,8 @@ import com.greenear.yeqinglu.greeneartech.model.UserInfo;
 import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import lecho.lib.hellocharts.view.ColumnChartView;
 
@@ -34,7 +37,16 @@ public class BatChartShow extends Activity {
     private Chart chart;
 
     private Bms bms;
-    private Bat bat;
+    private Bat bat1;
+    private Bat bat2;
+    private Bat bat3;
+    private Bat bat4;
+
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    int m = 0;
+
     private SharedPreData sharedPreData;
     private UserInfo userInfo;
     private RequestQueue requestQueue;
@@ -42,6 +54,8 @@ public class BatChartShow extends Activity {
 
     private Handler handler;
     private int IS_FINISHED = 1;
+
+    private ExecutorService executorService = Executors.newFixedThreadPool(4);
 
 
     @Override
@@ -53,6 +67,7 @@ public class BatChartShow extends Activity {
         initView();
         initData();
 
+
     }
 
     public void updateChart()
@@ -62,9 +77,11 @@ public class BatChartShow extends Activity {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 if (msg.what == IS_FINISHED) {
-                    for(int i=0; i<4; i++) {
-                        bms.getBats().add(i, bat);
-                    }
+                    if(setBmsBat(msg.arg1)== 4)
+//                    bms.getBats().add(0, bat1);
+//                    bms.getBats().add(1, bat2);
+//                    bms.getBats().add(2, bat3);
+//                    bms.getBats().add(3, bat4);
                     setChart();
                 }
             }
@@ -90,7 +107,14 @@ public class BatChartShow extends Activity {
 //        bms = user.getBms();
 //        bms =user.getBms_Bat();
 
-        bat = user.getBat();
+        bat1 = user.getBat("15", 0);
+        SystemClock.sleep(2000);
+        bat2 = user.getBat("13", 1);
+        SystemClock.sleep(2000);
+        bat3 = user.getBat("4", 2);
+        SystemClock.sleep(2000);
+        bat4 = user.getBat("1", 3);
+
 
 
     }
@@ -103,5 +127,27 @@ public class BatChartShow extends Activity {
         chart.showBatSoh();
         chart.setColumnChartView(columnChart_Soc);
         chart.showBatSoc();
+    }
+
+    public int setBmsBat(int num)
+    {
+        if(num == 0) {
+            bms.getBats().add(0, bat1);
+            i = 1;
+        }
+        if(num == 1) {
+            bms.getBats().add(1, bat2);
+            j = i;
+        }
+
+        if(num == 2) {
+            bms.getBats().add(2, bat3);
+            k = 1;
+        }
+        if(num == 3) {
+            bms.getBats().add(3, bat4);
+            m = 1;
+        }
+        return i+j+k+m;
     }
 }

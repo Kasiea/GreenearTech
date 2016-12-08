@@ -27,16 +27,18 @@ public class UserInfoShow extends Activity {
     private TextView user_bat_id_3;
     private TextView user_bat_id_4;
 
-    private Context context;
-
     private User user;
     private UserInfo userInfo;
-    private SharedPreData sharedPreData;
+    private Bms bms;
+
+    private Context context;
     private RequestQueue requestQueue;
     private Handler handler;
     private int IS_FINISHED = 1;
 
-    private Bms bms;
+    private SharedPreData sharedPreData;
+    private String filename = "user_battery_info";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,7 @@ public class UserInfoShow extends Activity {
     public void getUserInfo()
     {
         user.getBmsInfo();
-        bms = user.getBatInfo();
+        bms = user.getBatInfo("10");
     }
 
     public void updateUI()
@@ -83,19 +85,29 @@ public class UserInfoShow extends Activity {
                 super.handleMessage(msg);
                 if (msg.what == IS_FINISHED )
                 {
-                    updateUserInfo();
+                        if (updateUserInfo()) {
+                            saveBatteryInfo();
+                    }
                 }
             }
         };
     }
 
-    public void updateUserInfo()
+    public boolean updateUserInfo()
     {
         user_bms_id.setText(bms.getBms_id());
         user_bat_id_1.setText(bms.getBats().get(0).getBat_id());
         user_bat_id_2.setText(bms.getBats().get(1).getBat_id());
         user_bat_id_3.setText(bms.getBats().get(2).getBat_id());
         user_bat_id_4.setText(bms.getBats().get(3).getBat_id());
+
+        return true;
+    }
+
+    public void saveBatteryInfo()
+    {
+        sharedPreData.saveBatteryInfo(filename, bms.getBms_id(),bms.getBats().get(0).getBat_id(),
+                bms.getBats().get(1).getBat_id(), bms.getBats().get(2).getBat_id(), bms.getBats().get(3).getBat_id());
     }
 
 }

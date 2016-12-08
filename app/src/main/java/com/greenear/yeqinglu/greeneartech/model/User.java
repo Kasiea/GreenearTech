@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -179,10 +180,11 @@ public class User implements BaseUser {
         return  sharedPreData.load(filename);
     }
 
+
     @Override
-    public Bms getBms()
+    public Bms getBms(String bms_id)
     {
-        String GET_BMS = API.BMS_QUERY + "&"+"token=" + userInfo.getToken();
+        String GET_BMS = API.BMS_QUERY + "bms_id=" + bms_id + "&cnt=1" + "&token=" + userInfo.getToken();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BMS,
                 new Response.Listener<String>() {
                     @Override
@@ -223,8 +225,9 @@ public class User implements BaseUser {
     }
 
     @Override
-    public Bat getBat() {
-        String GET_BAT = API.BAT_QUERY + "&"+"token=" + userInfo.getToken();
+    public Bat getBat(String bat_id, final int num) {
+        final Bat bms_bat = new Bat();
+        String GET_BAT = API.BAT_QUERY + "bat_id="+ bat_id + "&cnt=1" + "&token=" + userInfo.getToken();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BAT,
                 new Response.Listener<String>() {
                     @Override
@@ -232,16 +235,17 @@ public class User implements BaseUser {
                         JSONObject fast_json = new JSONObject();//new一个FastJson对象
                         JsonBatQuery jsonReturn = fast_json.parseObject(response, JsonBatQuery.class);
 
-                        bat.setId(jsonReturn.getData().get(0).getId());
-                        bat.setBat_id(jsonReturn.getData().get(0).getBat_id());
-                        bat.setSoc(jsonReturn.getData().get(0).getSoc());
-                        bat.setSoh(jsonReturn.getData().get(0).getSoh());
-                        bat.setVol(jsonReturn.getData().get(0).getVol());
-                        bat.setRes(jsonReturn.getData().get(0).getRes());
+                        bms_bat.setId(jsonReturn.getData().get(0).getId());
+                        bms_bat.setBat_id(jsonReturn.getData().get(0).getBat_id());
+                        bms_bat.setSoc(jsonReturn.getData().get(0).getSoc());
+                        bms_bat.setSoh(jsonReturn.getData().get(0).getSoh());
+                        bms_bat.setVol(jsonReturn.getData().get(0).getVol());
+                        bms_bat.setRes(jsonReturn.getData().get(0).getRes());
 
                         //得到BAT数据
                         Message message = Message.obtain(handler);
                         message.what = IS_FINISHED;
+                        message.arg1 = num;
                         message.sendToTarget();
                     }
                 },
@@ -253,7 +257,7 @@ public class User implements BaseUser {
                 });
 
         requestQueue.add(stringRequest);
-        return bat;
+        return bms_bat;
     }
 
     public Bms getBms_Bat() {
@@ -312,7 +316,7 @@ public class User implements BaseUser {
 
     public Bms getBmsInfo()
     {
-        String GET_BMS = API.BMS_INFO + "?&"+"token=" + userInfo.getToken();
+        String GET_BMS = API.BMS_INFO + "&"+"token=" + userInfo.getToken();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BMS,
                 new Response.Listener<String>() {
                     @Override
@@ -337,11 +341,12 @@ public class User implements BaseUser {
 
         requestQueue.add(stringRequest);
         return bms;
+
     }
 
-    public Bms getBatInfo()
+    public Bms getBatInfo(String bms_id)
     {
-        String GET_BMS = API.BAT_INFO + "&"+"token=" + userInfo.getToken();
+        String GET_BMS = API.BAT_INFO + "bms_id=" + bms_id + "&token=" + userInfo.getToken();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BMS,
                 new Response.Listener<String>() {
                     @Override
