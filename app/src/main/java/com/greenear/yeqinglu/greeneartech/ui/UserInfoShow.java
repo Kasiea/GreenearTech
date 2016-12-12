@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -79,14 +80,13 @@ public class UserInfoShow extends Activity {
 
     public void updateUI()
     {
-        handler = new Handler(){
+        handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                if (msg.what == IS_FINISHED )
-                {
-                        if (updateUserInfo()) {
-                            saveBatteryInfo();
+                if (msg.what == IS_FINISHED) {
+                    if (updateUserInfo()) {
+                        saveBatteryInfo();
                     }
                 }
             }

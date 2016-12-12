@@ -19,6 +19,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBatInfo;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBatQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBms;
+import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsBatData;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsBatQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsInfo;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsQuery;
@@ -261,15 +262,52 @@ public class User implements BaseUser {
     }
 
     public Bms getBms_Bat() {
+
+        final Bat bms_bat1 = new Bat();
+        final Bat bms_bat2 = new Bat();
+        final Bat bms_bat3 = new Bat();
+        final Bat bms_bat4 = new Bat();
+
         String GET_BAT = API.BMS_BAT_QUERY + "&"+"token=" + userInfo.getToken();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BAT,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         JSONObject fast_json = new JSONObject();
-                        JsonBmsBatQuery jsonReturn = fast_json.parseObject(response, JsonBmsBatQuery.class);
+                        JsonBmsBatData jsonReturn = fast_json.parseObject(response, JsonBmsBatData.class);
 
-//                        bms.setBatList(jsonReturn.getData());
+                        bms_bat1.setId(jsonReturn.getData().get(0).getId());
+                        bms_bat1.setBat_id(jsonReturn.getData().get(0).getBat_id());
+                        bms_bat1.setSoc(jsonReturn.getData().get(0).getSoc());
+                        bms_bat1.setSoh(jsonReturn.getData().get(0).getSoh());
+                        bms_bat1.setVol(jsonReturn.getData().get(0).getVol());
+                        bms_bat1.setRes(jsonReturn.getData().get(0).getRes());
+
+                        bms_bat2.setId(jsonReturn.getData().get(1).getId());
+                        bms_bat2.setBat_id(jsonReturn.getData().get(1).getBat_id());
+                        bms_bat2.setSoc(jsonReturn.getData().get(1).getSoc());
+                        bms_bat2.setSoh(jsonReturn.getData().get(1).getSoh());
+                        bms_bat2.setVol(jsonReturn.getData().get(1).getVol());
+                        bms_bat2.setRes(jsonReturn.getData().get(1).getRes());
+
+                        bms_bat3.setId(jsonReturn.getData().get(2).getId());
+                        bms_bat3.setBat_id(jsonReturn.getData().get(2).getBat_id());
+                        bms_bat3.setSoc(jsonReturn.getData().get(2).getSoc());
+                        bms_bat3.setSoh(jsonReturn.getData().get(2).getSoh());
+                        bms_bat3.setVol(jsonReturn.getData().get(2).getVol());
+                        bms_bat3.setRes(jsonReturn.getData().get(2).getRes());
+
+                        bms_bat4.setId(jsonReturn.getData().get(3).getId());
+                        bms_bat4.setBat_id(jsonReturn.getData().get(3).getBat_id());
+                        bms_bat4.setSoc(jsonReturn.getData().get(3).getSoc());
+                        bms_bat4.setSoh(jsonReturn.getData().get(3).getSoh());
+                        bms_bat4.setVol(jsonReturn.getData().get(3).getVol());
+                        bms_bat4.setRes(jsonReturn.getData().get(3).getRes());
+
+                        bms.getBats().add(0, bms_bat1);
+                        bms.getBats().add(1, bms_bat2);
+                        bms.getBats().add(2, bms_bat3);
+                        bms.getBats().add(3, bms_bat4);
 
                         //得到BMS_BAT数据
                         Message message = Message.obtain(handler);

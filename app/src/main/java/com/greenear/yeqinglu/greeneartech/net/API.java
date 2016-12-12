@@ -13,7 +13,7 @@ public class API {
     public static final String BAT_INFO = "http://bms.greeneartech.com/bat/index?";
 
     public static final String BMS_QUERY = "http://bms.greeneartech.com/bms_data/index?bms_id=10&cnt=1";
-    public static final String BMS_BAT_QUERY = "http://bms.greeneartech.com/bat/index?bms_id=10";
+    public static final String BMS_BAT_QUERY = "http://bms.greeneartech.com/bat_data/latest?bms_id=10";
     public static final String BAT_QUERY = "http://bms.greeneartech.com/bat_data/index?";
 
 
