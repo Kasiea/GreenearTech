@@ -23,6 +23,7 @@ import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsBatData;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsBatQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsInfo;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBmsQuery;
+import com.greenear.yeqinglu.greeneartech.JsonData.JsonStationQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonUserToken;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.interf.BaseUser;
@@ -34,6 +35,8 @@ import com.greenear.yeqinglu.greeneartech.ui.MainActivity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.baidu.location.h.a.i;
 
 /**
  * Created by yeqing.lu on 2016/11/14.
@@ -262,12 +265,6 @@ public class User implements BaseUser {
     }
 
     public Bms getBms_Bat() {
-
-        final Bat bms_bat1 = new Bat();
-        final Bat bms_bat2 = new Bat();
-        final Bat bms_bat3 = new Bat();
-        final Bat bms_bat4 = new Bat();
-
         String GET_BAT = API.BMS_BAT_QUERY + "&"+"token=" + userInfo.getToken();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BAT,
                 new Response.Listener<String>() {
@@ -276,38 +273,20 @@ public class User implements BaseUser {
                         JSONObject fast_json = new JSONObject();
                         JsonBmsBatData jsonReturn = fast_json.parseObject(response, JsonBmsBatData.class);
 
-                        bms_bat1.setId(jsonReturn.getData().get(0).getId());
-                        bms_bat1.setBat_id(jsonReturn.getData().get(0).getBat_id());
-                        bms_bat1.setSoc(jsonReturn.getData().get(0).getSoc());
-                        bms_bat1.setSoh(jsonReturn.getData().get(0).getSoh());
-                        bms_bat1.setVol(jsonReturn.getData().get(0).getVol());
-                        bms_bat1.setRes(jsonReturn.getData().get(0).getRes());
 
-                        bms_bat2.setId(jsonReturn.getData().get(1).getId());
-                        bms_bat2.setBat_id(jsonReturn.getData().get(1).getBat_id());
-                        bms_bat2.setSoc(jsonReturn.getData().get(1).getSoc());
-                        bms_bat2.setSoh(jsonReturn.getData().get(1).getSoh());
-                        bms_bat2.setVol(jsonReturn.getData().get(1).getVol());
-                        bms_bat2.setRes(jsonReturn.getData().get(1).getRes());
+                        int size = jsonReturn.getData().size();
+                        for(int i= 0; i<size; i++)
+                        {
+                            Bat bat = new Bat();
+                            bat.setId(jsonReturn.getData().get(i).getId());
+                            bat.setBat_id(jsonReturn.getData().get(i).getBat_id());
+                            bat.setSoc(jsonReturn.getData().get(i).getSoc());
+                            bat.setSoh(jsonReturn.getData().get(i).getSoh());
+                            bat.setVol(jsonReturn.getData().get(i).getVol());
+                            bat.setRes(jsonReturn.getData().get(i).getRes());
 
-                        bms_bat3.setId(jsonReturn.getData().get(2).getId());
-                        bms_bat3.setBat_id(jsonReturn.getData().get(2).getBat_id());
-                        bms_bat3.setSoc(jsonReturn.getData().get(2).getSoc());
-                        bms_bat3.setSoh(jsonReturn.getData().get(2).getSoh());
-                        bms_bat3.setVol(jsonReturn.getData().get(2).getVol());
-                        bms_bat3.setRes(jsonReturn.getData().get(2).getRes());
-
-                        bms_bat4.setId(jsonReturn.getData().get(3).getId());
-                        bms_bat4.setBat_id(jsonReturn.getData().get(3).getBat_id());
-                        bms_bat4.setSoc(jsonReturn.getData().get(3).getSoc());
-                        bms_bat4.setSoh(jsonReturn.getData().get(3).getSoh());
-                        bms_bat4.setVol(jsonReturn.getData().get(3).getVol());
-                        bms_bat4.setRes(jsonReturn.getData().get(3).getRes());
-
-                        bms.getBats().add(0, bms_bat1);
-                        bms.getBats().add(1, bms_bat2);
-                        bms.getBats().add(2, bms_bat3);
-                        bms.getBats().add(3, bms_bat4);
+                            bms.getBats().add(i, bat);
+                        }
 
                         //得到BMS_BAT数据
                         Message message = Message.obtain(handler);
@@ -416,5 +395,44 @@ public class User implements BaseUser {
 
         requestQueue.add(stringRequest);
         return bms;
+    }
+
+    public CharingStationAround getChargingStation(String longitude, String latitude)
+    {
+        final CharingStationAround charingStationAround = new CharingStationAround();
+
+        String GET_BMS = API.BAT_INFO + "lon=" + longitude + "lat=" + latitude + "radius=5000" + "&token=" + userInfo.getToken();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BMS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject fast_json = new JSONObject();//new一个FastJson对象
+                        JsonStationQuery jsonReturn = fast_json.parseObject(response, JsonStationQuery.class);
+
+                        int size = jsonReturn.getData().size();
+                        for (int i = 0; i < size; i ++ )
+                        {
+                            charingStationAround.setId(jsonReturn.getData().get(i).getId());
+                            charingStationAround.setLongitude(jsonReturn.getData().get(i).getLongitude());
+                            charingStationAround.setLatitude(jsonReturn.getData().get(i).getLatitude());
+                            charingStationAround.setTotal(jsonReturn.getData().get(i).getTotal());
+                            charingStationAround.setAvailable(jsonReturn.getData().get(i).getAvailable());
+                        }
+
+                        //得到BMS数据
+                        Message message = Message.obtain(handler);
+                        message.what = IS_FINISHED;
+                        message.sendToTarget();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                    }
+                });
+
+        requestQueue.add(stringRequest);
+        return charingStationAround;
     }
 }
