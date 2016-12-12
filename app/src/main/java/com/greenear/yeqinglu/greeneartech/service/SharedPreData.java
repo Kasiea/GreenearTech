@@ -14,7 +14,6 @@ public class SharedPreData {
     private Context context;
     private UserInfo userInfo;
 
-
     public  SharedPreData(Context context, UserInfo userInfo){
         this.context = context;
         this.userInfo = userInfo;

@@ -4,12 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
@@ -23,6 +28,12 @@ import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.model.LatLng;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.map.TargetPostion;
+import com.greenear.yeqinglu.greeneartech.model.CharingStationAround;
+import com.greenear.yeqinglu.greeneartech.model.User;
+import com.greenear.yeqinglu.greeneartech.model.UserInfo;
+import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
+
+import java.util.ArrayList;
 
 /**
  * Created by yeqing.lu on 2016/11/17.
@@ -45,6 +56,16 @@ public class MapActivity extends Activity {
     //显示覆盖物具体信息，自定义view
     public ChargingStationInfo chargingStationInfo;
 
+    //用户信息相关
+    private User user;
+    private RequestQueue requestQueue;
+    private ArrayList<CharingStationAround> charingStationArounds;
+
+    private Handler handler;
+    private int IS_FINISHED = 1;
+
+    public Button charingStationAround_btn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +74,9 @@ public class MapActivity extends Activity {
         //注意该方法要再setContentView方法之前实现
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.map_activity);
+
+        //刷新附近充电桩
+        updateCharingStation();
 
         initView();
         initData();
@@ -71,6 +95,33 @@ public class MapActivity extends Activity {
 
         setMyLocation();//定位监听
 
+        getCharingStationAround();//搜索附近充电桩
+    }
+
+    public void updateCharingStation()
+    {
+        handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if (msg.what == IS_FINISHED) {
+                   chargingStation.addCharingStation(new Float(charingStationArounds.get(0).getLongitude()),
+                           new Float(charingStationArounds.get(0).getLatitude()));
+                }
+            }
+        };
+    }
+
+    public void getCharingStationAround()
+    {
+        charingStationAround_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Map", String.valueOf(targetPosition.myLatitude));
+                Log.i("Map", String.valueOf(targetPosition.myLongitude));
+                charingStationArounds = user.getChargingStation(targetPosition.myLongitude, targetPosition.myLatitude);
+            }
+        });
     }
 
     //初始化数据
@@ -86,6 +137,11 @@ public class MapActivity extends Activity {
         //添加覆盖物
         chargingStation = new ChargingStation(mBaiduMap, chargingStationInfo, context);
 
+        //获取用户信息
+        charingStationArounds = new ArrayList<CharingStationAround>();
+        requestQueue = Volley.newRequestQueue(context);
+        user = new User(context, requestQueue, handler);
+
     }
 
     //初始化视图
@@ -96,6 +152,8 @@ public class MapActivity extends Activity {
 
         //添加覆盖物信息视图
         chargingStationInfo = (ChargingStationInfo)findViewById(R.id.showChargerInfo);
+
+        charingStationAround_btn = (Button)findViewById(R.id.charing_station_around);
     }
 
     //地图配置相关

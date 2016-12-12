@@ -55,6 +55,28 @@ public class ChargingStation {
         addOverlays(Info.infos);
     }
 
+    public void addCharingStation(double longitude, double latitude)
+    {
+        initMarker();
+
+        baiduMap.clear();
+        LatLng latLng = null ;
+        Marker marker = null;
+        OverlayOptions options;
+
+            //经纬度
+            latLng = new LatLng(latitude,longitude);
+            //图标
+            options = new MarkerOptions().position(latLng).icon(mMarker).zIndex(5);
+            marker = (Marker) baiduMap.addOverlay(options);
+//            Bundle arg0 = new Bundle();
+//            arg0.putSerializable("info",info);
+//            marker.setExtraInfo(arg0);
+
+        MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
+        baiduMap.setMapStatus(msu);
+    }
+
     //添加覆盖物
     private void addOverlays(List<Info> infos)
     {

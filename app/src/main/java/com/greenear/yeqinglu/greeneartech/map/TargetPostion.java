@@ -25,6 +25,7 @@ import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.map.Map;
 import com.greenear.yeqinglu.greeneartech.map.MyOrientationListener;
 import com.greenear.yeqinglu.greeneartech.model.Location;
+import com.greenear.yeqinglu.greeneartech.model.User;
 
 import java.util.List;
 
@@ -36,8 +37,8 @@ import static com.greenear.yeqinglu.greeneartech.R.id.my_location;
 
 public class TargetPostion {
     //需要获取的一些参数
-    private double myLatitude;
-    private double myLongitude;
+    public double myLatitude;
+    public double myLongitude;
     private float myAccuracy;
     public BDLocation myLocation;
     public MyOrientationListener myOritentationListener;

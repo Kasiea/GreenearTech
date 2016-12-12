@@ -53,6 +53,7 @@ public class User implements BaseUser {
     public Bms bms;
     public Bat bat;
     public Location location;
+    public ArrayList<CharingStationAround> charingStationArounds;
 
     private SharedPreData sharedPreData;
     private String filename = "user_info";
@@ -66,6 +67,7 @@ public class User implements BaseUser {
 
         bms = new Bms();
         bat = new Bat();
+        charingStationArounds = new ArrayList<CharingStationAround>();
     }
 
     public User( UserInfo userInfo, RequestQueue mQueue, Handler handler, SharedPreData sharedPreData) {
@@ -76,6 +78,7 @@ public class User implements BaseUser {
 
         bms = new Bms();
         bat = new Bat();
+        charingStationArounds = new ArrayList<CharingStationAround>();
     }
 
     public User(Context context, UserInfo userInfo, RequestQueue mQueue, Handler handler, SharedPreData sharedPreData) {
@@ -87,6 +90,21 @@ public class User implements BaseUser {
 
         bms = new Bms();
         bat = new Bat();
+        charingStationArounds = new ArrayList<CharingStationAround>();
+    }
+
+    public User(Context context,  RequestQueue mQueue, Handler handler) {
+        this.context = context;
+        this.requestQueue = mQueue;
+        this.handler = handler;
+
+        userInfo = new UserInfo();
+        sharedPreData = new SharedPreData(context, userInfo);
+        this.userInfo = getInfo();
+
+        bms = new Bms();
+        bat = new Bat();
+        charingStationArounds = new ArrayList<CharingStationAround>();
     }
 
     @Override
@@ -397,11 +415,9 @@ public class User implements BaseUser {
         return bms;
     }
 
-    public CharingStationAround getChargingStation(String longitude, String latitude)
+    public ArrayList<CharingStationAround> getChargingStation(double longitude, double latitude)
     {
-        final CharingStationAround charingStationAround = new CharingStationAround();
-
-        String GET_BMS = API.BAT_INFO + "lon=" + longitude + "lat=" + latitude + "radius=5000" + "&token=" + userInfo.getToken();
+        String GET_BMS = API.CHARING_STATION_QUERY + "lon=" + longitude + "&lat=" + latitude + "&radius=5000" + "&token=" + userInfo.getToken();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BMS,
                 new Response.Listener<String>() {
                     @Override
@@ -412,11 +428,15 @@ public class User implements BaseUser {
                         int size = jsonReturn.getData().size();
                         for (int i = 0; i < size; i ++ )
                         {
+                            CharingStationAround charingStationAround = new CharingStationAround();
+
                             charingStationAround.setId(jsonReturn.getData().get(i).getId());
                             charingStationAround.setLongitude(jsonReturn.getData().get(i).getLongitude());
                             charingStationAround.setLatitude(jsonReturn.getData().get(i).getLatitude());
                             charingStationAround.setTotal(jsonReturn.getData().get(i).getTotal());
                             charingStationAround.setAvailable(jsonReturn.getData().get(i).getAvailable());
+
+                            charingStationArounds.add(i, charingStationAround);
                         }
 
                         //得到BMS数据
@@ -433,6 +453,6 @@ public class User implements BaseUser {
                 });
 
         requestQueue.add(stringRequest);
-        return charingStationAround;
+        return charingStationArounds;
     }
 }
