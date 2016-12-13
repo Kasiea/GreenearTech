@@ -34,13 +34,8 @@ public class BmsDataShow extends Activity {
     private Context context;
 
     private User user;
-    private UserInfo userInfo;
-    private SharedPreData sharedPreData;
-    private RequestQueue requestQueue;
     private Handler handler;
     private int IS_FINISHED = 1;
-
-    private Bms bms;
 
 
     @Override
@@ -70,18 +65,12 @@ public class BmsDataShow extends Activity {
     public void initData()
     {
         context = this.getApplicationContext();
-        userInfo = new UserInfo();
-        requestQueue = Volley.newRequestQueue(context);
-        sharedPreData = new SharedPreData(context, userInfo);
-        user = new User(userInfo, requestQueue, handler, sharedPreData);
-//        userInfo = sharedPreData.load("user_info");
-        userInfo = user.getInfo();
-        bms = new Bms();
+        user = new User(context,  handler);
     }
 
     public void getBms()
     {
-        bms = user.getBms("10");
+         user.getBms("10");
     }
 
     public void updateUI()
@@ -100,14 +89,14 @@ public class BmsDataShow extends Activity {
 
     public void updateBms()
     {
-        bms_id_tv.setText(bms.getId());
-        bms_soc_tv.setText(bms.getSoc());
-        bms_soh_tv.setText(bms.getSoh());
-        bms_vol_tv.setText(bms.getVol());
-        bms_res_tv.setText(bms.getRes());
-        bms_temp_tv.setText(bms.getTemp());
-        bms_current_tv.setText(bms.getCurrent());
-        bms_charge_tv.setText(bms.getCharge());
+        bms_id_tv.setText(user.bms.getId());
+        bms_soc_tv.setText(user.bms.getSoc());
+        bms_soh_tv.setText(user.bms.getSoh());
+        bms_vol_tv.setText(user.bms.getVol());
+        bms_res_tv.setText(user.bms.getRes());
+        bms_temp_tv.setText(user.bms.getTemp());
+        bms_current_tv.setText(user.bms.getCurrent());
+        bms_charge_tv.setText(user.bms.getCharge());
     }
 
 

@@ -36,9 +36,6 @@ public class BatChartShow extends Activity {
     private ColumnChartView columnChart_Soc;
     private Chart chart;
 
-    private Bms bms;
-    private SharedPreData sharedPreData;
-    private UserInfo userInfo;
     private RequestQueue requestQueue;
     private User user;
 
@@ -79,19 +76,14 @@ public class BatChartShow extends Activity {
     public void initData()
     {
         context = this.getApplicationContext();
-        bms = new Bms();
-        userInfo = new UserInfo();
         requestQueue = Volley.newRequestQueue(context);
-        sharedPreData = new SharedPreData(context, userInfo);
-        user = new User(userInfo, requestQueue, handler, sharedPreData);
-        user.getInfo();
-        bms = user.getBms_Bat();
-
+        user = new User(context, handler);
+        user.getBms_Bat();
     }
 
     public void setChart()
     {
-        chart = new Chart(bms, columnChart_Volt);
+        chart = new Chart(user.bms, columnChart_Volt);
         chart.showBatVolt();
         chart.setColumnChartView(columnChart_Soh);
         chart.showBatSoh();

@@ -16,6 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBatInfo;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBatQuery;
 import com.greenear.yeqinglu.greeneartech.JsonData.JsonBms;
@@ -55,49 +56,15 @@ public class User implements BaseUser {
     public Location location;
     public ArrayList<CharingStationAround> charingStationArounds;
 
-    private SharedPreData sharedPreData;
+    public SharedPreData sharedPreData;
     private String filename = "user_info";
 
 
-    public User(Context context, UserInfo userInfo, RequestQueue mQueue, Handler handler) {
+    public User(Context context,  Handler handler) {
         this.context = context;
-        this.userInfo = userInfo;
-        this.requestQueue = mQueue;
         this.handler = handler;
 
-        bms = new Bms();
-        bat = new Bat();
-        charingStationArounds = new ArrayList<CharingStationAround>();
-    }
-
-    public User( UserInfo userInfo, RequestQueue mQueue, Handler handler, SharedPreData sharedPreData) {
-        this.userInfo = userInfo;
-        this.requestQueue = mQueue;
-        this.handler = handler;
-        this.sharedPreData = sharedPreData;
-
-        bms = new Bms();
-        bat = new Bat();
-        charingStationArounds = new ArrayList<CharingStationAround>();
-    }
-
-    public User(Context context, UserInfo userInfo, RequestQueue mQueue, Handler handler, SharedPreData sharedPreData) {
-        this.context = context;
-        this.userInfo = userInfo;
-        this.requestQueue = mQueue;
-        this.handler = handler;
-        this.sharedPreData = sharedPreData;
-
-        bms = new Bms();
-        bat = new Bat();
-        charingStationArounds = new ArrayList<CharingStationAround>();
-    }
-
-    public User(Context context,  RequestQueue mQueue, Handler handler) {
-        this.context = context;
-        this.requestQueue = mQueue;
-        this.handler = handler;
-
+        requestQueue = Volley.newRequestQueue(context);
         userInfo = new UserInfo();
         sharedPreData = new SharedPreData(context, userInfo);
         this.userInfo = getInfo();

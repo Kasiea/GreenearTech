@@ -58,8 +58,6 @@ public class MapActivity extends Activity {
 
     //用户信息相关
     private User user;
-    private RequestQueue requestQueue;
-    private ArrayList<CharingStationAround> charingStationArounds;
 
     private Handler handler;
     private int IS_FINISHED = 1;
@@ -114,9 +112,7 @@ public class MapActivity extends Activity {
         chargingStation = new ChargingStation(mBaiduMap, chargingStationInfo, context);
 
         //获取用户信息
-        charingStationArounds = new ArrayList<CharingStationAround>();
-        requestQueue = Volley.newRequestQueue(context);
-        user = new User(context, requestQueue, handler);
+        user = new User(context, handler);
 
     }
 
@@ -159,7 +155,7 @@ public class MapActivity extends Activity {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 if (msg.what == IS_FINISHED) {
-                    chargingStation.addCharingStationAround(charingStationArounds);
+                    chargingStation.addCharingStationAround(user.charingStationArounds);
                 }
             }
         };
@@ -170,7 +166,7 @@ public class MapActivity extends Activity {
         charingStationAround_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                charingStationArounds = user.getChargingStation(targetPosition.myLongitude, targetPosition.myLatitude);
+                user.getChargingStation(targetPosition.myLongitude, targetPosition.myLatitude);
             }
         });
     }

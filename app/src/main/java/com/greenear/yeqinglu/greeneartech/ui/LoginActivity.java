@@ -37,8 +37,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private SharedPreData sharedPreData;
     private String filename = "user_info";
 
-    private UserInfo userInfo;
-    private RequestQueue mQueue;
     private Context context;
     private User user;
 
@@ -76,11 +74,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
     private void initData()
     {
-        userInfo = new UserInfo();
         context = this.getApplicationContext();
-        mQueue = Volley.newRequestQueue(context);
-        sharedPreData = new SharedPreData(context, userInfo);
-        user = new User(context, userInfo, mQueue, handler, sharedPreData);
+        user = new User(context, handler);
     }
 
     private void initView()
@@ -114,10 +109,10 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
     public boolean login()
     {
-        userInfo.name = et_username.getText().toString();
-        userInfo.password = et_password.getText().toString();
+        user.userInfo.name = et_username.getText().toString();
+        user.userInfo.password = et_password.getText().toString();
 
-        if(TextUtils.isEmpty(userInfo.name)||TextUtils.isEmpty(userInfo.password))
+        if(TextUtils.isEmpty(user.userInfo.name)||TextUtils.isEmpty(user.userInfo.password))
         {
             Toast.makeText(LoginActivity.this,R.string.error,Toast.LENGTH_SHORT).show();
             return false;
@@ -174,12 +169,9 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
     public void loadUserInfo()
     {
-        userInfo = user.getInfo();
 //        userInfo = sharedPreData.load(filename);
-        et_username.setText(userInfo.getName());
-        et_password.setText(userInfo.getPassword());
-
-
+        et_username.setText(user.userInfo.getName());
+        et_password.setText(user.userInfo.getPassword());
     }
 
 

@@ -31,11 +31,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
     private Button register;
     private Button cancel;
 
-    private UserInfo userInfo;
-    private RequestQueue mQueue;
     private Context context;
     private User user;
-
     private Handler handler;
     private int IS_FINISHED = 1;
 
@@ -66,10 +63,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
 
     private void initData()
     {
-        userInfo = new UserInfo();
         context = this.getApplicationContext();
-        mQueue = Volley.newRequestQueue(context);
-        user = new User(context,userInfo,mQueue,handler);
+        user = new User(context,handler);
     }
 
     public void initView()
@@ -126,8 +121,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
 
     public void register()
     {
-        userInfo.name = et_username.getText().toString();
-        userInfo.password = et_password.getText().toString();
+        user.userInfo.name = et_username.getText().toString();
+        user.userInfo.password = et_password.getText().toString();
         user.register();
     }
 

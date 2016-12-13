@@ -29,15 +29,10 @@ public class UserInfoShow extends Activity {
     private TextView user_bat_id_4;
 
     private User user;
-    private UserInfo userInfo;
-    private Bms bms;
-
     private Context context;
-    private RequestQueue requestQueue;
     private Handler handler;
     private int IS_FINISHED = 1;
 
-    private SharedPreData sharedPreData;
     private String filename = "user_battery_info";
 
 
@@ -64,18 +59,13 @@ public class UserInfoShow extends Activity {
     public void initData()
     {
         context = this.getApplicationContext();
-        userInfo = new UserInfo();
-        requestQueue = Volley.newRequestQueue(context);
-        sharedPreData = new SharedPreData(context, userInfo);
-        user = new User(userInfo, requestQueue, handler, sharedPreData);
-        userInfo = user.getInfo();
-        bms = new Bms();
+        user = new User(context, handler);
     }
 
     public void getUserInfo()
     {
         user.getBmsInfo();
-        bms = user.getBatInfo("10");
+        user.getBatInfo("10");
     }
 
     public void updateUI()
@@ -95,19 +85,19 @@ public class UserInfoShow extends Activity {
 
     public boolean updateUserInfo()
     {
-        user_bms_id.setText(bms.getBms_id());
-        user_bat_id_1.setText(bms.getBats().get(0).getBat_id());
-        user_bat_id_2.setText(bms.getBats().get(1).getBat_id());
-        user_bat_id_3.setText(bms.getBats().get(2).getBat_id());
-        user_bat_id_4.setText(bms.getBats().get(3).getBat_id());
+        user_bms_id.setText(user.bms.getBms_id());
+        user_bat_id_1.setText(user.bms.getBats().get(0).getBat_id());
+        user_bat_id_2.setText(user.bms.getBats().get(1).getBat_id());
+        user_bat_id_3.setText(user.bms.getBats().get(2).getBat_id());
+        user_bat_id_4.setText(user.bms.getBats().get(3).getBat_id());
 
         return true;
     }
 
     public void saveBatteryInfo()
     {
-        sharedPreData.saveBatteryInfo(filename, bms.getBms_id(),bms.getBats().get(0).getBat_id(),
-                bms.getBats().get(1).getBat_id(), bms.getBats().get(2).getBat_id(), bms.getBats().get(3).getBat_id());
+        user.sharedPreData.saveBatteryInfo(filename, user.bms.getBms_id(),user.bms.getBats().get(0).getBat_id(),
+                user.bms.getBats().get(1).getBat_id(), user.bms.getBats().get(2).getBat_id(), user.bms.getBats().get(3).getBat_id());
     }
 
 }
