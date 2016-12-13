@@ -154,10 +154,10 @@ public class ChargingStation {
                 CharingStationAround charingStationAround = (CharingStationAround) extraInfo.getSerializable("charingStationAround");
 
 //                显示副窗口具体信息
-//                chargingStationInfo.info_img.setImageResource(info.getImagId());
-//                chargingStationInfo.info_dis.setText(info.getDistance());
-//                chargingStationInfo.info_name.setText(info.getName());
-//                chargingStationInfo.info_zan.setText(info.getZan()+"");
+                chargingStationInfo.info_img.setImageResource(R.drawable.charging_station);
+                chargingStationInfo.info_dis.setText("5000m以内");
+                chargingStationInfo.info_name.setText("充电桩" + "ID = " + charingStationAround.getId() );
+                chargingStationInfo.info_zan.setText("100");
 
 //                显示气泡信息
                 InfoWindow infoWindow;
@@ -174,6 +174,8 @@ public class ChargingStation {
                 infoWindow = new InfoWindow(tv, ll,1);
                 baiduMap.showInfoWindow(infoWindow);
 
+                chargingStationInfo.setVisibility(View.VISIBLE);
+                chargingStationInfo.charger_info.setVisibility(View.VISIBLE);
                 return true;
             }
         });

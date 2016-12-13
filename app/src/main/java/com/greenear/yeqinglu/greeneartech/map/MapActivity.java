@@ -73,14 +73,11 @@ public class MapActivity extends Activity {
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.map_activity);
 
-
         updateCharingStationAround();//刷新附近充电桩
 
         initView();
         initData();
-        targetPosition.initData();//初始化对象数据
         setConfig();
-        targetPosition.initLocation();//定义定位参数
 
          /* start：启动定位SDK。 stop：关闭定位SDK。调用start之后只需要等待定位结果自动回调即可。
         开发者定位场景如果是单次定位的场景，在收到定位结果之后直接调用stop函数即可。
@@ -89,11 +86,6 @@ public class MapActivity extends Activity {
                 requestLocation()函数，会主动触发定位SDK内部定位逻辑，等待定位回调即可。*/
         mLocationClient.start();
 
-        chargingStation.setChangingStationInfoShow();//覆盖物信息窗口显示
-
-        setMyLocation();//定位监听
-
-        getCharingStationAround();//搜索附近充电桩
     }
 
 
@@ -134,7 +126,16 @@ public class MapActivity extends Activity {
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL); //普通地图
         mBaiduMap.setTrafficEnabled(true);//打开实时交通图
         mBaiduMap.setMyLocationEnabled(true); // 开启定位图层
-        chargingStation.add();//添加覆盖物
+
+        //定位位置设置
+        targetPosition.initData();//初始化对象数据
+        targetPosition.initLocation();//定义定位参数
+        setMyLocation();//定位监听
+
+        //搜索充电桩设置
+//        chargingStation.add();//添加覆盖物
+        getCharingStationAround();//搜索附近充电桩
+        chargingStation.setChangingStationInfoShow();//覆盖物信息窗口显示
     }
 
     public void setMyLocation()
