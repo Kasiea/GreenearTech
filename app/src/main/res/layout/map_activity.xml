@@ -38,7 +38,7 @@
                 android:id="@+id/charing_station_around"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Charing Station Around"/>
+                android:text="Charging Station Around"/>
 
             </LinearLayout>
 

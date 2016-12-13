@@ -1,10 +1,12 @@
 package com.greenear.yeqinglu.greeneartech.model;
 
+import java.io.Serializable;
+
 /**
  * Created by yeqing.lu on 2016/12/12.
  */
 
-public class CharingStationAround {
+public class CharingStationAround implements Serializable{
 
     public String id;
     public String longitude;
@@ -51,5 +53,6 @@ public class CharingStationAround {
     public void setAvailable(String available) {
         this.available = available;
     }
+
 
 }

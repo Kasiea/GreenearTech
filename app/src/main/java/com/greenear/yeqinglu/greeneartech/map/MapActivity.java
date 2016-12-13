@@ -75,8 +75,8 @@ public class MapActivity extends Activity {
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.map_activity);
 
-        //刷新附近充电桩
-        updateCharingStation();
+
+        updateCharingStationAround();//刷新附近充电桩
 
         initView();
         initData();
@@ -98,31 +98,7 @@ public class MapActivity extends Activity {
         getCharingStationAround();//搜索附近充电桩
     }
 
-    public void updateCharingStation()
-    {
-        handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                if (msg.what == IS_FINISHED) {
-                   chargingStation.addCharingStation(new Float(charingStationArounds.get(0).getLongitude()),
-                           new Float(charingStationArounds.get(0).getLatitude()));
-                }
-            }
-        };
-    }
 
-    public void getCharingStationAround()
-    {
-        charingStationAround_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("Map", String.valueOf(targetPosition.myLatitude));
-                Log.i("Map", String.valueOf(targetPosition.myLongitude));
-                charingStationArounds = user.getChargingStation(targetPosition.myLongitude, targetPosition.myLatitude);
-            }
-        });
-    }
 
     //初始化数据
     public void initData()
@@ -172,6 +148,29 @@ public class MapActivity extends Activity {
             public void onClick(View v) {
                 //定位到我的位置
                   targetPosition.getMyPosition();
+            }
+        });
+    }
+
+    public void updateCharingStationAround()
+    {
+        handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if (msg.what == IS_FINISHED) {
+                    chargingStation.addCharingStationAround(charingStationArounds);
+                }
+            }
+        };
+    }
+
+    public void getCharingStationAround()
+    {
+        charingStationAround_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                charingStationArounds = user.getChargingStation(targetPosition.myLongitude, targetPosition.myLatitude);
             }
         });
     }
