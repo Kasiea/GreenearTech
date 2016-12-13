@@ -56,6 +56,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                 {
                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         };

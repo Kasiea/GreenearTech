@@ -67,6 +67,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                     user.saveInfo();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    //登陆成功后销毁Activity
+                    finish();
                 }
             }
         };
