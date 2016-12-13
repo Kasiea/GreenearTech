@@ -59,6 +59,18 @@ public class User implements BaseUser {
     public SharedPreData sharedPreData;
     private String filename = "user_info";
 
+    public User(Context context) {
+        this.context = context;
+
+        userInfo = new UserInfo();
+        sharedPreData = new SharedPreData(context, userInfo);
+        this.userInfo = getInfo();
+
+        bms = new Bms();
+        bat = new Bat();
+        charingStationArounds = new ArrayList<CharingStationAround>();
+    }
+
 
     public User(Context context,  Handler handler) {
         this.context = context;
