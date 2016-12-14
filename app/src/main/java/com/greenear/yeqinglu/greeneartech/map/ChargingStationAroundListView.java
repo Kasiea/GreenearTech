@@ -3,17 +3,12 @@ package com.greenear.yeqinglu.greeneartech.map;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.greenear.yeqinglu.greeneartech.R;
-
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Created by yeqing.lu on 2016/12/13.
@@ -21,12 +16,10 @@ import java.util.List;
 
 public class ChargingStationAroundListView extends FrameLayout {
 
+    private Context context;
     private ListView listView;
     private ArrayAdapter<String> arrayAdapter;
 
-
-    private ArrayList<String> arrayList;
-    private Context context;
 
     public ChargingStationAroundListView(Context context,  AttributeSet attrs) {
         super(context, attrs);
@@ -40,9 +33,10 @@ public class ChargingStationAroundListView extends FrameLayout {
     }
 
 
+    //配置ListView数据
     public void setArrayList(ArrayList<String> arrayList) {
-        this.arrayList = arrayList;
         arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, arrayList);
         listView.setAdapter(arrayAdapter);
     }
+
 }

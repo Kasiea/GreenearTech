@@ -32,13 +32,13 @@ import java.util.List;
 
 public class ChargingStation {
 
-    private BaiduMap baiduMap;
     private Context context;
+    private BaiduMap baiduMap;
 
     //覆盖物相关
     private BitmapDescriptor mMarker;
-    private ChargingStationInfo chargingStationInfo;
-    private ChargingStationAroundListView chargingStationAroundListView;
+    private ChargingStationInfo chargingStationInfo;//充电桩具体信息
+    private ChargingStationAroundListView chargingStationAroundListView;//附近充电桩列表
 
 
     public ChargingStation(BaiduMap baiduMap,  Context context, ChargingStationInfo chargingStationInfo, ChargingStationAroundListView
@@ -50,6 +50,8 @@ public class ChargingStation {
         this.chargingStationAroundListView = chargingStationAroundListView;
     }
 
+
+    //覆盖物图标设置
     private void initMarker()
     {
         mMarker = BitmapDescriptorFactory.fromResource(R.drawable.marker);
@@ -62,6 +64,8 @@ public class ChargingStation {
         addOverlays(Info.infos);
     }
 
+
+    //添加周围充电桩Marker
     public void addCharingStationAround(ArrayList<CharingStationAround> charingStationArounds)
     {
         initMarker();
@@ -86,6 +90,7 @@ public class ChargingStation {
         baiduMap.setMapStatus(msu);
     }
 
+
     //添加覆盖物
     private void addOverlays(List<Info> infos)
     {
@@ -109,6 +114,7 @@ public class ChargingStation {
         MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
         baiduMap.setMapStatus(msu);
     }
+
 
     //覆盖物信息窗口显示
 //    public void setChangingStationInfoShow()
@@ -146,7 +152,8 @@ public class ChargingStation {
 //            }
 //        });
 
-        //显示周围充电桩信息
+
+        //显示周围充电桩具体信息：图片，距离等
     public void setChangingStationInfoShow()
     {
         baiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
@@ -184,6 +191,8 @@ public class ChargingStation {
         });
     }
 
+
+    //显示周围充电桩列表
     public void addChargingStationListview(ArrayList<CharingStationAround> charingStationArounds)
     {
         ArrayList<String> arrayList = new ArrayList<String>();

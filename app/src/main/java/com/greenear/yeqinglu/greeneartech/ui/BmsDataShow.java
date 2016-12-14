@@ -32,8 +32,8 @@ public class BmsDataShow extends Activity {
     private TextView bms_charge_tv;
 
     private Context context;
-
     private User user;
+
     private Handler handler;
     private int IS_FINISHED = 1;
 

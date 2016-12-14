@@ -53,7 +53,7 @@ public class MapActivity extends Activity {
     public TargetPostion targetPosition;
     public Button my_location;
 
-    //添加覆盖物
+    //搜索附近充电桩
     public Button charingStationAround_btn;
     public ChargingStation chargingStation;
     public ChargingStationAroundListView chargingStationAroundListView;
@@ -64,10 +64,9 @@ public class MapActivity extends Activity {
     //用户信息相关
     private User user;
 
+    //Net相关
     private Handler handler;
     private int IS_FINISHED = 1;
-
-
 
 
     @Override
@@ -94,7 +93,6 @@ public class MapActivity extends Activity {
     }
 
 
-
     //初始化数据
     public void initData()
     {
@@ -113,19 +111,21 @@ public class MapActivity extends Activity {
 
     }
 
+
     //初始化视图
     public void initView()
     {
         mMapView = (MapView) findViewById(R.id.bmapView);
         my_location = (Button)findViewById(R.id.my_location);
 
-        //添加覆盖物信息相关
+        //添加覆盖物信息相关：充电桩信息，列表，按钮
         chargingStationInfo = (ChargingStationInfo)findViewById(R.id.showChargerInfo);
         chargingStationAroundListView = (ChargingStationAroundListView)findViewById(R.id.charging_station_around_listview);
         charingStationAround_btn = (Button)findViewById(R.id.charing_station_around);
     }
 
-    //地图配置相关
+
+    //配置相关
     public void setConfig()
     {
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL); //普通地图
@@ -143,17 +143,8 @@ public class MapActivity extends Activity {
         chargingStation.setChangingStationInfoShow();//覆盖物信息窗口显示
     }
 
-    public void setMyLocation()
-    {
-        my_location.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //定位到我的位置
-                  targetPosition.getMyPosition();
-            }
-        });
-    }
 
+    //更新附近充电桩信息
     public void updateCharingStationAround()
     {
         handler = new Handler(){
@@ -161,13 +152,28 @@ public class MapActivity extends Activity {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 if (msg.what == IS_FINISHED) {
-                    chargingStation.addCharingStationAround(user.charingStationArounds);
-                    chargingStation.addChargingStationListview(user.charingStationArounds);
+                    chargingStation.addCharingStationAround(user.charingStationArounds);//更新附近充电桩图标
+                    chargingStation.addChargingStationListview(user.charingStationArounds);//更新附近充电桩列表
                 }
             }
         };
     }
 
+
+    //获取自己的位置Button
+    public void setMyLocation()
+    {
+        my_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //定位到我的位置
+                targetPosition.getMyPosition();
+            }
+        });
+    }
+
+
+    //获取附近充电桩Button
     public void getCharingStationAround()
     {
         charingStationAround_btn.setOnClickListener(new View.OnClickListener() {
@@ -191,6 +197,7 @@ public class MapActivity extends Activity {
         targetPosition.myOritentationListener.start();
     }
 
+
     @Override
     public void onStop() {
         super.onStop();
@@ -201,24 +208,33 @@ public class MapActivity extends Activity {
         targetPosition.myOritentationListener.stop();//停止方向传感器
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         mMapView.onDestroy();
         mLocationClient.stop();// 退出时销毁定位
         mBaiduMap.setMyLocationEnabled(false);// 关闭定位图层
     }
+
+
     @Override
     protected void onResume() {
         super.onResume();
+
         //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
         mMapView.onResume();
     }
+
+
     @Override
     protected void onPause() {
         super.onPause();
+
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
         mMapView.onPause();
     }
+
 }

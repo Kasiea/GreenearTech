@@ -33,6 +33,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
 
     private Context context;
     private User user;
+
     private Handler handler;
     private int IS_FINISHED = 1;
 

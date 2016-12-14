@@ -46,16 +46,20 @@ import static com.baidu.location.h.a.i;
 public class User implements BaseUser {
 
     private Context context;
+
+    //Net相关
     private RequestQueue requestQueue;
     private int IS_FINISHED = 1;
     private Handler handler;
 
+    //用户数据
     public UserInfo userInfo;
     public Bms bms;
     public Bat bat;
     public Location location;
     public ArrayList<CharingStationAround> charingStationArounds;
 
+    //数据存储
     public SharedPreData sharedPreData;
     private String filename = "user_info";
 
@@ -86,6 +90,8 @@ public class User implements BaseUser {
         charingStationArounds = new ArrayList<CharingStationAround>();
     }
 
+
+    //登陆
     @Override
     public void login() {
         //创建一个StringRequest对象
@@ -134,6 +140,8 @@ public class User implements BaseUser {
         requestQueue.add(stringRequest);
     }
 
+
+    //注册
     @Override
     public void register() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, API.REGISTER,
@@ -171,17 +179,22 @@ public class User implements BaseUser {
         requestQueue.add(stringRequest);
     }
 
+
+    //保存用户信息
     @Override
     public void saveInfo() {
         sharedPreData.save(filename, userInfo.name,userInfo.password,userInfo.token);
     }
 
+
+    //获取用户信息
     @Override
     public UserInfo getInfo() {
         return  sharedPreData.load(filename);
     }
 
 
+    //获取Bms数据
     @Override
     public Bms getBms(String bms_id)
     {
@@ -225,6 +238,8 @@ public class User implements BaseUser {
         return bms;
     }
 
+
+    //获取Bat数据
     @Override
     public Bat getBat(String bat_id, final int num) {
         final Bat bms_bat = new Bat();
@@ -261,6 +276,8 @@ public class User implements BaseUser {
         return bms_bat;
     }
 
+
+    //获取Bms下的Bat数据
     public Bms getBms_Bat() {
         String GET_BAT = API.BMS_BAT_QUERY + "&"+"token=" + userInfo.getToken();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BAT,
@@ -302,6 +319,8 @@ public class User implements BaseUser {
         return bms;
     }
 
+
+    //获取位置
     public Location getLocation()
     {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, API.BMS_QUERY,
@@ -328,6 +347,8 @@ public class User implements BaseUser {
         return location;
     }
 
+
+    //获取Bms信息
     public Bms getBmsInfo()
     {
         String GET_BMS = API.BMS_INFO + "&"+"token=" + userInfo.getToken();
@@ -358,6 +379,8 @@ public class User implements BaseUser {
 
     }
 
+
+    //获取Bat信息
     public Bms getBatInfo(String bms_id)
     {
         String GET_BMS = API.BAT_INFO + "bms_id=" + bms_id + "&token=" + userInfo.getToken();
@@ -394,6 +417,8 @@ public class User implements BaseUser {
         return bms;
     }
 
+
+    //获取充电桩数据
     public ArrayList<CharingStationAround> getChargingStation(double longitude, double latitude)
     {
         String GET_BMS = API.CHARING_STATION_QUERY + "lon=" + longitude + "&lat=" + latitude + "&radius=5000" + "&token=" + userInfo.getToken();

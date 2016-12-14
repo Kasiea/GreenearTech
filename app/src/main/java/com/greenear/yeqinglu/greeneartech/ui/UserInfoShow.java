@@ -30,6 +30,7 @@ public class UserInfoShow extends Activity {
 
     private User user;
     private Context context;
+
     private Handler handler;
     private int IS_FINISHED = 1;
 

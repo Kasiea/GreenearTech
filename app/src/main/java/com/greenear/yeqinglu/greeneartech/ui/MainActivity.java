@@ -19,6 +19,7 @@ import com.greenear.yeqinglu.greeneartech.map.MapActivity;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+
     private Button bms_data;
     private Button map;
     private Button battery_status;
