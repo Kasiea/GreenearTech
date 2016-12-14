@@ -8,8 +8,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,6 +36,7 @@ import com.greenear.yeqinglu.greeneartech.model.UserInfo;
 import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yeqing.lu on 2016/11/17.
@@ -51,7 +54,9 @@ public class MapActivity extends Activity {
     public Button my_location;
 
     //添加覆盖物
+    public Button charingStationAround_btn;
     public ChargingStation chargingStation;
+    public ChargingStationAroundListView chargingStationAroundListView;
 
     //显示覆盖物具体信息，自定义view
     public ChargingStationInfo chargingStationInfo;
@@ -62,7 +67,7 @@ public class MapActivity extends Activity {
     private Handler handler;
     private int IS_FINISHED = 1;
 
-    public Button charingStationAround_btn;
+
 
 
     @Override
@@ -101,7 +106,7 @@ public class MapActivity extends Activity {
         targetPosition = new TargetPostion(context, mBaiduMap, mLocationClient);
 
         //添加覆盖物
-        chargingStation = new ChargingStation(mBaiduMap, chargingStationInfo, context);
+        chargingStation = new ChargingStation(mBaiduMap, context, chargingStationInfo, chargingStationAroundListView);
 
         //获取用户信息
         user = new User(context, handler);
@@ -114,9 +119,9 @@ public class MapActivity extends Activity {
         mMapView = (MapView) findViewById(R.id.bmapView);
         my_location = (Button)findViewById(R.id.my_location);
 
-        //添加覆盖物信息视图
+        //添加覆盖物信息相关
         chargingStationInfo = (ChargingStationInfo)findViewById(R.id.showChargerInfo);
-
+        chargingStationAroundListView = (ChargingStationAroundListView)findViewById(R.id.charging_station_around_listview);
         charingStationAround_btn = (Button)findViewById(R.id.charing_station_around);
     }
 
@@ -157,6 +162,7 @@ public class MapActivity extends Activity {
                 super.handleMessage(msg);
                 if (msg.what == IS_FINISHED) {
                     chargingStation.addCharingStationAround(user.charingStationArounds);
+                    chargingStation.addChargingStationListview(user.charingStationArounds);
                 }
             }
         };

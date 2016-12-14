@@ -46,13 +46,21 @@
 
     </LinearLayout>
 
-    <com.greenear.yeqinglu.greeneartech.map.ChargingStationInfo
-        android:id="@+id/showChargerInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:visibility="gone">
-    </com.greenear.yeqinglu.greeneartech.map.ChargingStationInfo>
+        <com.greenear.yeqinglu.greeneartech.map.ChargingStationAroundListView
+            android:id="@+id/charging_station_around_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="visible"
+            >
+        </com.greenear.yeqinglu.greeneartech.map.ChargingStationAroundListView>
 
+        <com.greenear.yeqinglu.greeneartech.map.ChargingStationInfo
+            android:id="@+id/showChargerInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone">
+        </com.greenear.yeqinglu.greeneartech.map.ChargingStationInfo>
 
 </FrameLayout>

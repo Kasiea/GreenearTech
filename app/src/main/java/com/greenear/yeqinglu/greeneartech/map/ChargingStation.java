@@ -38,13 +38,16 @@ public class ChargingStation {
     //覆盖物相关
     private BitmapDescriptor mMarker;
     private ChargingStationInfo chargingStationInfo;
+    private ChargingStationAroundListView chargingStationAroundListView;
 
 
-    public ChargingStation(BaiduMap baiduMap, ChargingStationInfo chargingStationInfo, Context context)
+    public ChargingStation(BaiduMap baiduMap,  Context context, ChargingStationInfo chargingStationInfo, ChargingStationAroundListView
+                           chargingStationAroundListView)
     {
         this.baiduMap = baiduMap;
         this.chargingStationInfo = chargingStationInfo;
         this.context = context;
+        this.chargingStationAroundListView = chargingStationAroundListView;
     }
 
     private void initMarker()
@@ -179,6 +182,16 @@ public class ChargingStation {
                 return true;
             }
         });
+    }
+
+    public void addChargingStationListview(ArrayList<CharingStationAround> charingStationArounds)
+    {
+        ArrayList<String> arrayList = new ArrayList<String>();
+        for(int i = 0; i < charingStationArounds.size(); i ++) {
+            arrayList.add(i, "附近充电桩"  + "ID=" + charingStationArounds.get(i).getId());
+            charingStationArounds.get(0).getId();
+        }
+        chargingStationAroundListView.setArrayList(arrayList);
     }
 
 }
