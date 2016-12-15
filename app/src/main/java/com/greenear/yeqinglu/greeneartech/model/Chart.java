@@ -56,7 +56,6 @@ public class Chart implements BaseChart {
             battery_vm.add(i, new Float(bms.getBats().get(i).getVol()));
         }
 
-
         //每个集合显示几条柱子
         int numSubcolumns = 1;
         //显示多少个集合

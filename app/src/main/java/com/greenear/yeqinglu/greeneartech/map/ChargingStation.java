@@ -200,7 +200,7 @@ public class ChargingStation {
             arrayList.add(i, "附近充电桩"  + "ID=" + charingStationArounds.get(i).getId());
             charingStationArounds.get(0).getId();
         }
-        chargingStationAroundListView.setArrayList(arrayList);
+        chargingStationAroundListView.setDetailListView(arrayList, chargingStationInfo);//设置ListView
     }
 
 }
