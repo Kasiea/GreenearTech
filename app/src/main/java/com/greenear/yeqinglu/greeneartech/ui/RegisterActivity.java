@@ -31,7 +31,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
     private Button register;
     private Button cancel;
 
-    private Context context;
     private User user;
 
     private Handler handler;
@@ -65,8 +64,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
 
     private void initData()
     {
-        context = this.getApplicationContext();
-        user = new User(context,handler);
+        user = new User(handler);
     }
 
     public void initView()

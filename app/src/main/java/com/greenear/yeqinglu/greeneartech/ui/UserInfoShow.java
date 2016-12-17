@@ -29,7 +29,6 @@ public class UserInfoShow extends Activity {
     private TextView user_bat_id_4;
 
     private User user;
-    private Context context;
 
     private Handler handler;
     private int IS_FINISHED = 1;
@@ -59,8 +58,7 @@ public class UserInfoShow extends Activity {
 
     public void initData()
     {
-        context = this.getApplicationContext();
-        user = new User(context, handler);
+        user = new User(handler);
     }
 
     public void getUserInfo()

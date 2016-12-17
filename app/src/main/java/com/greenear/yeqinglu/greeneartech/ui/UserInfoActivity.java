@@ -17,7 +17,6 @@ import com.greenear.yeqinglu.greeneartech.model.User;
 
 public class UserInfoActivity extends Activity {
 
-    private Context context;
     private User user;
 
     private TextView user_info;
@@ -41,8 +40,7 @@ public class UserInfoActivity extends Activity {
 
     public void initData()
     {
-        context = getApplicationContext();
-        user = new User(context);
+        user = new User();
         user_info.setText(user.userInfo.getName());
     }
 

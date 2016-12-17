@@ -31,6 +31,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.map.TargetPostion;
 import com.greenear.yeqinglu.greeneartech.model.CharingStationAround;
+import com.greenear.yeqinglu.greeneartech.model.MyApplication;
 import com.greenear.yeqinglu.greeneartech.model.User;
 import com.greenear.yeqinglu.greeneartech.model.UserInfo;
 import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
@@ -46,7 +47,6 @@ public class MapActivity extends Activity {
 
     public BaiduMap mBaiduMap = null;
     public MapView mMapView = null;
-    public Context context;
 
     //定位
     public LocationClient mLocationClient;
@@ -96,18 +96,17 @@ public class MapActivity extends Activity {
     //初始化数据
     public void initData()
     {
-        context = this.getApplicationContext();
         mBaiduMap = mMapView.getMap();
 
         //定位
-        mLocationClient = new LocationClient(context);
-        targetPosition = new TargetPostion(context, mBaiduMap, mLocationClient);
+        mLocationClient = new LocationClient(MyApplication.getContext());
+        targetPosition = new TargetPostion(MyApplication.getContext(), mBaiduMap, mLocationClient);
 
         //添加覆盖物
-        chargingStation = new ChargingStation(mBaiduMap, context, chargingStationInfo, chargingStationAroundListView);
+        chargingStation = new ChargingStation(mBaiduMap, MyApplication.getContext(), chargingStationInfo, chargingStationAroundListView);
 
         //获取用户信息
-        user = new User(context, handler);
+        user = new User(handler);
 
     }
 

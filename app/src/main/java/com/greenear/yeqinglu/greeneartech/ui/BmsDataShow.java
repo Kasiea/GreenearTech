@@ -31,7 +31,6 @@ public class BmsDataShow extends Activity {
     private TextView bms_current_tv;
     private TextView bms_charge_tv;
 
-    private Context context;
     private User user;
 
     private Handler handler;
@@ -64,8 +63,7 @@ public class BmsDataShow extends Activity {
 
     public void initData()
     {
-        context = this.getApplicationContext();
-        user = new User(context,  handler);
+        user = new User(handler);
     }
 
     public void getBms()

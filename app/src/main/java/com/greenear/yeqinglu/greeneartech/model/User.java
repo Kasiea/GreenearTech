@@ -63,8 +63,8 @@ public class User implements BaseUser {
     public SharedPreData sharedPreData;
     private String filename = "user_info";
 
-    public User(Context context) {
-        this.context = context;
+    public User() {
+        this.context = MyApplication.getContext();
 
         userInfo = new UserInfo();
         sharedPreData = new SharedPreData(context, userInfo);
@@ -76,8 +76,8 @@ public class User implements BaseUser {
     }
 
 
-    public User(Context context,  Handler handler) {
-        this.context = context;
+    public User(Handler handler) {
+        this.context = MyApplication.getContext();
         this.handler = handler;
 
         requestQueue = Volley.newRequestQueue(context);

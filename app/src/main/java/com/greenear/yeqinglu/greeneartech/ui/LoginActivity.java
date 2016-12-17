@@ -38,7 +38,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private SharedPreData sharedPreData;
     private String filename = "user_info";
 
-    private Context context;
     private User user;
 
     private Handler handler;
@@ -77,9 +76,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
     private void initData()
     {
-        context = this.getApplicationContext();
 //        context = MyApplication.getContext();
-        user = new User(context, handler);
+        user = new User(handler);
     }
 
     private void initView()

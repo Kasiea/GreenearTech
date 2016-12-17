@@ -13,6 +13,7 @@ import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.model.Bat;
 import com.greenear.yeqinglu.greeneartech.model.Bms;
 import com.greenear.yeqinglu.greeneartech.model.Chart;
+import com.greenear.yeqinglu.greeneartech.model.MyApplication;
 import com.greenear.yeqinglu.greeneartech.model.User;
 import com.greenear.yeqinglu.greeneartech.model.UserInfo;
 import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
@@ -30,7 +31,6 @@ import lecho.lib.hellocharts.view.ColumnChartView;
 
 public class BatChartShow extends Activity {
 
-    public Context context;
     private ColumnChartView columnChart_Volt;
     private ColumnChartView columnChart_Soh;
     private ColumnChartView columnChart_Soc;
@@ -75,9 +75,8 @@ public class BatChartShow extends Activity {
 
     public void initData()
     {
-        context = this.getApplicationContext();
-        requestQueue = Volley.newRequestQueue(context);
-        user = new User(context, handler);
+        requestQueue = Volley.newRequestQueue(MyApplication.getContext());
+        user = new User(handler);
         user.getBms_Bat();
     }
 
