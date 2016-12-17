@@ -3,6 +3,7 @@ package com.greenear.yeqinglu.greeneartech.map;
 import android.content.Context;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,7 +28,7 @@ public class ChargingStationAroundListView extends FrameLayout {
     private Context context;
     private ListView listView;
     private ArrayAdapter<String> arrayAdapter;
-
+    
 
     public ChargingStationAroundListView(Context context,  AttributeSet attrs) {
         super(context, attrs);
@@ -37,6 +38,7 @@ public class ChargingStationAroundListView extends FrameLayout {
         LayoutInflater.from(context).inflate(R.layout.charging_station_around_listview, this);
 
         listView = (ListView)findViewById(R.id.chargin_station_around_listview);
+
 
     }
 

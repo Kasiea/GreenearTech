@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.greenear.yeqinglu.greeneartech.model.MyApplication;
 import com.greenear.yeqinglu.greeneartech.others.FileService;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
@@ -77,6 +78,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private void initData()
     {
         context = this.getApplicationContext();
+//        context = MyApplication.getContext();
         user = new User(context, handler);
     }
 
