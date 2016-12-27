@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.greenear.yeqinglu.greeneartech.R;
+import com.greenear.yeqinglu.greeneartech.map.BDGuide;
 import com.greenear.yeqinglu.greeneartech.map.Map;
 import com.greenear.yeqinglu.greeneartech.map.MapActivity;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Button map;
     private Button battery_status;
     private Button user_info;
+    private Button guid;
 
 
     @Override
@@ -65,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        guid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, BDGuide.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void initView()
@@ -73,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         map = (Button)findViewById(R.id.map);
         battery_status = (Button)findViewById(R.id.battery_status);
         user_info = (Button)findViewById(R.id.user_info);
+        guid = (Button)findViewById(R.id.guid);
 
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
