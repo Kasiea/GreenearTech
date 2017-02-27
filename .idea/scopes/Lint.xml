@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Lint" pattern="file[app]:*/" />
+</component>

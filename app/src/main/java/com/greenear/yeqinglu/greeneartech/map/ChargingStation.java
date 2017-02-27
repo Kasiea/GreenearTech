@@ -1,6 +1,7 @@
 package com.greenear.yeqinglu.greeneartech.map;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.model.CharingStationAround;
+import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -39,6 +41,9 @@ public class ChargingStation {
     private BitmapDescriptor mMarker;
     private ChargingStationInfo chargingStationInfo;//充电桩具体信息
     private ChargingStationAroundListView chargingStationAroundListView;//附近充电桩列表
+
+    //目的地位置数据存储
+    public SharedPreData sharedPreData;
 
 
     public ChargingStation(BaiduMap baiduMap,  Context context, ChargingStationInfo chargingStationInfo, ChargingStationAroundListView
@@ -176,6 +181,11 @@ public class ChargingStation {
                 tv.setPadding(30,20,30,50);
                 tv.setText("ID=" + charingStationAround.getId());
 
+                //目的地位置数据存储
+                sharedPreData = new SharedPreData();
+                sharedPreData.saveDestPosition(charingStationAround.getLatitude(), charingStationAround
+                .getLongitude());
+
                 final LatLng latLng = marker.getPosition();
                 Point p = baiduMap.getProjection().toScreenLocation(latLng);
                 p.y -= 47;
@@ -186,6 +196,7 @@ public class ChargingStation {
 
                 chargingStationInfo.setVisibility(View.VISIBLE);
                 chargingStationInfo.charger_info.setVisibility(View.VISIBLE);
+
                 return true;
             }
         });
@@ -195,12 +206,12 @@ public class ChargingStation {
     //显示周围充电桩列表
     public void addChargingStationListview(ArrayList<CharingStationAround> charingStationArounds)
     {
-        ArrayList<String> arrayList = new ArrayList<String>();
-        for(int i = 0; i < charingStationArounds.size(); i ++) {
-            arrayList.add(i, "附近充电桩"  + "ID=" + charingStationArounds.get(i).getId());
-            charingStationArounds.get(0).getId();
-        }
-        chargingStationAroundListView.setDetailListView(arrayList, chargingStationInfo);//设置ListView
+//        ArrayList<String> arrayList = new ArrayList<String>();
+//        for(int i = 0; i < charingStationArounds.size(); i ++) {
+//            arrayList.add(i, "附近充电桩"  + "ID=" + charingStationArounds.get(i).getId());
+//            charingStationArounds.get(0).getId();
+//        }
+        chargingStationAroundListView.setDetailListView(charingStationArounds, chargingStationInfo);//设置ListView
     }
 
 }

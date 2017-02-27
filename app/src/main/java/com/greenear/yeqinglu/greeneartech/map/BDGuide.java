@@ -2,7 +2,9 @@ package com.greenear.yeqinglu.greeneartech.map;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,6 +19,7 @@ import com.baidu.navisdk.adapter.BNRoutePlanNode;
 import com.baidu.navisdk.adapter.BNaviSettingManager;
 import com.baidu.navisdk.adapter.BaiduNaviManager;
 import com.greenear.yeqinglu.greeneartech.model.MyApplication;
+import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,6 +47,7 @@ public class BDGuide extends Activity {
     private final static int authComRequestCode = 2;
     public static List<Activity> activityList = new LinkedList<Activity>();
     public static final String ROUTE_PLAN_NODE = "routePlanNode";
+
 
     /**
      * 内部TTS播报状态回传handler
@@ -227,6 +231,16 @@ public class BDGuide extends Activity {
         }
         BNRoutePlanNode sNode = null;
         BNRoutePlanNode eNode = null;
+
+        SharedPreferences preferences = MyApplication.getContext().getSharedPreferences("MyPostion", Context.MODE_PRIVATE);
+        String myPosition_latitude = preferences.getString("myLatitude","");
+        String myPosition_longitude = preferences.getString("myLongitude","");
+
+        SharedPreferences preferences1 = MyApplication.getContext().getSharedPreferences("DestPosition", Context.MODE_PRIVATE);
+        String destPosition_latitude = preferences1.getString("destLatitude","");
+        String destPosition_longitude = preferences1.getString("destLongitude","");
+
+
         switch (coType) {
             case GCJ02: {
 
@@ -234,10 +248,17 @@ public class BDGuide extends Activity {
                 eNode = new BNRoutePlanNode(116.39750, 39.90882, "北京天安门", null, coType);
                 break;
 
+
                 //制定起始点和终点的导航
 //                sNode = new BNRoutePlanNode(my_location.getLongitude(),my_location.getLatitude(),"昂立大厦" , null, coType);
 //                eNode = new BNRoutePlanNode(121.2, 31.1, "佘山", null, coType);
 //                break;
+
+//                sNode = new BNRoutePlanNode(Double.valueOf(myPosition_latitude), Double.valueOf(myPosition_longitude), "我的位置", null, coType);
+//                eNode = new BNRoutePlanNode(Double.valueOf(destPosition_latitude), Double.valueOf(destPosition_longitude), "北京天安门", null, coType);
+//                break;
+
+
             }
             case WGS84: {
                 sNode = new BNRoutePlanNode(116.300821, 40.050969, "百度大厦", null, coType);

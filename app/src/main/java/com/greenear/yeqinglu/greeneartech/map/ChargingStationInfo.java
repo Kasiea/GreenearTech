@@ -2,6 +2,7 @@ package com.greenear.yeqinglu.greeneartech.map;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +27,9 @@ public class ChargingStationInfo extends FrameLayout {
     public TextView info_dis;
     public TextView info_zan;
     public Button back_btn;
+    public Button guide_btn;
 
-    public ChargingStationInfo(Context context, AttributeSet attrs) {
+    public ChargingStationInfo(final Context context, AttributeSet attrs) {
         super(context, attrs);
         //获取到LayoutInflater的实例,加载布局
         LayoutInflater.from(context).inflate(R.layout.charging_station_info, this);
@@ -38,12 +40,21 @@ public class ChargingStationInfo extends FrameLayout {
         info_dis = (TextView)findViewById(R.id.id_info_dis);
         info_zan = (TextView)findViewById(R.id.id_info_zan);
         back_btn = (Button)findViewById(R.id.back);
+        guide_btn = (Button)findViewById(R.id.guide);
 
         //回退按钮
         back_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 charger_info.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        guide_btn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BDGuide.class);
+                context.startActivity(intent);
             }
         });
 

@@ -3,6 +3,7 @@ package com.greenear.yeqinglu.greeneartech.service;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.greenear.yeqinglu.greeneartech.model.MyApplication;
 import com.greenear.yeqinglu.greeneartech.model.UserInfo;
 
 /**
@@ -13,6 +14,10 @@ public class SharedPreData {
 
     private Context context;
     private UserInfo userInfo;
+
+    public SharedPreData(){
+        this.context = MyApplication.getContext();
+    }
 
     public  SharedPreData(Context context, UserInfo userInfo){
         this.context = context;
@@ -70,4 +75,29 @@ public class SharedPreData {
 
             return userInfo;
     }
+
+    public void saveMyPostion(String myLatitude, String myLongitude)
+    {
+        //调用 SharedPreferences 对象的 edit()方法来获取一个 SharedPreferences.Editor 对象。
+        SharedPreferences.Editor editor= context.getSharedPreferences("MyPostion",Context.MODE_PRIVATE).edit();
+        //向 SharedPreferences.Editor 对象中添加数据，比如添加一个布尔型数据就使用
+//        putBoolean 方法，添加一个字符串则使用 putString()方法，以此类推。
+        editor.putString("myLatitude", myLatitude);
+        editor.putString("myLongitude", myLongitude);
+        //调用 commit()方法将添加的数据提交，从而完成数据存储操作。
+        editor.commit();
+    }
+
+    public void saveDestPosition(String destLatitude, String destLongitude)
+    {
+        //调用 SharedPreferences 对象的 edit()方法来获取一个 SharedPreferences.Editor 对象。
+        SharedPreferences.Editor editor= context.getSharedPreferences("DestPosition",Context.MODE_PRIVATE).edit();
+        //向 SharedPreferences.Editor 对象中添加数据，比如添加一个布尔型数据就使用
+//        putBoolean 方法，添加一个字符串则使用 putString()方法，以此类推。
+        editor.putString("destLatitude", destLatitude);
+        editor.putString("destLongitude", destLongitude);
+        //调用 commit()方法将添加的数据提交，从而完成数据存储操作。
+        editor.commit();
+    }
+
 }

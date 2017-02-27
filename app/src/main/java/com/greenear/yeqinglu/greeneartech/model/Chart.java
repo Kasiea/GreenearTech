@@ -156,7 +156,7 @@ public class Chart implements BaseChart {
         columnChartData.setAxisXBottom(new Axis(axisValues).setHasLines(true)
                 .setTextColor(Color.BLACK).setName("Battery").setMaxLabelChars(8));
         columnChartData.setAxisYLeft(new Axis().setHasLines(true)
-                .setTextColor(Color.BLACK).setMaxLabelChars(2).setName("mV"));
+                .setTextColor(Color.BLACK).setMaxLabelChars(2).setName("%"));
 
 
         //最后将所有值显示在View中
@@ -221,7 +221,7 @@ public class Chart implements BaseChart {
         columnChartData.setAxisXBottom(new Axis(axisValues).setHasLines(true)
                 .setTextColor(Color.BLACK).setName("Battery").setMaxLabelChars(8));
         columnChartData.setAxisYLeft(new Axis().setHasLines(true)
-                .setTextColor(Color.BLACK).setMaxLabelChars(2).setName("mV"));
+                .setTextColor(Color.BLACK).setMaxLabelChars(2).setName("%"));
 
 
         //最后将所有值显示在View中

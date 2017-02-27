@@ -8,11 +8,24 @@
         android:orientation="vertical"
     >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <Button
             android:id="@+id/back"
             android:layout_width="65dp"
             android:layout_height="35dp"
             android:text="Back"/>
+
+        <Button
+            android:id="@+id/guide"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="right"
+            android:text="Go there"/>
+
+        </LinearLayout>
 
         <ImageView
             android:src="@drawable/a1"

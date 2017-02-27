@@ -26,6 +26,7 @@ import com.greenear.yeqinglu.greeneartech.map.Map;
 import com.greenear.yeqinglu.greeneartech.map.MyOrientationListener;
 import com.greenear.yeqinglu.greeneartech.model.Location;
 import com.greenear.yeqinglu.greeneartech.model.User;
+import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
 
 import java.util.List;
 
@@ -54,6 +55,9 @@ public class TargetPostion {
     private BitmapDescriptor mCurrentMarker;
     private float mCurrentX;//方向
 
+    //我的位置数据存储
+    public SharedPreData sharedPreData;
+
 
     public TargetPostion(Context context, BaiduMap baiduMap, LocationClient locationClient) {
         this.context = context;
@@ -65,6 +69,7 @@ public class TargetPostion {
         locationClient.registerLocationListener(myListener);    //注册监听函数
         mCurrentMarker = BitmapDescriptorFactory
                 .fromResource(R.drawable.mark);//自定义图标
+        sharedPreData = new SharedPreData();
 
         myOritentationListener = new MyOrientationListener(context);
         //设置方向监听器
@@ -154,6 +159,9 @@ public class TargetPostion {
             myLatitude = location.getLatitude();
             myLongitude = location.getLongitude();
             myAccuracy = location.getRadius();
+
+            //我的位置数据存储
+            sharedPreData.saveMyPostion(Double.toString(myLatitude), Double.toString(myLongitude));
 
             // 构造定位数据
             MyLocationData locData = new MyLocationData.Builder().

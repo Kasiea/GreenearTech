@@ -35,6 +35,7 @@ import com.greenear.yeqinglu.greeneartech.model.MyApplication;
 import com.greenear.yeqinglu.greeneartech.model.User;
 import com.greenear.yeqinglu.greeneartech.model.UserInfo;
 import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
+import com.greenear.yeqinglu.greeneartech.ui.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +104,7 @@ public class MapActivity extends Activity {
         targetPosition = new TargetPostion(MyApplication.getContext(), mBaiduMap, mLocationClient);
 
         //添加覆盖物
-        chargingStation = new ChargingStation(mBaiduMap, MyApplication.getContext(), chargingStationInfo, chargingStationAroundListView);
+        chargingStation = new ChargingStation(mBaiduMap, MapActivity.this, chargingStationInfo, chargingStationAroundListView);
 
         //获取用户信息
         user = new User(handler);

@@ -16,6 +16,9 @@ import android.widget.Toast;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.model.LatLng;
 import com.greenear.yeqinglu.greeneartech.R;
+import com.greenear.yeqinglu.greeneartech.model.CharingStationAround;
+import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
+
 import java.util.ArrayList;
 
 
@@ -28,6 +31,7 @@ public class ChargingStationAroundListView extends FrameLayout {
     private Context context;
     private ListView listView;
     private ArrayAdapter<String> arrayAdapter;
+    private SharedPreData sharedPreData;
     
 
     public ChargingStationAroundListView(Context context,  AttributeSet attrs) {
@@ -39,12 +43,23 @@ public class ChargingStationAroundListView extends FrameLayout {
 
         listView = (ListView)findViewById(R.id.chargin_station_around_listview);
 
+        sharedPreData = new SharedPreData();
+
 
     }
 
 
     //配置ListView数据
-    public void setDetailListView(final ArrayList<String> arrayList, final ChargingStationInfo chargingStationInfo) {
+    public void setDetailListView(final ArrayList<CharingStationAround> charingStationArounds, final ChargingStationInfo chargingStationInfo) {
+
+        //将数据放到ArrayList
+        final ArrayList<String> arrayList = new ArrayList<String>();
+        for(int i = 0; i < charingStationArounds.size(); i ++) {
+            arrayList.add(i, "附近充电桩"  + "ID=" + charingStationArounds.get(i).getId());
+            charingStationArounds.get(0).getId();
+        }
+
+        //生成Adapter
         arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, arrayList);
         listView.setAdapter(arrayAdapter);
 
@@ -62,6 +77,11 @@ public class ChargingStationAroundListView extends FrameLayout {
 
                 chargingStationInfo.setVisibility(View.VISIBLE);
                 chargingStationInfo.charger_info.setVisibility(View.VISIBLE);
+
+                //目的地位置数据存储
+                sharedPreData = new SharedPreData();
+                sharedPreData.saveDestPosition(charingStationArounds.get(position).getLatitude(), charingStationArounds.
+                        get(position).getLongitude());
 
             }
         });
