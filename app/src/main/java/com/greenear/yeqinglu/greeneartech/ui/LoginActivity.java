@@ -174,6 +174,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 //        userInfo = sharedPreData.load(filename);
         et_username.setText(user.userInfo.getName());
         et_password.setText(user.userInfo.getPassword());
+
     }
 
 
