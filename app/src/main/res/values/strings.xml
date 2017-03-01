@@ -3,9 +3,9 @@
 
     <string name="usesrname">用户名</string>
     <string name="password">密码</string>
-    <string name="login">登陆</string>
-    <string name="login_sucess">登陆成功！</string>
-    <string name="login_fail">登陆失败！</string>
+    <string name="login">登录</string>
+    <string name="login_sucess">登录成功！</string>
+    <string name="login_fail">登录失败！</string>
     <string name="registr">注册</string>
     <string name="registr_success">注册成功！</string>
     <string name="registr_fail">注册失败！</string>
@@ -34,5 +34,7 @@
     <string name="user_bat_id_2">User Bat2 ID</string>
     <string name="user_bat_id_3">User Bat3 ID</string>
     <string name="user_bat_id_4">User Bat4 ID</string>
+
+    <string name="welcome_title">Welcome to GreenearTech!</string>
 
 </resources>
