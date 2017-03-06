@@ -49,7 +49,6 @@ public class BDGuide extends Activity {
     public static List<Activity> activityList = new LinkedList<Activity>();
     public static final String ROUTE_PLAN_NODE = "routePlanNode";
 
-    private boolean isNaviInited = false;
 
 
     /**
@@ -161,7 +160,6 @@ public class BDGuide extends Activity {
 
             public void initStart() {
                 Toast.makeText(MyApplication.getContext(), "百度导航引擎初始化开始", Toast.LENGTH_SHORT).show();
-                isNaviInited = true;
             }
 
             public void initFailed() {
@@ -256,19 +254,19 @@ public class BDGuide extends Activity {
         switch (coType) {
             case GCJ02: {
 
-                sNode = new BNRoutePlanNode(116.30142, 40.05087, "百度大厦", null, coType);
-                eNode = new BNRoutePlanNode(116.39750, 39.90882, "北京天安门", null, coType);
-                break;
+//                sNode = new BNRoutePlanNode(116.30142, 40.05087, "百度大厦", null, coType);
+//                eNode = new BNRoutePlanNode(116.39750, 39.90882, "北京天安门", null, coType);
+//                break;
 
 
                 //制定起始点和终点的导航
-//                sNode = new BNRoutePlanNode(my_location.getLongitude(),my_location.getLatitude(),"昂立大厦" , null, coType);
+//                sNode = new BNRoutePlanNode(116.30142,40.05087,"昂立大厦" , null, coType);
 //                eNode = new BNRoutePlanNode(121.2, 31.1, "佘山", null, coType);
 //                break;
-
-//                sNode = new BNRoutePlanNode(Double.valueOf(myPosition_latitude), Double.valueOf(myPosition_longitude), "我的位置", null, coType);
-//                eNode = new BNRoutePlanNode(Double.valueOf(destPosition_latitude), Double.valueOf(destPosition_longitude), "北京天安门", null, coType);
-//                break;
+//
+                sNode = new BNRoutePlanNode(Double.valueOf(myPosition_latitude), Double.valueOf(myPosition_longitude), "我的位置", null, coType);
+                eNode = new BNRoutePlanNode(Double.valueOf(destPosition_latitude), Double.valueOf(destPosition_longitude), "目的位置", null, coType);
+                break;
 
 
             }

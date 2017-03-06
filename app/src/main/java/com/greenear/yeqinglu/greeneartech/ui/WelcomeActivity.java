@@ -70,7 +70,7 @@ public class WelcomeActivity extends Activity {
     {
         isLogin();
         initData();
-        if (user.userInfo!= null)
+        if (!"".equals(user.userInfo.name))
         {
             user.login();
             isLogined = true;
