@@ -199,9 +199,10 @@ public class BNDemoGuideActivity extends Activity {
         List<CustomizedLayerItem> items = new ArrayList<CustomizedLayerItem>();
         CustomizedLayerItem item1 = null;
         if (mBNRoutePlanNode != null) {
-            item1 = new CustomizedLayerItem(mBNRoutePlanNode.getLongitude(), mBNRoutePlanNode.getLatitude(),
-                    mBNRoutePlanNode.getCoordinateType(), getResources().getDrawable(R.drawable.mark),
-                    CustomizedLayerItem.ALIGN_CENTER);
+            //自定义图标
+//            item1 = new CustomizedLayerItem(mBNRoutePlanNode.getLongitude(), mBNRoutePlanNode.getLatitude(),
+//                    mBNRoutePlanNode.getCoordinateType(), getResources().getDrawable(R.drawable.mark),
+//                    CustomizedLayerItem.ALIGN_CENTER);
             items.add(item1);
 
             BNRouteGuideManager.getInstance().setCustomizedLayerItems(items);

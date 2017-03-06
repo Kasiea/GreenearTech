@@ -99,6 +99,7 @@
             android:value="FhlIb4998ItRmMavKzboQmjoo08eA4aN" />
 
         <activity android:name=".others.MainDrawer"></activity>
+
     </application>
 
 </manifest>

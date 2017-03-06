@@ -1,6 +1,7 @@
 package com.greenear.yeqinglu.greeneartech.map;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.greenear.yeqinglu.greeneartech.R;
+import com.greenear.yeqinglu.greeneartech.model.MyApplication;
 
 /**
  * Created by yeqing.lu on 2016/11/22.
@@ -53,7 +55,7 @@ public class ChargingStationInfo extends FrameLayout {
         guide_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, BDGuide.class);
+                Intent intent = new Intent(MyApplication.getContext(), BDGuide.class);
                 context.startActivity(intent);
             }
         });

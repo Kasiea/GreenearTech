@@ -67,8 +67,8 @@ public class TargetPostion {
 
     public void initData() {
         locationClient.registerLocationListener(myListener);    //注册监听函数
-        mCurrentMarker = BitmapDescriptorFactory
-                .fromResource(R.drawable.mark);//自定义图标
+//        mCurrentMarker = BitmapDescriptorFactory
+//                .fromResource(R.drawable.mark);//自定义图标
         sharedPreData = new SharedPreData();
 
         myOritentationListener = new MyOrientationListener(context);

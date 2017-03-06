@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
@@ -48,6 +49,8 @@ public class BDGuide extends Activity {
     public static List<Activity> activityList = new LinkedList<Activity>();
     public static final String ROUTE_PLAN_NODE = "routePlanNode";
 
+    private boolean isNaviInited = false;
+
 
     /**
      * 内部TTS播报状态回传handler
@@ -70,6 +73,7 @@ public class BDGuide extends Activity {
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,9 +83,10 @@ public class BDGuide extends Activity {
         if (initDirs()) {
             initNavi();
         }
-        if (BaiduNaviManager.isNaviInited()) {
-            routeplanToNavi(BNRoutePlanNode.CoordinateType.GCJ02);
-        }
+
+//        if (BaiduNaviManager.isNaviInited()) {
+//            routeplanToNavi(BNRoutePlanNode.CoordinateType.GCJ02);
+//        }
     }
 
     private String getSdcardDir() {
@@ -146,10 +151,17 @@ public class BDGuide extends Activity {
                 Toast.makeText(MyApplication.getContext(), "百度导航引擎初始化成功", Toast.LENGTH_SHORT).show();
                 hasInitSuccess = true;
                 initSetting();
+
+                //百度导航引擎初始化成功后开始导航
+                if (BaiduNaviManager.isNaviInited()) {
+                    routeplanToNavi(BNRoutePlanNode.CoordinateType.GCJ02);
+                }
+
             }
 
             public void initStart() {
                 Toast.makeText(MyApplication.getContext(), "百度导航引擎初始化开始", Toast.LENGTH_SHORT).show();
+                isNaviInited = true;
             }
 
             public void initFailed() {
