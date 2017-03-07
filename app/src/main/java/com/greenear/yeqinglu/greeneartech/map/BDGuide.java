@@ -13,12 +13,14 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.navisdk.adapter.BNOuterTTSPlayerCallback;
 import com.baidu.navisdk.adapter.BNRoutePlanNode;
 import com.baidu.navisdk.adapter.BNaviSettingManager;
 import com.baidu.navisdk.adapter.BaiduNaviManager;
+import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.model.MyApplication;
 import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
 
@@ -49,6 +51,8 @@ public class BDGuide extends Activity {
     public static List<Activity> activityList = new LinkedList<Activity>();
     public static final String ROUTE_PLAN_NODE = "routePlanNode";
 
+    private TextView navi_statue;
+
 
 
     /**
@@ -76,6 +80,8 @@ public class BDGuide extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.bd_guid_activity);
+        initView();
 
         activityList.add(this);
 
@@ -88,6 +94,11 @@ public class BDGuide extends Activity {
 //        }
     }
 
+
+    public void initView()
+    {
+     navi_statue = (TextView)findViewById(R.id.navi_statue);
+    }
     private String getSdcardDir() {
         if (Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)) {
             return Environment.getExternalStorageDirectory().toString();
@@ -260,13 +271,13 @@ public class BDGuide extends Activity {
 
 
                 //制定起始点和终点的导航
-//                sNode = new BNRoutePlanNode(116.30142,40.05087,"昂立大厦" , null, coType);
-//                eNode = new BNRoutePlanNode(121.2, 31.1, "佘山", null, coType);
-//                break;
-//
-                sNode = new BNRoutePlanNode(Double.valueOf(myPosition_latitude), Double.valueOf(myPosition_longitude), "我的位置", null, coType);
-                eNode = new BNRoutePlanNode(Double.valueOf(destPosition_latitude), Double.valueOf(destPosition_longitude), "目的位置", null, coType);
+                sNode = new BNRoutePlanNode(121.250757,31.061976,"昂立大厦" , null, coType);
+                eNode = new BNRoutePlanNode(121.202527,31.100699, "佘山", null, coType);
                 break;
+//
+//                sNode = new BNRoutePlanNode(Double.valueOf(myPosition_latitude), Double.valueOf(myPosition_longitude), "我的位置", null, coType);
+//                eNode = new BNRoutePlanNode(Double.valueOf(destPosition_latitude), Double.valueOf(destPosition_longitude), "目的位置", null, coType);
+//                break;
 
 
             }
@@ -292,7 +303,11 @@ public class BDGuide extends Activity {
             List<BNRoutePlanNode> list = new ArrayList<BNRoutePlanNode>();
             list.add(sNode);
             list.add(eNode);
-            BaiduNaviManager.getInstance().launchNavigator(this, list, 1, true, new DemoRoutePlanListener(sNode));
+
+            //自定义实时导航
+//            BaiduNaviManager.getInstance().launchNavigator(this, list, 1, true, new DemoRoutePlanListener(sNode));
+            //模拟导航
+            BaiduNaviManager.getInstance().launchNavigator(this, list, 1, false, new DemoRoutePlanListener(sNode));
         }
     }
 
@@ -418,5 +433,12 @@ public class BDGuide extends Activity {
         }
 
     }
+    
 
+    //导航状态提醒
+    @Override
+    protected void onStop() {
+        super.onStop();
+        navi_statue.setText(R.string.finish_navi);
+    }
 }

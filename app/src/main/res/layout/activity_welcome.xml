@@ -13,4 +13,5 @@
         android:textColor="@color/colorPrimary"
         android:layout_centerInParent="true"
         />
+
 </RelativeLayout>
