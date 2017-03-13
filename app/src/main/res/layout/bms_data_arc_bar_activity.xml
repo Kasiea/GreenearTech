@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.shinelw.library.ColorArcProgressBar
+        android:id="@+id/bms_bar"
+        app:is_need_unit="true"
+        app:string_unit="百分比%"
+        app:is_need_title="true"
+        app:string_title="当前电量"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal"
+        app:is_need_content="true"
+        app:max_value="100"
+        app:back_width="10dp"
+        app:front_width="10dp"
+        app:total_engle="360"
+        app:is_need_dial="true"
+        app:back_color="@android:color/darker_gray"
+        android:layout_marginBottom="150dp"
+        app:front_color3="#00ff00"
+        app:front_color2="#ffff00"
+        app:front_color1="#ff0000"
+        />
+
+</LinearLayout>

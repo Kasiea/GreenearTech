@@ -433,7 +433,7 @@ public class BDGuide extends Activity {
         }
 
     }
-    
+
 
     //导航状态提醒
     @Override

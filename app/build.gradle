@@ -30,4 +30,6 @@ dependencies {
     compile files('libs/BaiduLBS_Android.jar')
     compile 'org.litepal.android:core:1.4.1'
     testCompile 'junit:junit:4.12'
+    //ColorArcProgressBar
+    compile 'com.github.shinelw:library:1.0.1'
 }

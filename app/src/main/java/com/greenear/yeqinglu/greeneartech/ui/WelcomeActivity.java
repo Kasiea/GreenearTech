@@ -2,6 +2,7 @@ package com.greenear.yeqinglu.greeneartech.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,6 +10,7 @@ import android.view.Window;
 
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.model.User;
+import com.greenear.yeqinglu.greeneartech.net.NetworrkChangeReceiver;
 
 /**
  * Created by yeqing.lu on 2017/3/1.
@@ -22,9 +24,19 @@ public class WelcomeActivity extends Activity {
     private int IS_FINISHED = 1;
     private boolean isLogined = false;
 
+    private IntentFilter intentFilter;
+    private NetworrkChangeReceiver networrkChangeReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-                 checkUserInfo();
+                checkUserInfo();
+
+                //网络判断相关
+                intentFilter = new IntentFilter();
+                intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+                networrkChangeReceiver = new NetworrkChangeReceiver();
+                registerReceiver(networrkChangeReceiver, intentFilter);
+
 
                 super.onCreate(savedInstanceState);
                 requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -75,5 +87,11 @@ public class WelcomeActivity extends Activity {
             user.login();
             isLogined = true;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(networrkChangeReceiver);
     }
 }
