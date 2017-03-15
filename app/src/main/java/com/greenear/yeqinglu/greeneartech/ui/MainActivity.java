@@ -2,7 +2,9 @@ package com.greenear.yeqinglu.greeneartech.ui;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -109,6 +111,22 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 drawerLayout.closeDrawers();
                 return true;
+            }
+        });
+
+        //FloatingActionButton
+        FloatingActionButton floatingActionButton = (FloatingActionButton)findViewById(R.id.fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Snackbar.make(v, "You click me", Snackbar.LENGTH_SHORT)
+                        .setAction("OK", new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(MainActivity.this, "Oh, you click me!", Toast.LENGTH_SHORT).show();
+                            }
+                        }).show();
             }
         });
     }
