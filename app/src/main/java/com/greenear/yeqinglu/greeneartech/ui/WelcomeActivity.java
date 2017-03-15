@@ -37,7 +37,6 @@ public class WelcomeActivity extends Activity {
                 networrkChangeReceiver = new NetworrkChangeReceiver();
                 registerReceiver(networrkChangeReceiver, intentFilter);
 
-
                 super.onCreate(savedInstanceState);
                 requestWindowFeature(Window.FEATURE_NO_TITLE);
 

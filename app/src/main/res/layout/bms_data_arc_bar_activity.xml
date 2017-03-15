@@ -27,4 +27,23 @@
         app:front_color1="#ff0000"
         />
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/outside_circle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/outside_circle"/>
+
+        <ImageView
+            android:id="@+id/inside_circle"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/inside_circle"/>
+
+    </RelativeLayout>
+
 </LinearLayout>
