@@ -20,7 +20,9 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:popupTheme="@color/pink_white">
     </android.support.v7.widget.Toolbar>
 
    <Button
@@ -51,7 +53,9 @@
         android:id="@+id/guid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GUID"/>
+        android:text="GUID"
+        />
+
 
     </LinearLayout>
 
@@ -76,5 +80,5 @@
                 app:menu = "@menu/nav_menu"
                 app:headerLayout="@layout/nav_header"
                 />
-    
+
 </android.support.v4.widget.DrawerLayout>

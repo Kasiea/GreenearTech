@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,13 +21,16 @@ import com.android.volley.toolbox.Volley;
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BaiduMapOptions;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapPoi;
+import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.map.TargetPostion;
@@ -52,10 +56,10 @@ public class MapActivity extends Activity {
     //定位
     public LocationClient mLocationClient;
     public TargetPostion targetPosition;
-    public Button my_location;
+    public FloatingActionButton my_location;
 
     //搜索附近充电桩
-    public Button charingStationAround_btn;
+    public FloatingActionButton charingStationAround_btn;
     public ChargingStation chargingStation;
     public ChargingStationAroundListView chargingStationAroundListView;
 
@@ -82,6 +86,7 @@ public class MapActivity extends Activity {
 
         initView();
         initData();
+
         setConfig();
 
          /* start：启动定位SDK。 stop：关闭定位SDK。调用start之后只需要等待定位结果自动回调即可。
@@ -116,12 +121,12 @@ public class MapActivity extends Activity {
     public void initView()
     {
         mMapView = (MapView) findViewById(R.id.bmapView);
-        my_location = (Button)findViewById(R.id.my_location);
+        my_location = (FloatingActionButton) findViewById(R.id.my_location);
 
         //添加覆盖物信息相关：充电桩信息，列表，按钮
         chargingStationInfo = (ChargingStationInfo)findViewById(R.id.showChargerInfo);
         chargingStationAroundListView = (ChargingStationAroundListView)findViewById(R.id.charging_station_around_listview);
-        charingStationAround_btn = (Button)findViewById(R.id.charing_station_around);
+        charingStationAround_btn = (FloatingActionButton) findViewById(R.id.charging_station_around);
     }
 
 
@@ -131,6 +136,10 @@ public class MapActivity extends Activity {
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL); //普通地图
         mBaiduMap.setTrafficEnabled(true);//打开实时交通图
         mBaiduMap.setMyLocationEnabled(true); // 开启定位图层
+        mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(
+                new MapStatus.Builder().zoom(15).build()));//设置缩放级别
+
+        mMapView.showZoomControls(false);//隐藏缩放标志
 
         //定位位置设置
         targetPosition.initData();//初始化对象数据

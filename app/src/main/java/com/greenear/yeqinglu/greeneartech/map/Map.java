@@ -445,7 +445,7 @@ public class Map<S, S1> extends Activity {
 
     private void initMarker()
     {
-        mMarker = BitmapDescriptorFactory.fromResource(R.drawable.marker);
+        mMarker = BitmapDescriptorFactory.fromResource(R.drawable.marker1);
         mMarkerLy = (RelativeLayout)findViewById(R.id.id_marker_ly);
     }
 

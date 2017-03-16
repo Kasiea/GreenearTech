@@ -4,10 +4,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:contex="com.greenear.yeqinglu.greeneartech.ui.MainActivity">
 
-    <item
-        android:id="@+id/action_myInfo"
-        android:icon="@drawable/my"
-        android:title="我的信息"
-        android:showAsAction="ifRoom"/>
 
 </menu>

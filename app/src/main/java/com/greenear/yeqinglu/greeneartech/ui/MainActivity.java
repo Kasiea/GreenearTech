@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
     private Button bms_data;
     private Button map;
@@ -99,20 +100,14 @@ public class MainActivity extends AppCompatActivity {
 
         //add NavigationView
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
+        navigationView = (NavigationView)findViewById(R.id.nav_view);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.menu);
         }
-        navigationView.setCheckedItem(R.id.profile);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                drawerLayout.closeDrawers();
-                return true;
-            }
-        });
+
+        navigationView_config();
 
         //FloatingActionButton
         FloatingActionButton floatingActionButton = (FloatingActionButton)findViewById(R.id.fab);
@@ -131,6 +126,38 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void navigationView_config()
+    {
+        navigationView.setCheckedItem(R.id.profile);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.profile:
+                        Intent intent1 = new Intent(MainActivity.this, UserInfoActivity.class);
+                        startActivity(intent1);
+                        Toast.makeText(MainActivity.this, "I am here!", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case R.id.graph:
+                        Intent intent2 = new Intent(MainActivity.this, BatChartShow.class);
+                        startActivity(intent2);
+                        break;
+
+                    case R.id.map:
+                        Intent intent3 = new Intent(MainActivity.this, MapActivity.class);
+                        startActivity(intent3);
+                        break;
+
+                    default:
+                }
+//                drawerLayout.closeDrawers();
+                return true;
+            }
+        });
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -140,12 +167,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_myInfo:
-                Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
-                startActivity(intent);
-                Toast.makeText(MainActivity.this, "I am here!", Toast.LENGTH_SHORT).show();
-                break;
-
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 break;

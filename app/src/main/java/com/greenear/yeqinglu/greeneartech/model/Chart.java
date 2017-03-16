@@ -90,7 +90,7 @@ public class Chart implements BaseChart {
         columnChartData = new ColumnChartData(columns);
         //设置X轴显示在底部，并且显示每个属性的Lable
         columnChartData.setAxisXBottom(new Axis(axisValues).setHasLines(true)
-                .setTextColor(Color.BLACK).setName("Battery").setMaxLabelChars(8));
+                .setTextColor(Color.BLACK).setName("Battery_Volt").setMaxLabelChars(8));
         columnChartData.setAxisYLeft(new Axis().setHasLines(true)
                 .setTextColor(Color.BLACK).setMaxLabelChars(2).setName("mV"));
 
@@ -154,7 +154,7 @@ public class Chart implements BaseChart {
         columnChartData = new ColumnChartData(columns);
         //设置X轴显示在底部，并且显示每个属性的Lable
         columnChartData.setAxisXBottom(new Axis(axisValues).setHasLines(true)
-                .setTextColor(Color.BLACK).setName("Battery").setMaxLabelChars(8));
+                .setTextColor(Color.BLACK).setName("Battery_Soh").setMaxLabelChars(8));
         columnChartData.setAxisYLeft(new Axis().setHasLines(true)
                 .setTextColor(Color.BLACK).setMaxLabelChars(2).setName("%"));
 
@@ -219,7 +219,7 @@ public class Chart implements BaseChart {
         columnChartData = new ColumnChartData(columns);
         //设置X轴显示在底部，并且显示每个属性的Lable
         columnChartData.setAxisXBottom(new Axis(axisValues).setHasLines(true)
-                .setTextColor(Color.BLACK).setName("Battery").setMaxLabelChars(8));
+                .setTextColor(Color.BLACK).setName("Battery_Soc").setMaxLabelChars(8));
         columnChartData.setAxisYLeft(new Axis().setHasLines(true)
                 .setTextColor(Color.BLACK).setMaxLabelChars(2).setName("%"));
 

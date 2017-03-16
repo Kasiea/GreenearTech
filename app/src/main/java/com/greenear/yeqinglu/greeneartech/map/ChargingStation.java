@@ -1,13 +1,9 @@
 package com.greenear.yeqinglu.greeneartech.map;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.map.BaiduMap;
@@ -24,7 +20,6 @@ import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.model.CharingStationAround;
 import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,8 +86,9 @@ public class ChargingStation {
             marker.setExtraInfo(arg0);
         }
 
-        MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
-        baiduMap.setMapStatus(msu);
+        //将地图显示在最后一个marker的位置
+//        MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
+//        baiduMap.setMapStatus(msu);
     }
 
 

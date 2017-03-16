@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -23,24 +25,44 @@
         android:layout_height="fill_parent"
         android:clickable="true" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/my_location"
+            <android.support.design.widget.FloatingActionButton
+                android:id="@id/my_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Location"/>
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="bottom|left"
+                android:layout_margin="16dp"
+                app:fabSize="mini"
+                android:backgroundTint="@color/white"
+                android:background="@color/white"
+                app:rippleColor="@color/gray"
+                app:borderWidth="0dp"
+                android:elevation="8dp"
+                android:src="@drawable/my_location" />
 
-            <Button
-                android:id="@+id/charing_station_around"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Charging Station Around"/>
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@id/charging_station_around"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="bottom|right"
+                    android:layout_margin="16dp"
+                    android:background="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:elevation="8dp"
+                    android:foreground="@drawable/find_charging_station"
+                    app:backgroundTint="@color/white"
+                    app:borderWidth="0dp"
+                    app:fabSize="normal"
+                    app:rippleColor="@color/black" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </FrameLayout>
 
@@ -51,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:visibility="visible"
+            android:visibility="gone"
             >
         </com.greenear.yeqinglu.greeneartech.map.ChargingStationAroundListView>
 
