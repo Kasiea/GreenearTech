@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
@@ -16,8 +17,15 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.model.CharingStationAround;
+import com.greenear.yeqinglu.greeneartech.model.MyApplication;
 import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
 
 import java.util.ArrayList;
@@ -170,6 +178,9 @@ public class ChargingStation {
                 chargingStationInfo.info_name.setText("充电桩" + "ID = " + charingStationAround.getId() );
                 chargingStationInfo.info_zan.setText("100");
 
+                //经纬度地址反编码地理位置
+                showStationAdress(Float.parseFloat(charingStationAround.getLatitude()), Float.parseFloat(charingStationAround.getLongitude()));
+
 //                显示气泡信息
                 InfoWindow infoWindow;
                 TextView tv = new TextView(context);
@@ -208,6 +219,37 @@ public class ChargingStation {
 //            charingStationArounds.get(0).getId();
 //        }
         chargingStationAroundListView.setDetailListView(charingStationArounds, chargingStationInfo);//设置ListView
+    }
+
+    //经纬度地址反编码地理位置
+    public void showStationAdress(float latitude, float longitude)
+    {
+        LatLng latLng = new LatLng(latitude, longitude);
+        GeoCoder geoCoder = GeoCoder.newInstance();
+
+        OnGetGeoCoderResultListener listener = new OnGetGeoCoderResultListener() {
+            @Override
+            public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
+
+            }
+
+            @Override
+            public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
+                if (reverseGeoCodeResult == null
+                        || reverseGeoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
+                    // 没有检测到结果
+                    Toast.makeText(MyApplication.getContext(), "抱歉，未能找到结果",
+                            Toast.LENGTH_LONG).show();
+                }
+                Toast.makeText(MyApplication.getContext(),
+                        "位置：" + reverseGeoCodeResult.getAddress(), Toast.LENGTH_LONG)
+                        .show();
+
+            }
+        };
+        geoCoder.setOnGetGeoCodeResultListener(listener);
+        geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(latLng));
+
     }
 
 }
