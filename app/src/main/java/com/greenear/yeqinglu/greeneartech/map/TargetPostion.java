@@ -12,6 +12,7 @@ import com.baidu.location.Poi;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
@@ -50,9 +51,9 @@ public class TargetPostion {
     private Context context;
     private BaiduMap baiduMap;
     private LocationClient locationClient;
-    private BDLocationListener myListener = new MyLocationListener();
-    private static boolean isFirstIn = true;
-    private BitmapDescriptor mCurrentMarker;
+    private BDLocationListener myListener = new MyLocationListener();//位置移动监听器
+    private static boolean isFirstIn = true;//判断第一次定位
+    private BitmapDescriptor mCurrentMarker;//自定义图标
     private float mCurrentX;//方向
 
     //我的位置数据存储
@@ -71,8 +72,8 @@ public class TargetPostion {
 //                .fromResource(R.drawable.mark);//自定义图标
         sharedPreData = new SharedPreData();
 
-        myOritentationListener = new MyOrientationListener(context);
         //设置方向监听器
+        myOritentationListener = new MyOrientationListener(context);
         myOritentationListener.setOnOrientationListener(new MyOrientationListener.OnOrientationListener() {
             @Override
             public void onOrientationChanged(float x) {
@@ -88,8 +89,8 @@ public class TargetPostion {
                 // 设置定位数据
                 baiduMap.setMyLocationData(locData);
 
-                //自定义图标
-                MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.COMPASS, true, mCurrentMarker);
+                //设置图标模式：罗盘/正常/跟随
+                MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, mCurrentMarker);
                 baiduMap.setMyLocationConfigeration(config);
 
             }
@@ -175,8 +176,8 @@ public class TargetPostion {
             // 设置定位数据
             baiduMap.setMyLocationData(locData);
 
-            //自定义图标
-            MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.COMPASS, true, mCurrentMarker);
+            //设置图标模式：罗盘/正常/跟随
+            MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, mCurrentMarker);
             baiduMap.setMyLocationConfigeration(config);
 
             //圆圈
@@ -196,6 +197,8 @@ public class TargetPostion {
                 LatLng my_locate = new LatLng(location.getLatitude(), location.getLongitude());
                 MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(my_locate);
                 //更新位置
+                baiduMap.animateMapStatus(u);
+                u = MapStatusUpdateFactory.newMapStatus(new MapStatus.Builder().zoom(15).overlook(0).rotate(90).build());
                 baiduMap.animateMapStatus(u);
                 isFirstIn = false;
             }

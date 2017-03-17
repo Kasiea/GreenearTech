@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_refresh"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,23 +17,26 @@
         android:id="@+id/volt_chart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:paddingTop="20dp"
+        android:paddingTop="15dp"
+        android:layout_marginTop="10dp"
         />
 
     <lecho.lib.hellocharts.view.ColumnChartView
         android:id="@+id/soh_chart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:paddingTop="20dp"
+        android:paddingTop="30dp"
         />
 
     <lecho.lib.hellocharts.view.ColumnChartView
         android:id="@+id/soc_chart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:paddingTop="20dp"
+        android:paddingTop="30dp"
         />
 
     </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+
+</android.support.v4.widget.SwipeRefreshLayout>

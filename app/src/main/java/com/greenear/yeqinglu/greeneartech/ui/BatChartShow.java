@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -42,6 +43,8 @@ public class BatChartShow extends Activity {
     private Handler handler;
     private int IS_FINISHED = 1;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class BatChartShow extends Activity {
         updateChart();
         initView();
         initData();
+        refresh();
     }
 
     public void updateChart()
@@ -71,6 +75,8 @@ public class BatChartShow extends Activity {
         columnChart_Volt = (ColumnChartView)findViewById(R.id.volt_chart);
         columnChart_Soc = (ColumnChartView)findViewById(R.id.soc_chart);
         columnChart_Soh = (ColumnChartView)findViewById(R.id.soh_chart);
+
+        swipeRefreshLayout =  (SwipeRefreshLayout)findViewById(R.id.swipe_refresh);
     }
 
     public void initData()
@@ -88,6 +94,18 @@ public class BatChartShow extends Activity {
         chart.showBatSoh();
         chart.setColumnChartView(columnChart_Soc);
         chart.showBatSoc();
+    }
+
+    //下拉刷新数据
+    public void refresh()
+    {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                user.getBms_Bat();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
 }

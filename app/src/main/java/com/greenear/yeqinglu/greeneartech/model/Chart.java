@@ -109,6 +109,9 @@ public class Chart implements BaseChart {
         columnChartView.setZoomEnabled(false);
         columnChartView.setZoomType(ZoomType.HORIZONTAL);
 
+        //设置动画效果
+//        columnChartView.startDataAnimation();
+
     }
 
     @Override
@@ -128,7 +131,7 @@ public class Chart implements BaseChart {
 
         //保存所有的柱子
         List<Column> columns = new ArrayList<Column>();
-        //保存每个竹子的值
+        //保存每个柱子的值
         List<AxisValue> axisValues = new ArrayList<AxisValue>();
         List<SubcolumnValue> values;
 
@@ -239,4 +242,5 @@ public class Chart implements BaseChart {
         columnChartView.setZoomType(ZoomType.HORIZONTAL);
 
     }
+
 }

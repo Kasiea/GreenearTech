@@ -137,7 +137,7 @@ public class MapActivity extends Activity {
         mBaiduMap.setTrafficEnabled(true);//打开实时交通图
         mBaiduMap.setMyLocationEnabled(true); // 开启定位图层
         mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(
-                new MapStatus.Builder().zoom(15).build()));//设置缩放级别
+                new MapStatus.Builder().zoom(15).overlook(0).rotate(90).build()));//设置缩放级别及俯视角度
 
         mMapView.showZoomControls(false);//隐藏缩放标志
 
