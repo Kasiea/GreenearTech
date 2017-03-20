@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:background="@color/colorPrimary"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
@@ -9,14 +11,17 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:elegantTextHeight="true"
+        android:textColor="@color/white"
         android:text="SOC: 80%"/>
 
     <TextView
         android:id="@+id/travel_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_weight="1"
         android:elegantTextHeight="true"
+        android:textColor="@color/white"
         android:text="Travel Distance: 30km"/>
 
-</LinearLayout>
+</RelativeLayout>

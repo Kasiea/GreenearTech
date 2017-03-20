@@ -73,7 +73,6 @@ public class ChargingStationAroundListView extends FrameLayout {
                 chargingStationInfo.info_img.setImageResource(R.drawable.charging_station);
                 chargingStationInfo.info_dis.setText("5000m以内");
                 chargingStationInfo.info_name.setText(arrayList.get(position) );
-                chargingStationInfo.info_zan.setText("100");
 
                 chargingStationInfo.setVisibility(View.VISIBLE);
                 chargingStationInfo.charger_info.setVisibility(View.VISIBLE);

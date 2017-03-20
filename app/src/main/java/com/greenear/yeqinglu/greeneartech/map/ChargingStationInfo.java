@@ -7,11 +7,11 @@ import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.greenear.yeqinglu.greeneartech.R;
@@ -27,9 +27,10 @@ public class ChargingStationInfo extends FrameLayout {
     public ImageView info_img;
     public TextView info_name;
     public TextView info_dis;
-    public TextView info_zan;
-    public Button back_btn;
-    public Button guide_btn;
+    public TextView avialable_cg_num;
+    public TextView total_cg_num;
+    public ImageButton back_btn;
+    public ImageButton guide_btn;
 
     public ChargingStationInfo(final Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -39,15 +40,21 @@ public class ChargingStationInfo extends FrameLayout {
         charger_info = (LinearLayout)findViewById(R.id.charger_info);
         info_img = (ImageView)findViewById(R.id.id_info_img);
         info_name = (TextView)findViewById(R.id.id_info_name);
+        avialable_cg_num = (TextView)findViewById(R.id.avaliable_cg_num);
+        total_cg_num = (TextView)findViewById(R.id.total_cg_num);
         info_dis = (TextView)findViewById(R.id.id_info_dis);
-        info_zan = (TextView)findViewById(R.id.id_info_zan);
-        back_btn = (Button)findViewById(R.id.back);
-        guide_btn = (Button)findViewById(R.id.guide);
+        back_btn = (ImageButton) findViewById(R.id.back);
+        guide_btn = (ImageButton) findViewById(R.id.guide);
+
 
         //回退按钮
         back_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                //设置动画效果
+                TranslateAnimation tAnima = new TranslateAnimation(0,0,0,800);
+                tAnima.setDuration(600);
+                charger_info.setAnimation(tAnima);
                 charger_info.setVisibility(View.INVISIBLE);
             }
         });
@@ -74,7 +81,4 @@ public class ChargingStationInfo extends FrameLayout {
         this.info_dis = info_dis;
     }
 
-    public void setInfo_zan(TextView info_zan) {
-        this.info_zan = info_zan;
-    }
 }

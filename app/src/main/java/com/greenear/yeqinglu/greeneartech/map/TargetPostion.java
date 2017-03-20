@@ -52,7 +52,7 @@ public class TargetPostion {
     private BaiduMap baiduMap;
     private LocationClient locationClient;
     private BDLocationListener myListener = new MyLocationListener();//位置移动监听器
-    private static boolean isFirstIn = true;//判断第一次定位
+    public  boolean isFirstIn = true;//判断第一次定位
     private BitmapDescriptor mCurrentMarker;//自定义图标
     private float mCurrentX;//方向
 

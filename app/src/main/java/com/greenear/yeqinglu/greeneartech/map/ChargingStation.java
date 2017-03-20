@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ public class ChargingStation {
 
     //覆盖物相关
     private BitmapDescriptor mMarker;
+    private BitmapDescriptor mClickedMarker;
     private ChargingStationInfo chargingStationInfo;//充电桩具体信息
     private ChargingStationAroundListView chargingStationAroundListView;//附近充电桩列表
 
@@ -63,6 +66,7 @@ public class ChargingStation {
     private void initMarker()
     {
         mMarker = BitmapDescriptorFactory.fromResource(R.drawable.marker);
+        mClickedMarker = BitmapDescriptorFactory.fromResource(R.drawable.marker_clicked);
     }
 
 
@@ -172,14 +176,15 @@ public class ChargingStation {
                 Bundle extraInfo = marker.getExtraInfo();
                 CharingStationAround charingStationAround = (CharingStationAround) extraInfo.getSerializable("charingStationAround");
 
+                //经纬度地址反编码地理位置
+                showStationAdress(Float.parseFloat(charingStationAround.getLatitude()), Float.parseFloat(charingStationAround.getLongitude()));
+
 //                显示副窗口具体信息
                 chargingStationInfo.info_img.setImageResource(R.drawable.charging_station);
                 chargingStationInfo.info_dis.setText("5000m以内");
-                chargingStationInfo.info_name.setText("充电桩" + "ID = " + charingStationAround.getId() );
-                chargingStationInfo.info_zan.setText("100");
-
-                //经纬度地址反编码地理位置
-                showStationAdress(Float.parseFloat(charingStationAround.getLatitude()), Float.parseFloat(charingStationAround.getLongitude()));
+                chargingStationInfo.info_name.setText("充电桩" + "ID = " + charingStationAround.getId());
+                chargingStationInfo.total_cg_num.setText(charingStationAround.getTotal());
+                chargingStationInfo.avialable_cg_num.setText(charingStationAround.getAvailable());
 
 //                显示气泡信息
                 InfoWindow infoWindow;
@@ -187,6 +192,9 @@ public class ChargingStation {
                 tv.setBackground(context.getResources().getDrawable(R.drawable.tip));
                 tv.setPadding(30,20,30,50);
                 tv.setText("ID=" + charingStationAround.getId());
+
+                //改变点击后的图标
+//                marker.setIcon(mClickedMarker);
 
                 //目的地位置数据存储
                 sharedPreData = new SharedPreData();
@@ -200,6 +208,16 @@ public class ChargingStation {
 
                 infoWindow = new InfoWindow(tv, ll,1);
                 baiduMap.showInfoWindow(infoWindow);
+
+                //设置动画效果
+                AlphaAnimation aAnima = new AlphaAnimation(0.0f, 1.0f);//从全不透明变为全透明
+                aAnima.setDuration(500);
+                chargingStationInfo.setAnimation(aAnima);
+
+                //设置动画效果
+//                TranslateAnimation tAnima = new TranslateAnimation(0,-800,0,0);
+//                tAnima.setDuration(600);
+//                chargingStationInfo.setAnimation(tAnima);
 
                 chargingStationInfo.setVisibility(View.VISIBLE);
                 chargingStationInfo.charger_info.setVisibility(View.VISIBLE);
@@ -225,14 +243,17 @@ public class ChargingStation {
     public void showStationAdress(float latitude, float longitude)
     {
         LatLng latLng = new LatLng(latitude, longitude);
+        // 创建地理编码检索实例
         GeoCoder geoCoder = GeoCoder.newInstance();
 
         OnGetGeoCoderResultListener listener = new OnGetGeoCoderResultListener() {
+            // 地理编码查询结果回调函数
             @Override
             public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
 
             }
 
+            // 反地理编码查询结果回调函数
             @Override
             public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
                 if (reverseGeoCodeResult == null

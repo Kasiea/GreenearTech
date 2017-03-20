@@ -42,4 +42,7 @@
     <string name="start_navi">进入导航</string>
     <string name="finish_navi">导航结束</string>
 
+    <string name="total_cg_num">总充电桩数目 :</string>
+    <string name="avialable_cg_num">可用充电桩数目 :</string>
+
 </resources>

@@ -9,6 +9,8 @@ import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -95,6 +97,8 @@ public class MapActivity extends Activity {
         如果开发者想按照自己逻辑请求定位，可以在start之后按照自己的逻辑请求locationclient.
                 requestLocation()函数，会主动触发定位SDK内部定位逻辑，等待定位回调即可。*/
         mLocationClient.start();
+
+        setChargingStationInfoInvisible();//监听点击地图后Info界面隐藏
 
     }
 
@@ -193,6 +197,28 @@ public class MapActivity extends Activity {
         });
     }
 
+    //监听点击地图后充电桩站详见页面隐藏
+    public void setChargingStationInfoInvisible()
+    {
+        mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                //设置动画效果
+                TranslateAnimation tAnima = new TranslateAnimation(0,0,0,800);
+                tAnima.setDuration(600);
+                chargingStationInfo.setAnimation(tAnima);
+                chargingStationInfo.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public boolean onMapPoiClick(MapPoi mapPoi) {
+                return false;
+            }
+        });
+    }
+
+
+
 
     @Override
     public void onStart() {
@@ -204,6 +230,7 @@ public class MapActivity extends Activity {
             mLocationClient.start();
         //开启方向传感器
         targetPosition.myOritentationListener.start();
+        targetPosition.isFirstIn = true;
     }
 
 
