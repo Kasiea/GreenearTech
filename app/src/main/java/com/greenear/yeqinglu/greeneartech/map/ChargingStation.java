@@ -51,6 +51,9 @@ public class ChargingStation {
     //目的地位置数据存储
     public SharedPreData sharedPreData;
 
+    //存储上一次点击的marker图标
+    public Marker clicked_marker = null;
+
 
     public ChargingStation(BaiduMap baiduMap,  Context context, ChargingStationInfo chargingStationInfo, ChargingStationAroundListView
                            chargingStationAroundListView)
@@ -172,6 +175,11 @@ public class ChargingStation {
         baiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
+                //复原上一次点击的marker图标
+                if (clicked_marker != null)
+                {
+                    clicked_marker.setIcon(mMarker);
+                }
 
                 Bundle extraInfo = marker.getExtraInfo();
                 CharingStationAround charingStationAround = (CharingStationAround) extraInfo.getSerializable("charingStationAround");
@@ -194,7 +202,9 @@ public class ChargingStation {
                 tv.setText("ID=" + charingStationAround.getId());
 
                 //改变点击后的图标
-//                marker.setIcon(mClickedMarker);
+                marker.setIcon(mClickedMarker);
+                //存储上一次点击的marker图标
+                clicked_marker = marker;
 
                 //目的地位置数据存储
                 sharedPreData = new SharedPreData();

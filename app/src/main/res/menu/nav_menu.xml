@@ -6,17 +6,17 @@
             android:icon="@drawable/user"
             android:title="Profile"/>
         <item
-            android:id="@+id/friends"
-            android:icon="@drawable/people"
-            android:title="Friends"/>
-        <item
             android:id="@+id/graph"
             android:icon="@drawable/graph"
             android:title="Graph"/>
         <item
             android:id="@+id/map"
             android:icon="@drawable/location"
-            android:title="Location"/>
+            android:title="Map"/>
+        <item
+            android:id="@+id/friends"
+            android:icon="@drawable/people"
+            android:title="Friends"/>
         <item
             android:id="@+id/events"
             android:icon="@drawable/events"

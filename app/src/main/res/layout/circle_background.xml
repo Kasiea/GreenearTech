@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/circle_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/outside_circle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/outside_circle"/>
+
+    <ImageView
+        android:id="@+id/inside_circle"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/inside_circle"/>
+
+    <TextView
+        android:id="@+id/circle_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/inside_circle"
+        android:text="电压：192.3V"/>
+
+</RelativeLayout>

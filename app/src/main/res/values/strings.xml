@@ -36,7 +36,7 @@
     <string name="user_bat_id_4">User Bat4 ID</string>
 
     //WelcomeActivity
-    <string name="welcome_title">Welcome to GreenearTech!</string>
+    <string name="welcome_title">GreenearTech</string>
 
     //BD_GuidActivity
     <string name="start_navi">进入导航</string>

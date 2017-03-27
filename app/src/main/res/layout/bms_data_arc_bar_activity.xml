@@ -1,49 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.shinelw.library.ColorArcProgressBar
         android:id="@+id/bms_bar"
-        app:is_need_unit="true"
-        app:string_unit="百分比%"
-        app:is_need_title="true"
-        app:string_title="当前电量"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        app:is_need_content="true"
-        app:max_value="100"
-        app:back_width="10dp"
-        app:front_width="10dp"
-        app:total_engle="360"
-        app:is_need_dial="true"
+        android:layout_gravity="center"
         app:back_color="@android:color/darker_gray"
-        app:front_color3="#00ff00"
-        app:front_color2="#ffff00"
+        app:back_width="10dp"
         app:front_color1="#ff0000"
-        />
+        app:front_color2="#ffff00"
+        app:front_color3="#00ff00"
+        app:front_width="10dp"
+        app:is_need_content="true"
+        app:is_need_dial="true"
+        app:is_need_title="true"
+        app:is_need_unit="true"
+        app:max_value="100"
+        app:string_title="当前电量"
+        app:string_unit="百分比%"
+        app:total_engle="360" />
+
+    <com.greenear.yeqinglu.greeneartech.ui.CircleBackground
+        android:id="@+id/healthy_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true">
+    </com.greenear.yeqinglu.greeneartech.ui.CircleBackground>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/outside_circle"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/outside_circle"/>
+        <com.greenear.yeqinglu.greeneartech.ui.CircleBackground
+            android:id="@+id/volt_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </com.greenear.yeqinglu.greeneartech.ui.CircleBackground>
 
-        <ImageView
-            android:id="@+id/inside_circle"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/inside_circle"/>
-
+        <com.greenear.yeqinglu.greeneartech.ui.CircleBackground
+            android:id="@+id/electric_current_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
+        </com.greenear.yeqinglu.greeneartech.ui.CircleBackground>
     </RelativeLayout>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.greenear.yeqinglu.greeneartech.ui.CircleBackground
+            android:id="@+id/resistance_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </com.greenear.yeqinglu.greeneartech.ui.CircleBackground>
+
+        <com.greenear.yeqinglu.greeneartech.ui.CircleBackground
+            android:id="@+id/temper_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
+        </com.greenear.yeqinglu.greeneartech.ui.CircleBackground>
+    </RelativeLayout>
+</LinearLayout>

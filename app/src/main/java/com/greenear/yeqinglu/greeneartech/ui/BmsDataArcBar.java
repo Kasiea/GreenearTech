@@ -32,21 +32,21 @@ public class BmsDataArcBar extends Activity {
 
     public void initView(){
         bms_bar = (ColorArcProgressBar) findViewById(R.id.bms_bar);
-        outside_circle = (ImageView)findViewById(R.id.outside_circle);
-        inside_circle = (ImageView)findViewById(R.id.inside_circle);
+//        outside_circle = (ImageView)findViewById(R.id.outside_circle);
+//        inside_circle = (ImageView)findViewById(R.id.inside_circle);
 
     }
 
     public void initData(){
         bms_bar.setCurrentValues(100);
 
-        Animator animator1 = AnimatorInflater.loadAnimator(this,R.animator.outside_circle);
-        animator1.setTarget(outside_circle);
-        animator1.start();
-
-        Animator animator2 = AnimatorInflater.loadAnimator(this,R.animator.inside_circle);
-        animator2.setTarget(inside_circle);
-        animator2.start();
+//        Animator animator1 = AnimatorInflater.loadAnimator(this,R.animator.outside_circle);
+//        animator1.setTarget(outside_circle);
+//        animator1.start();
+//
+//        Animator animator2 = AnimatorInflater.loadAnimator(this,R.animator.inside_circle);
+//        animator2.setTarget(inside_circle);
+//        animator2.start();
     }
 
 }
