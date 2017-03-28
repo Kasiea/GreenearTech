@@ -27,50 +27,37 @@
         app:string_unit="百分比%"
         app:total_engle="360" />
 
-    <com.greenear.yeqinglu.greeneartech.ui.CircleBackground
-        android:id="@+id/healthy_circle"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true">
-    </com.greenear.yeqinglu.greeneartech.ui.CircleBackground>
+        android:src="@drawable/bms_health" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:src="@drawable/bms_volt" />
 
-        <com.greenear.yeqinglu.greeneartech.ui.CircleBackground
-            android:id="@+id/volt_circle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </com.greenear.yeqinglu.greeneartech.ui.CircleBackground>
-
-        <com.greenear.yeqinglu.greeneartech.ui.CircleBackground
-            android:id="@+id/electric_current_circle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
-        </com.greenear.yeqinglu.greeneartech.ui.CircleBackground>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:src="@drawable/bms_electric_current" />
 
-        <com.greenear.yeqinglu.greeneartech.ui.CircleBackground
-            android:id="@+id/resistance_circle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </com.greenear.yeqinglu.greeneartech.ui.CircleBackground>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bms_temperature" />
 
-        <com.greenear.yeqinglu.greeneartech.ui.CircleBackground
-            android:id="@+id/temper_circle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
-        </com.greenear.yeqinglu.greeneartech.ui.CircleBackground>
-    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bms_resistance" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bms_charging"/>
+
+
 </LinearLayout>

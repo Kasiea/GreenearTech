@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         bms_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, BmsDataArcBar.class);
+                Intent intent = new Intent(MainActivity.this, BmsDataShow.class);
                 startActivity(intent);
             }
         });
