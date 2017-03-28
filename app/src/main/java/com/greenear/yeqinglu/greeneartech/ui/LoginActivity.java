@@ -65,7 +65,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 if(msg.what == IS_FINISHED)
                 {
                     user.saveInfo();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, BmsDataShow.class);
                     startActivity(intent);
                     //登录成功后销毁Activity
                     finish();

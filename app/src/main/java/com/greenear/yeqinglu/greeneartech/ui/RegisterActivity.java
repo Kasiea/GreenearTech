@@ -54,7 +54,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                 super.handleMessage(msg);
                 if(msg.what == IS_FINISHED)
                 {
-                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, BmsDataShow.class);
                     startActivity(intent);
                     finish();
                 }

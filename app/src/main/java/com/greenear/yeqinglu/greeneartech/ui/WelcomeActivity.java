@@ -63,7 +63,7 @@ public class WelcomeActivity extends Activity {
                 super.handleMessage(msg);
                 if(msg.what == IS_FINISHED)
                 {
-                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                    Intent intent = new Intent(WelcomeActivity.this, BmsDataShow.class);
                     startActivity(intent);
                     //登录成功后销毁Activity
                     finish();
