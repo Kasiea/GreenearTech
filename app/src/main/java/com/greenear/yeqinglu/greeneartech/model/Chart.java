@@ -25,8 +25,8 @@ public class Chart implements BaseChart {
 
     //data
     private Bms bms;
-    public final static String[] battery = new String[]{"Battery_No.1", "Battery_No.2", "Battery_No.3",
-            "Battery_No.4",};
+    public final static String[] battery = new String[]{"电池NO.1", "电池NO.2", "电池NO.3",
+            "电池NO.4",};
 
     //ui
     private ColumnChartView columnChartView;
@@ -90,7 +90,7 @@ public class Chart implements BaseChart {
         columnChartData = new ColumnChartData(columns);
         //设置X轴显示在底部，并且显示每个属性的Lable
         columnChartData.setAxisXBottom(new Axis(axisValues).setHasLines(true)
-                .setTextColor(Color.BLACK).setName("Battery_Volt").setMaxLabelChars(8));
+                .setTextColor(Color.BLACK).setName("电池电压信息").setMaxLabelChars(8));
         columnChartData.setAxisYLeft(new Axis().setHasLines(true)
                 .setTextColor(Color.BLACK).setMaxLabelChars(2).setName("mV"));
 
@@ -157,7 +157,7 @@ public class Chart implements BaseChart {
         columnChartData = new ColumnChartData(columns);
         //设置X轴显示在底部，并且显示每个属性的Lable
         columnChartData.setAxisXBottom(new Axis(axisValues).setHasLines(true)
-                .setTextColor(Color.BLACK).setName("Battery_Soh").setMaxLabelChars(8));
+                .setTextColor(Color.BLACK).setName("电池SOH信息").setMaxLabelChars(8));
         columnChartData.setAxisYLeft(new Axis().setHasLines(true)
                 .setTextColor(Color.BLACK).setMaxLabelChars(2).setName("%"));
 
@@ -222,7 +222,7 @@ public class Chart implements BaseChart {
         columnChartData = new ColumnChartData(columns);
         //设置X轴显示在底部，并且显示每个属性的Lable
         columnChartData.setAxisXBottom(new Axis(axisValues).setHasLines(true)
-                .setTextColor(Color.BLACK).setName("Battery_Soc").setMaxLabelChars(8));
+                .setTextColor(Color.BLACK).setName("电池SOC信息").setMaxLabelChars(8));
         columnChartData.setAxisYLeft(new Axis().setHasLines(true)
                 .setTextColor(Color.BLACK).setMaxLabelChars(2).setName("%"));
 

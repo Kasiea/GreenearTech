@@ -45,4 +45,9 @@
     <string name="total_cg_num">总充电桩数目 :</string>
     <string name="avialable_cg_num">可用充电桩数目 :</string>
 
+    <string name="Battery_Chart">电池各项数据</string>
+    <string name="Battery_Volt">电池电压信息</string>
+    <string name="Battery_Soh">电池SOH信息</string>
+    <string name="Battery_Soc">电池SOC信息</string>
+
 </resources>
