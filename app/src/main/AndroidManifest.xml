@@ -83,6 +83,7 @@
         <activity android:name=".ui.UserInfoShow" />
         <activity android:name=".ui.UserInfoActivity" />
         <activity android:name=".map.BDGuide" />
+        <activity android:name=".map.SearchSpecificLocation"/>
         <activity android:name=".others.MainDrawer"/>
         <activity
             android:name=".map.BNDemoGuideActivity"

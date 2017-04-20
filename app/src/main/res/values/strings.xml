@@ -49,5 +49,8 @@
     <string name="Battery_Volt">电池电压信息</string>
     <string name="Battery_Soh">电池SOH信息</string>
     <string name="Battery_Soc">电池SOC信息</string>
+    
+    <string name="Search_specific_location_chargingStation">请输入你想搜索充电桩的位置</string>
+    <string name="Search">搜索</string>
 
 </resources>

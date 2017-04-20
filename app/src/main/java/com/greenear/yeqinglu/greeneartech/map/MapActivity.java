@@ -2,21 +2,28 @@ package com.greenear.yeqinglu.greeneartech.map;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -64,6 +71,9 @@ public class MapActivity extends Activity {
     public FloatingActionButton charingStationAround_btn;
     public ChargingStation chargingStation;
     public ChargingStationAroundListView chargingStationAroundListView;
+
+    //搜索具体位置附近充电桩
+    private Button search_specific_cg_btn;
 
     //显示覆盖物具体信息，自定义view
     public ChargingStationInfo chargingStationInfo;
@@ -131,6 +141,10 @@ public class MapActivity extends Activity {
         chargingStationInfo = (ChargingStationInfo)findViewById(R.id.showChargerInfo);
         chargingStationAroundListView = (ChargingStationAroundListView)findViewById(R.id.charging_station_around_listview);
         charingStationAround_btn = (FloatingActionButton) findViewById(R.id.charging_station_around);
+
+        //搜索具体位置附近充电桩
+        search_specific_cg_btn = (Button)findViewById(R.id.specific_location_search);
+
     }
 
 
@@ -154,6 +168,10 @@ public class MapActivity extends Activity {
 //        chargingStation.add();//添加覆盖物
         getCharingStationAround();//搜索附近充电桩
         chargingStation.setChangingStationInfoShow();//覆盖物信息窗口显示
+
+        //搜索具体位置充电桩监听
+        searchSpecificCG();
+
     }
 
 
@@ -217,7 +235,16 @@ public class MapActivity extends Activity {
         });
     }
 
-
+    //搜索具体位置充电桩
+    public void searchSpecificCG(){
+        search_specific_cg_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyApplication.getContext(), SearchSpecificLocation.class);
+                startActivity(intent);
+            }
+        });
+    }
 
 
     @Override

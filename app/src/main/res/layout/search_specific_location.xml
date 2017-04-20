@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/specific_location"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/Search_specific_location_chargingStation"/>
+
+        <Button
+            android:id="@+id/search_specific_location_cs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Search"/>
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/fuzzy_search_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/middle_gray">
+        </ListView>
+
+</LinearLayout>
