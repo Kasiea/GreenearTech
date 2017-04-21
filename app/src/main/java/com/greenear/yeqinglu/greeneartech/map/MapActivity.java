@@ -1,57 +1,30 @@
 package com.greenear.yeqinglu.greeneartech.map;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.TranslateAnimation;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
+import android.view.animation.TranslateAnimation;
+
+import android.widget.Button;
+
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BaiduMapOptions;
-import com.baidu.mapapi.map.InfoWindow;
+
 import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.MyLocationConfiguration;
-import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.greenear.yeqinglu.greeneartech.R;
-import com.greenear.yeqinglu.greeneartech.map.TargetPostion;
-import com.greenear.yeqinglu.greeneartech.model.CharingStationAround;
 import com.greenear.yeqinglu.greeneartech.model.MyApplication;
 import com.greenear.yeqinglu.greeneartech.model.User;
-import com.greenear.yeqinglu.greeneartech.model.UserInfo;
-import com.greenear.yeqinglu.greeneartech.service.SharedPreData;
-import com.greenear.yeqinglu.greeneartech.ui.MainActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by yeqing.lu on 2016/11/17.
@@ -235,17 +208,39 @@ public class MapActivity extends Activity {
         });
     }
 
-    //搜索具体位置充电桩
+    //跳转到Activity搜索具体位置充电桩
     public void searchSpecificCG(){
         search_specific_cg_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyApplication.getContext(), SearchSpecificLocation.class);
-                startActivity(intent);
+                Intent intent = new Intent(MapActivity.this, SearchSpecificLocation.class);
+                startActivityForResult(intent, 1);
             }
         });
     }
 
+    //获取搜索页面的具体LatLng以及周围充电桩
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 1:
+                if(resultCode == RESULT_OK){
+                    //得到搜索栏返回的具体坐标数据
+                    double latitude = data.getDoubleExtra("latitude", 1);
+                    double longitude = data.getDoubleExtra("longitude", 1);
+
+                    //定位到具体搜索的位置
+                    LatLng latLng = new LatLng(latitude, longitude);
+                    MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
+                    mBaiduMap.animateMapStatus(msu);
+
+                    //搜索具体地址周围充电桩
+                    user.getChargingStation(longitude, latitude);
+                }
+                break;
+            default:
+        }
+    }
 
     @Override
     public void onStart() {
@@ -257,7 +252,7 @@ public class MapActivity extends Activity {
             mLocationClient.start();
         //开启方向传感器
         targetPosition.myOritentationListener.start();
-        targetPosition.isFirstIn = true;
+//        targetPosition.isFirstIn = true;
     }
 
 

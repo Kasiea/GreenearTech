@@ -14,10 +14,10 @@
             android:hint="@string/Search_specific_location_chargingStation"/>
 
         <Button
-            android:id="@+id/search_specific_location_cs"
+            android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Search"/>
+            android:text="@string/cancel"/>
 
         </LinearLayout>
 

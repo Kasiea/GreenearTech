@@ -37,8 +37,8 @@ public class SpecificPostion {
     public ArrayAdapter<String> slArrayAdapter;
     private List<String> slArrayList = new ArrayList<String>();
 
-    //反编译具体位置相关
-    public LatLng specificLocationLatLng;
+    //获取具体位置LatLng相关
+    public List<SuggestionResult.SuggestionInfo> specificLocationDetail;
 
     //Handler传输相关
     private Handler handler;
@@ -54,47 +54,6 @@ public class SpecificPostion {
     }
 
 
-    //经纬度地址反编码地理位置
-    public void getSpecificLocationLL(String specific_location )
-    {
-        // 创建地理编码检索实例
-        GeoCoder geoCoder = GeoCoder.newInstance();
-
-        OnGetGeoCoderResultListener listener = new OnGetGeoCoderResultListener() {
-            // 地理编码查询结果回调函数
-            @Override
-            public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
-                if (geoCodeResult == null
-                        || geoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
-                    // 没有检测到结果
-                    Toast.makeText(MyApplication.getContext(), "抱歉，未能找到结果",
-                            Toast.LENGTH_LONG).show();
-                }
-                Toast.makeText(MyApplication.getContext(),
-                        "位置：" + geoCodeResult.getLocation(), Toast.LENGTH_LONG)
-                        .show();
-
-                //获取反编译具体位置信息LatLng
-                specificLocationLatLng = geoCodeResult.getLocation();
-            }
-
-            // 反地理编码查询结果回调函数
-            @Override
-            public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
-                if (reverseGeoCodeResult == null
-                        || reverseGeoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
-                    // 没有检测到结果
-
-                }
-
-            }
-        };
-        geoCoder.setOnGetGeoCodeResultListener(listener);
-        geoCoder.geocode(new GeoCodeOption().address(specific_location));
-
-    }
-
-
     //模糊查询具体地址
     public void suggestionSearchAddress(){
         OnGetSuggestionResultListener listener = new OnGetSuggestionResultListener() {
@@ -106,6 +65,9 @@ public class SpecificPostion {
                 }else
                 {
                     List<SuggestionResult.SuggestionInfo> resl=suggestionResult.getAllSuggestions();
+                    //传入公共分享变量
+                    specificLocationDetail = resl;
+
                     for(int i=0;i<resl.size();i++)
                     {
                         Log.i("result: ","city"+resl.get(i).city+" dis "+resl.get(i).district+"key "+resl.get(i).key);
@@ -118,7 +80,6 @@ public class SpecificPostion {
                     message.sendToTarget();
                 }
                 //获取在线建议检索结果
-
         }
         };
 

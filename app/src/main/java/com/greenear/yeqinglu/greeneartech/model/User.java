@@ -421,6 +421,7 @@ public class User implements BaseUser {
     //获取充电桩数据
     public ArrayList<CharingStationAround> getChargingStation(double longitude, double latitude)
     {
+        charingStationArounds.clear();//置空
         String GET_BMS = API.CHARING_STATION_QUERY + "lon=" + longitude + "&lat=" + latitude + "&radius=5000" + "&token=" + userInfo.getToken();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BMS,
                 new Response.Listener<String>() {

@@ -52,5 +52,6 @@
     
     <string name="Search_specific_location_chargingStation">请输入你想搜索充电桩的位置</string>
     <string name="Search">搜索</string>
+    <string name="cancel">取消</string>
 
 </resources>
