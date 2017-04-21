@@ -10,7 +10,6 @@ import android.view.View;
 
 import android.view.animation.TranslateAnimation;
 
-import android.widget.Button;
 
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
@@ -25,6 +24,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.model.MyApplication;
 import com.greenear.yeqinglu.greeneartech.model.User;
+
 
 /**
  * Created by yeqing.lu on 2016/11/17.
@@ -46,7 +46,7 @@ public class MapActivity extends Activity {
     public ChargingStationAroundListView chargingStationAroundListView;
 
     //搜索具体位置附近充电桩
-    private Button search_specific_cg_btn;
+    private FloatingActionButton search_specific_cg_btn;
 
     //显示覆盖物具体信息，自定义view
     public ChargingStationInfo chargingStationInfo;
@@ -116,7 +116,7 @@ public class MapActivity extends Activity {
         charingStationAround_btn = (FloatingActionButton) findViewById(R.id.charging_station_around);
 
         //搜索具体位置附近充电桩
-        search_specific_cg_btn = (Button)findViewById(R.id.specific_location_search);
+        search_specific_cg_btn = (FloatingActionButton)findViewById(R.id.specific_location_search);
 
     }
 

@@ -101,7 +101,7 @@ public class SearchSpecificLocation extends Activity {
                 }else {
                     double latitude = specificPostion.specificLocationDetail.get(position).pt.latitude;
                     double longitude = specificPostion.specificLocationDetail.get(position).pt.longitude;
-                    Toast.makeText(MyApplication.getContext(), "Latng" + latitude + "," + longitude, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MyApplication.getContext(), "Latng" + latitude + "," + longitude, Toast.LENGTH_SHORT).show();
 
                     //向上一级Activity传入所选择的具体位置的坐标
                     Intent intent = new Intent();

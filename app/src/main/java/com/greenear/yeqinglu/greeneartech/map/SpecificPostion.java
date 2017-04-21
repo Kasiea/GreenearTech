@@ -71,7 +71,7 @@ public class SpecificPostion {
                     for(int i=0;i<resl.size();i++)
                     {
                         Log.i("result: ","city"+resl.get(i).city+" dis "+resl.get(i).district+"key "+resl.get(i).key);
-                        slArrayList.add(i,"city"+resl.get(i).city+" dis "+resl.get(i).district+"key "+resl.get(i).key);
+                        slArrayList.add(i,resl.get(i).city+" "+resl.get(i).district+" "+resl.get(i).key);
                     }
                     slArrayAdapter = new ArrayAdapter<String>(MyApplication.getContext(),android.R.layout.simple_list_item_1,slArrayList);
 
