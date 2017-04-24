@@ -20,7 +20,10 @@ import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
 import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
+import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.model.MyApplication;
+import com.greenear.yeqinglu.greeneartech.model.SpecificAddress;
+import com.greenear.yeqinglu.greeneartech.service.SpecificAddressAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +37,13 @@ public class SpecificPostion {
     //模糊搜索位置相关
     private String specificLocation;
     private SuggestionSearch slSuggestionSearch;
+
     public ArrayAdapter<String> slArrayAdapter;
     private List<String> slArrayList = new ArrayList<String>();
+
+    //自定义ListView适配器
+    public SpecificAddressAdapter specificAddressAdapter;
+    private List<SpecificAddress> specificAddressList = new ArrayList<>();
 
     //获取具体位置LatLng相关
     public List<SuggestionResult.SuggestionInfo> specificLocationDetail;
@@ -68,12 +76,19 @@ public class SpecificPostion {
                     //传入公共分享变量
                     specificLocationDetail = resl;
 
+                    //获取具体地址列表
                     for(int i=0;i<resl.size();i++)
                     {
                         Log.i("result: ","city"+resl.get(i).city+" dis "+resl.get(i).district+"key "+resl.get(i).key);
-                        slArrayList.add(i,resl.get(i).city+" "+resl.get(i).district+" "+resl.get(i).key);
+
+//                        slArrayList.add(i,resl.get(i).city+" "+resl.get(i).district+" "+resl.get(i).key);
+
+                        SpecificAddress specificAddress = new SpecificAddress(resl.get(i).city+" "+resl.get(i).district+" "+resl.get(i).key);
+                        specificAddressList.add(i,specificAddress);
                     }
-                    slArrayAdapter = new ArrayAdapter<String>(MyApplication.getContext(),android.R.layout.simple_list_item_1,slArrayList);
+//                    slArrayAdapter = new ArrayAdapter<String>(MyApplication.getContext(),android.R.layout.simple_list_item_1,slArrayList);
+                    //设置适配器
+                    specificAddressAdapter = new SpecificAddressAdapter(MyApplication.getContext(), R.layout.specific_address_item, specificAddressList);
 
                     Message message = Message.obtain(handler);
                     message.what = 1;
@@ -84,7 +99,7 @@ public class SpecificPostion {
         };
 
         slSuggestionSearch = SuggestionSearch.newInstance();
-        slSuggestionSearch.setOnGetSuggestionResultListener(listener);
+        slSuggestionSearch.setOnGetSuggestionResultListener(listener);//设置监听
         slSuggestionSearch.requestSuggestion(new SuggestionSearchOption().
         city("上海").keyword(specificLocation));
 

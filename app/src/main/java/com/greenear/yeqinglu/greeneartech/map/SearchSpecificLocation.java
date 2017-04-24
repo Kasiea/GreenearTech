@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.baidu.mapapi.model.LatLng;
 import com.greenear.yeqinglu.greeneartech.R;
 import com.greenear.yeqinglu.greeneartech.model.MyApplication;
 
@@ -87,8 +86,10 @@ public class SearchSpecificLocation extends Activity {
         });
     }
 
+    //设置ListView适配器
     private void setListViewAdapter() {
-        fuzzy_search_listview.setAdapter(specificPostion.slArrayAdapter);
+//        fuzzy_search_listview.setAdapter(specificPostion.slArrayAdapter);
+        fuzzy_search_listview.setAdapter(specificPostion.specificAddressAdapter);
     }
 
     //ListView点击监听
@@ -97,7 +98,7 @@ public class SearchSpecificLocation extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (specificPostion.specificLocationDetail.get(position).pt == null){
-                    Toast.makeText(MyApplication.getContext(), "无法找到该位置！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyApplication.getContext(), "请选择更具体的位置！", Toast.LENGTH_SHORT).show();
                 }else {
                     double latitude = specificPostion.specificLocationDetail.get(position).pt.latitude;
                     double longitude = specificPostion.specificLocationDetail.get(position).pt.longitude;
