@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,10 @@ public class ChargingStationInfo extends FrameLayout {
     public TextView total_cg_num;
     public ImageButton back_btn;
     public ImageButton guide_btn;
+
+    //外部调用百度地图Uri
+    public String charging_station_destionation;
+    public String charging_station_name;
 
     public ChargingStationInfo(final Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -62,7 +67,19 @@ public class ChargingStationInfo extends FrameLayout {
         guide_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyApplication.getContext(), BDGuide.class);
+                //内部集成百度地图导航SDK调用
+//                Intent intent = new Intent(MyApplication.getContext(), BDGuide.class);
+//                context.startActivity(intent);
+
+                //反向地址解析
+//                Intent intent = new Intent();
+//                intent.setData(Uri.parse("baidumap://map/geocoder?location="+charging_station_destionation));
+//                context.startActivity(intent);
+
+                //调用外部百度地图导航Uri驾车路线规划示例：
+                Intent intent = new Intent();
+//                intent.setData(Uri.parse("baidumap://map/direction?region=shanghai&destination=东华大学&mode=driving"));
+                intent.setData(Uri.parse("baidumap://map/direction?region=shanghai&destination="+"latlng:"+charging_station_destionation+"|name:"+charging_station_name+"&mode=driving"));
                 context.startActivity(intent);
             }
         });

@@ -71,7 +71,8 @@
         <activity android:name=".ui.BmsData" />
         <activity android:name=".ui.BmsDataArcBar"/>
         <activity android:name=".ui.BmsDataShow" />
-        <activity android:name=".map.Map" />
+        <activity android:name=".map.Map"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".map.MapActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

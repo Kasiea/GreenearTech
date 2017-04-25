@@ -38,8 +38,8 @@ public class SpecificPostion {
     private String specificLocation;
     private SuggestionSearch slSuggestionSearch;
 
-    public ArrayAdapter<String> slArrayAdapter;
-    private List<String> slArrayList = new ArrayList<String>();
+//    public ArrayAdapter<String> slArrayAdapter;
+//    private List<String> slArrayList = new ArrayList<String>();
 
     //自定义ListView适配器
     public SpecificAddressAdapter specificAddressAdapter;

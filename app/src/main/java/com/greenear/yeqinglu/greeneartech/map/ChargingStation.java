@@ -194,6 +194,9 @@ public class ChargingStation {
                 chargingStationInfo.total_cg_num.setText(charingStationAround.getTotal());
                 chargingStationInfo.avialable_cg_num.setText(charingStationAround.getAvailable());
 
+                //设置传输充电桩具体位置经纬度
+                chargingStationInfo.charging_station_destionation = charingStationAround.getLatitude() + "," + charingStationAround.getLongitude();
+
 //                显示气泡信息
                 InfoWindow infoWindow;
                 TextView tv = new TextView(context);
@@ -275,6 +278,10 @@ public class ChargingStation {
                 Toast.makeText(MyApplication.getContext(),
                         "位置：" + reverseGeoCodeResult.getAddress(), Toast.LENGTH_LONG)
                         .show();
+
+                //获取反编码地理位置
+                chargingStationInfo.charging_station_name = reverseGeoCodeResult.getAddress();
+                chargingStationInfo.info_name.setText(reverseGeoCodeResult.getAddress());
 
             }
         };
